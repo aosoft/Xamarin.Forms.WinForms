@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Xamarin.Forms.Platform.WinForms
 {
-    public class Class1
-    {
-    }
+	public class PageRenderer : VisualElementRenderer<Page, System.Windows.Forms.Panel>
+	{
+		public PageRenderer()
+		{
+		}
+	}
 }
