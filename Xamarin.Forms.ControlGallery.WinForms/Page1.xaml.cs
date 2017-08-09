@@ -15,10 +15,5 @@ namespace Xamarin.Forms.ControlGallery.WinForms
 		{
 			InitializeComponent();
 		}
-
-		private void InitializeComponent()
-		{
-			Extensions.LoadFromXaml<Page1>(this, typeof(Page1));
-		}
 	}
 }

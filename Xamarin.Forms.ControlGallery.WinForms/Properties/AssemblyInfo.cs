@@ -15,8 +15,6 @@ using Xamarin.Forms.ControlGallery.WinForms;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-[assembly: Xamarin.Forms.Dependency(typeof(StringProvider))]
-
 // ComVisible を false に設定すると、このアセンブリ内の型は COM コンポーネントから
 // 参照できなくなります。COM からこのアセンブリ内の型にアクセスする必要がある場合は、
 // その型の ComVisible 属性を true に設定してください。

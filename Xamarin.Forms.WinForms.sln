@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Forms.Platform.WinForms", "Xamarin.Forms.Platform.WinForms\Xamarin.Forms.Platform.WinForms.csproj", "{563D7C2E-14E2-47EC-95E4-4EA0BBA75C18}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Forms.ControlGallery.WinForms", "Xamarin.Forms.ControlGallery.WinForms\Xamarin.Forms.ControlGallery.WinForms.csproj", "{63390A59-21A4-42AC-B3E0-18B65DDDD87A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{563D7C2E-14E2-47EC-95E4-4EA0BBA75C18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{563D7C2E-14E2-47EC-95E4-4EA0BBA75C18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{563D7C2E-14E2-47EC-95E4-4EA0BBA75C18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63390A59-21A4-42AC-B3E0-18B65DDDD87A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63390A59-21A4-42AC-B3E0-18B65DDDD87A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63390A59-21A4-42AC-B3E0-18B65DDDD87A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63390A59-21A4-42AC-B3E0-18B65DDDD87A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
