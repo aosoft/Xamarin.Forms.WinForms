@@ -116,5 +116,10 @@ namespace Xamarin.Forms.Platform.WinForms
 			};
 			timer.Start();
 		}
+
+		public void QuitApplication()
+		{
+			System.Windows.Forms.Application.Exit();
+		}
 	}
 }
