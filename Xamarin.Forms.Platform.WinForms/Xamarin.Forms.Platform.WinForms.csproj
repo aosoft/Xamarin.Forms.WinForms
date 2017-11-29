@@ -81,8 +81,8 @@
     <Compile Include="WinFormsDeviceInfo.cs" />
     <Compile Include="WinFormsExpressionSearch.cs" />
     <Compile Include="WinFormsIsolatedStorage.cs" />
-    <Compile Include="WinFormsPlatform.cs" />
-    <Compile Include="WinFormsPlatformRenderer.cs">
+    <Compile Include="Platform.cs" />
+    <Compile Include="PlatformRenderer.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="WinFormsPlatformServices.cs" />
