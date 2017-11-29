@@ -10,11 +10,11 @@ namespace Xamarin.Forms.Platform.WinForms
 			if (self == null)
 				throw new ArgumentNullException("self");
 
-			IVisualElementRenderer renderer = WinFormsPlatform.GetRenderer(self);
+			IVisualElementRenderer renderer = Platform.GetRenderer(self);
 			if (renderer == null)
 			{
-				renderer = WinFormsPlatform.CreateRenderer(self);
-				WinFormsPlatform.SetRenderer(self, renderer);
+				renderer = Platform.CreateRenderer(self);
+				Platform.SetRenderer(self, renderer);
 			}
 
 			return renderer;
@@ -25,7 +25,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			if (self == null)
 				throw new ArgumentNullException("self");
 
-			IVisualElementRenderer renderer = WinFormsPlatform.GetRenderer(self);
+			IVisualElementRenderer renderer = Platform.GetRenderer(self);
 
 			foreach (Element element in self.Descendants())
 			{
@@ -33,18 +33,18 @@ namespace Xamarin.Forms.Platform.WinForms
 				if (visual == null)
 					continue;
 
-				IVisualElementRenderer childRenderer = WinFormsPlatform.GetRenderer(visual);
+				IVisualElementRenderer childRenderer = Platform.GetRenderer(visual);
 				if (childRenderer != null)
 				{
 					childRenderer.Dispose();
-					WinFormsPlatform.SetRenderer(visual, null);
+					Platform.SetRenderer(visual, null);
 				}
 			}
 
 			if (renderer != null)
 			{
 				renderer.Dispose();
-				WinFormsPlatform.SetRenderer(self, null);
+				Platform.SetRenderer(self, null);
 			}
 		}
 	}

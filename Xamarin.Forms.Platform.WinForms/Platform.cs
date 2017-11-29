@@ -8,7 +8,7 @@ using Xamarin.Forms.Internals;
 
 namespace Xamarin.Forms.Platform.WinForms
 {
-	public class WinFormsPlatform : IPlatform, INavigation, IDisposable
+	public class Platform : IPlatform, INavigation, IDisposable
 	{
 		Rectangle _bounds;
 		readonly Form _container;
@@ -17,7 +17,7 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		#region Constructor / Dispose
 
-		internal WinFormsPlatform(Form container)
+		internal Platform(Form container)
 		{
 			_container = container;
 		}
@@ -29,7 +29,7 @@ namespace Xamarin.Forms.Platform.WinForms
 		#endregion
 
 		internal static readonly BindableProperty RendererProperty = BindableProperty.CreateAttached("Renderer",
-			typeof(IVisualElementRenderer), typeof(WinFormsPlatform), default(IVisualElementRenderer));
+			typeof(IVisualElementRenderer), typeof(Platform), default(IVisualElementRenderer));
 
 		public static IVisualElementRenderer GetRenderer(VisualElement element)
 		{

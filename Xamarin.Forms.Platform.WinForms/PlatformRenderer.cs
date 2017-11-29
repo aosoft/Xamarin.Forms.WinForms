@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace Xamarin.Forms.Platform.WinForms
 {
-	public class WinFormsPlatformRenderer : System.Windows.Forms.Form
+	public class PlatformRenderer : System.Windows.Forms.Form
 	{
 		private System.Windows.Forms.ContainerControl _container;
 
-		public WinFormsPlatformRenderer()
+		public PlatformRenderer()
 		{
 			//_container = new System.Windows.Forms.ContainerControl();
 			//this.Controls.Add(_container);
-			Platform = new WinFormsPlatform(this);
+			Platform = new Platform(this);
 		}
 
-		protected WinFormsPlatform Platform
+		protected Platform Platform
 		{
 			get;
 		}
