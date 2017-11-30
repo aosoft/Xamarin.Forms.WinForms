@@ -14,6 +14,7 @@ namespace Xamarin.Forms.Platform.WinForms
 		where TNativeElement : Control
 	{
 		VisualElementTracker<TElement, TNativeElement> _tracker;
+		VisualElementRendererCollection _collection = null;
 
 		public VisualElementRenderer()
 		{
@@ -23,6 +24,7 @@ namespace Xamarin.Forms.Platform.WinForms
 				System.Windows.Forms.AnchorStyles.Right |
 				System.Windows.Forms.AnchorStyles.Bottom;
 			AutoSize = true;
+			_collection = new VisualElementRendererCollection(this);
 		}
 
 		protected override void Dispose(bool disposing)
