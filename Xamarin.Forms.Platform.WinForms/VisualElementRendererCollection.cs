@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Xamarin.Forms.Platform.WinForms
 {
-	internal class VisualElementRendererCollection
+	internal class VisualElementRendererCollection : IEnumerable<IVisualElementRenderer>
 	{
 		IVisualElementRenderer _owner = null;
 		System.Windows.Forms.Control _ownerNativeElement = null;
@@ -56,5 +57,23 @@ namespace Xamarin.Forms.Platform.WinForms
 			RemoveAt(index);
 		}
 
+		public void Clear()
+		{
+			foreach (var item in _collection)
+			{
+				var nativeElement = item.GetNativeElement();
+				if (nativeElement != null)
+				{
+					_ownerNativeElement.Controls.Remove(nativeElement);
+				}
+			}
+			_collection.Clear();
+		}
+
+		IEnumerator<IVisualElementRenderer> IEnumerable<IVisualElementRenderer>.GetEnumerator()
+			=> ((IEnumerable<IVisualElementRenderer>)_collection).GetEnumerator();
+
+		IEnumerator IEnumerable.GetEnumerator()
+			=> ((IEnumerable<IVisualElementRenderer>)_collection).GetEnumerator();
 	}
 }

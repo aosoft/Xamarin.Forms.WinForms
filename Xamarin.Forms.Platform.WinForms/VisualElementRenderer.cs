@@ -9,7 +9,7 @@ using System.Windows.Forms;
 namespace Xamarin.Forms.Platform.WinForms
 {
 	public class VisualElementRenderer<TElement, TNativeElement> :
-		Panel, IVisualElementRenderer, IDisposable, IEffectControlProvider
+		IVisualElementRenderer, IDisposable, IEffectControlProvider
 		where TElement : VisualElement
 		where TNativeElement : Control
 	{
@@ -18,18 +18,16 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		public VisualElementRenderer()
 		{
-			Anchor =
-				System.Windows.Forms.AnchorStyles.Left |
-				System.Windows.Forms.AnchorStyles.Top |
-				System.Windows.Forms.AnchorStyles.Right |
-				System.Windows.Forms.AnchorStyles.Bottom;
-			AutoSize = true;
 			_collection = new VisualElementRendererCollection(this);
 		}
 
-		protected override void Dispose(bool disposing)
+		public void Dispose()
 		{
-			base.Dispose(disposing);
+			foreach (var item in _collection)
+			{
+				item?.Dispose();
+			}
+			_collection.Clear();
 		}
 
 		protected VisualElementTracker<TElement, TNativeElement> Tracker
