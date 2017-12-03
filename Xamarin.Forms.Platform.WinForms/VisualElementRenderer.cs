@@ -14,12 +14,7 @@ namespace Xamarin.Forms.Platform.WinForms
 		where TNativeElement : Control
 	{
 		VisualElementTracker<TElement, TNativeElement> _tracker;
-		VisualElementRendererCollection _collection = null;
-
-		public VisualElementRenderer()
-		{
-			_collection = new VisualElementRendererCollection(this);
-		}
+		VisualElementRendererCollection _collection = new VisualElementRendererCollection();
 
 		public void Dispose()
 		{
@@ -93,11 +88,10 @@ namespace Xamarin.Forms.Platform.WinForms
 		{
 			TNativeElement oldControl = Control;
 			Control = control;
+			_collection.ParentNativeElement = control;
 
 			if (oldControl != null)
 			{
-				Controls.Remove(oldControl);
-
 				//oldControl.Loaded -= OnControlLoaded;
 				oldControl.GotFocus -= OnControlGotFocus;
 				oldControl.LostFocus -= OnControlLostFocus;
@@ -110,8 +104,6 @@ namespace Xamarin.Forms.Platform.WinForms
 
 			//Control.HorizontalAlignment = HorizontalAlignment.Stretch;
 			//Control.VerticalAlignment = VerticalAlignment.Stretch;
-
-			Controls.Add(control);
 
 			if (Element == null)
 				throw new InvalidOperationException(
@@ -143,17 +135,6 @@ namespace Xamarin.Forms.Platform.WinForms
 				else
 				{
 					control.BackColor = System.Drawing.SystemColors.Window;
-				}
-			}
-			else
-			{
-				if (!backgroundColor.IsDefault)
-				{
-					BackColor = backgroundColor.ToWindowsColor();
-				}
-				else
-				{
-					BackColor = System.Drawing.SystemColors.Window;
 				}
 			}
 		}
@@ -223,15 +204,16 @@ namespace Xamarin.Forms.Platform.WinForms
 			//_tracker.PreventGestureBubbling = PreventGestureBubbling;
 			_tracker.Control = Control;
 			_tracker.Element = Element;
-			_tracker.Container = ContainerElement;
 		}
 
 
 		#region IVisualElementRenderer
 
-		public Control ContainerElement => this;
+		public VisualElementRendererCollection Children => _collection;
 
 		VisualElement IVisualElementRenderer.Element => Element;
+
+		Control IVisualElementRenderer.NativeElement => Control;
 
 		public event EventHandler<VisualElementChangedEventArgs> ElementChanged;
 
@@ -240,10 +222,6 @@ namespace Xamarin.Forms.Platform.WinForms
 			throw new NotImplementedException();
 		}
 
-		public Control GetNativeElement()
-		{
-			return Control;
-		}
 
 		public void SetElement(VisualElement element)
 		{

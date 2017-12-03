@@ -49,34 +49,6 @@ namespace Xamarin.Forms.Platform.WinForms
 		#endregion
 
 
-		public Control Container
-		{
-			get { return _container; }
-			set
-			{
-				if (_container == value)
-					return;
-
-				if (_container != null)
-				{
-					/*
-					_container.Tapped -= OnTap;
-					_container.DoubleTapped -= OnDoubleTap;
-					_container.ManipulationDelta -= OnManipulationDelta;
-					_container.ManipulationStarted -= OnManipulationStarted;
-					_container.ManipulationCompleted -= OnManipulationCompleted;
-					_container.PointerPressed -= OnPointerPressed;
-					_container.PointerExited -= OnPointerExited;
-					_container.PointerReleased -= OnPointerReleased;
-					_container.PointerCanceled -= OnPointerCanceled;
-					*/
-				}
-
-				_container = value;
-
-				UpdateNativeControl();
-			}
-		}
 
 		public TNativeElement Control
 		{
@@ -147,40 +119,40 @@ namespace Xamarin.Forms.Platform.WinForms
 			}
 			else if (e.PropertyName == VisualElement.AnchorXProperty.PropertyName || e.PropertyName == VisualElement.AnchorYProperty.PropertyName)
 			{
-				UpdateScaleAndRotation(Element, Container);
+				UpdateScaleAndRotation(Element, Control);
 			}
 			else if (e.PropertyName == VisualElement.ScaleProperty.PropertyName)
 			{
-				UpdateScaleAndRotation(Element, Container);
+				UpdateScaleAndRotation(Element, Control);
 			}
 			else if (e.PropertyName == VisualElement.TranslationXProperty.PropertyName || e.PropertyName == VisualElement.TranslationYProperty.PropertyName ||
 					 e.PropertyName == VisualElement.RotationProperty.PropertyName || e.PropertyName == VisualElement.RotationXProperty.PropertyName || e.PropertyName == VisualElement.RotationYProperty.PropertyName)
 			{
-				UpdateRotation(Element, Container);
+				UpdateRotation(Element, Control);
 			}
 			else if (e.PropertyName == VisualElement.IsVisibleProperty.PropertyName)
 			{
-				UpdateVisibility(Element, Container);
+				UpdateVisibility(Element, Control);
 			}
 			else if (e.PropertyName == VisualElement.OpacityProperty.PropertyName)
 			{
-				UpdateOpacity(Element, Container);
+				UpdateOpacity(Element, Control);
 			}
 			else if (e.PropertyName == VisualElement.InputTransparentProperty.PropertyName)
 			{
-				UpdateInputTransparent(Element, Container);
+				UpdateInputTransparent(Element, Control);
 			}
 		}
 
 		protected virtual void UpdateNativeControl()
 		{
-			if (Element == null || Container == null)
+			if (Element == null || Control == null)
 				return;
 
-			UpdateVisibility(Element, Container);
-			UpdateOpacity(Element, Container);
-			UpdateScaleAndRotation(Element, Container);
-			UpdateInputTransparent(Element, Container);
+			UpdateVisibility(Element, Control);
+			UpdateOpacity(Element, Control);
+			UpdateScaleAndRotation(Element, Control);
+			UpdateInputTransparent(Element, Control);
 
 			if (_invalidateArrangeNeeded)
 			{
@@ -203,12 +175,14 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		void MaybeInvalidate()
 		{
+			/*
 			if (Element.IsInNativeLayout)
 				return;
 
-			var parent = (Control)Container.Parent;
+			var parent = Control.Parent;
 			//parent?.InvalidateMeasure();
 			//Container.InvalidateMeasure();
+			*/
 		}
 
 		static void UpdateInputTransparent(VisualElement view, Control control)

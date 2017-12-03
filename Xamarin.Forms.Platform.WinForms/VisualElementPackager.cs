@@ -9,7 +9,6 @@ namespace Xamarin.Forms.Platform.WinForms
 		readonly int _column;
 		readonly int _columnSpan;
 
-		readonly Panel _panel;
 		readonly IVisualElementRenderer _renderer;
 		readonly int _row;
 		readonly int _rowSpan;
@@ -22,10 +21,6 @@ namespace Xamarin.Forms.Platform.WinForms
 				throw new ArgumentNullException("renderer");
 
 			_renderer = renderer;
-
-			_panel = renderer.ContainerElement as Panel;
-			if (_panel == null)
-				throw new ArgumentException("Renderer's container element must be a Panel");
 		}
 
 		public VisualElementPackager(IVisualElementRenderer renderer, int row = 0, int rowSpan = 0, int column = 0, int columnSpan = 0) : this(renderer)
@@ -120,7 +115,7 @@ namespace Xamarin.Forms.Platform.WinForms
 				Windows.UI.Xaml.Controls.Grid.SetColumnSpan(childRenderer.ContainerElement, _columnSpan);
 			*/
 
-			_panel.Controls.Add(childRenderer.ContainerElement);
+			_renderer.Children.Add(childRenderer);
 
 			EnsureZIndex();
 		}
@@ -145,7 +140,7 @@ namespace Xamarin.Forms.Platform.WinForms
 				if (_columnSpan > 0)
 					childRenderer.ContainerElement.ClearValue(Windows.UI.Xaml.Controls.Grid.ColumnSpanProperty);
 				*/
-				_panel.Controls.Remove(childRenderer.ContainerElement);
+				_renderer.Children.Remove(childRenderer);
 
 				view.Cleanup();
 			}

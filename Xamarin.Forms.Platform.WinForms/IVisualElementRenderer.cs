@@ -5,16 +5,16 @@ namespace Xamarin.Forms.Platform.WinForms
 {
 	public interface IVisualElementRenderer : IRegisterable, IDisposable
 	{
-		Control ContainerElement { get; }
+		VisualElementRendererCollection Children { get; }
 
 		VisualElement Element { get; }
+
+		Control NativeElement { get; }
 
 		event EventHandler<VisualElementChangedEventArgs> ElementChanged;
 
 		SizeRequest GetDesiredSize(double widthConstraint, double heightConstraint);
 
 		void SetElement(VisualElement element);
-
-		Control GetNativeElement();
 	}
 }

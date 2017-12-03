@@ -5,18 +5,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using WinFormsControl = System.Windows.Forms.Control;
+
 namespace Xamarin.Forms.Platform.WinForms
 {
-	internal class VisualElementRendererCollection : IEnumerable<IVisualElementRenderer>
+	public class VisualElementRendererCollection : IEnumerable<IVisualElementRenderer>
 	{
-		IVisualElementRenderer _owner = null;
-		System.Windows.Forms.Control _ownerNativeElement = null;
+		WinFormsControl _parentNativeElement = null;
 		List<IVisualElementRenderer> _collection = new List<IVisualElementRenderer>();
 
-		public VisualElementRendererCollection(IVisualElementRenderer owner)
+		public VisualElementRendererCollection()
 		{
-			_owner = owner;
-			_ownerNativeElement = owner.GetNativeElement();
+		}
+
+		public WinFormsControl ParentNativeElement
+		{
+			get => _parentNativeElement;
+
+			set
+			{
+				if (value != _parentNativeElement)
+				{
+					UpdateParent(value);
+					_parentNativeElement = value;
+				}
+			}
 		}
 
 		public IVisualElementRenderer this[int index] => _collection[index];
@@ -25,25 +38,17 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		public void Add(IVisualElementRenderer renderer)
 		{
-			if (_collection.IndexOf(renderer) < 0)
+			if (renderer != null && _collection.IndexOf(renderer) < 0)
 			{
-				var nativeElement = renderer.GetNativeElement();
-				if (nativeElement != null)
-				{
-					_ownerNativeElement.Controls.Add(nativeElement);
-				}
+				SetNativeElementParent(renderer, _parentNativeElement);
 				_collection.Add(renderer);
 			}
 		}
 
 		public void RemoveAt(int index)
 		{
-			var item = _collection[index];
-			var nativeElement = item.GetNativeElement();
-			if (nativeElement != null)
-			{
-				_ownerNativeElement.Controls.Remove(nativeElement);
-			}
+			var renderer = _collection[index];
+			SetNativeElementParent(renderer, null);
 			_collection.RemoveAt(index);
 		}
 
@@ -59,14 +64,7 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		public void Clear()
 		{
-			foreach (var item in _collection)
-			{
-				var nativeElement = item.GetNativeElement();
-				if (nativeElement != null)
-				{
-					_ownerNativeElement.Controls.Remove(nativeElement);
-				}
-			}
+			UpdateParent(null);
 			_collection.Clear();
 		}
 
@@ -75,5 +73,22 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		IEnumerator IEnumerable.GetEnumerator()
 			=> ((IEnumerable<IVisualElementRenderer>)_collection).GetEnumerator();
+
+		void SetNativeElementParent(IVisualElementRenderer renderer, WinFormsControl parent)
+		{
+			var nativeElement = renderer?.NativeElement;
+			if (nativeElement != null)
+			{
+				nativeElement.Parent = parent;
+			}
+		}
+
+		void UpdateParent(WinFormsControl parent)
+		{
+			foreach (var item in _collection)
+			{
+				SetNativeElementParent(item, parent);
+			}
+		}
 	}
 }

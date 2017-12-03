@@ -76,7 +76,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			{
 				Page previousPage = _currentPage;
 				IVisualElementRenderer previousRenderer = GetRenderer(previousPage);
-				_container.Controls.Remove(previousRenderer.ContainerElement);
+				_container.Controls.Remove(previousRenderer.NativeElement);
 
 				if (popping)
 					previousPage.Cleanup();
@@ -85,10 +85,10 @@ namespace Xamarin.Forms.Platform.WinForms
 			newPage.Layout(ContainerBounds);
 
 			IVisualElementRenderer pageRenderer = newPage.GetOrCreateRenderer();
-			_container.Controls.Add(pageRenderer.ContainerElement);
+			_container.Controls.Add(pageRenderer.NativeElement);
 
-			pageRenderer.ContainerElement.Width = _container.Width;
-			pageRenderer.ContainerElement.Height = _container.Height;
+			pageRenderer.NativeElement.Width = _container.Width;
+			pageRenderer.NativeElement.Height = _container.Height;
 
 			completedCallback?.Invoke();
 
@@ -114,8 +114,8 @@ namespace Xamarin.Forms.Platform.WinForms
 				IVisualElementRenderer renderer = GetRenderer(root);
 				if (renderer != null)
 				{
-					renderer.ContainerElement.Width = _container.Width;
-					renderer.ContainerElement.Height = _container.Height;
+					renderer.NativeElement.Width = _container.Width;
+					renderer.NativeElement.Height = _container.Height;
 				}
 			}
 		}
