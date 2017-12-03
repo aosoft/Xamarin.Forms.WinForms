@@ -10,18 +10,20 @@ namespace Xamarin.Forms.Platform.WinForms
 {
 	public class Platform : IPlatform, INavigation, IDisposable
 	{
-		Rectangle _bounds;
-		readonly Form _container;
+		Rectangle _bounds = new Rectangle();
+		readonly Form _form;
 		readonly VisualElementRendererCollection _children = new VisualElementRendererCollection();
 		Page _currentPage;
 		readonly NavigationModel _navModel = new NavigationModel();
 
 		#region Constructor / Dispose
 
-		internal Platform(Form container)
+		internal Platform(Form form)
 		{
-			_container = container;
-			_children.ParentNativeElement = container;
+			_form = form;
+			_children.ParentNativeElement = form;
+			_form.SizeChanged += OnRendererSizeChanged;
+			UpdateBounds();
 		}
 
 		public void Dispose()
@@ -67,6 +69,12 @@ namespace Xamarin.Forms.Platform.WinForms
 			Application.Current.NavigationProxy.Inner = this;
 		}
 
+		void OnRendererSizeChanged(object sender, EventArgs e)
+		{
+			UpdateBounds();
+			UpdatePageSizes();
+		}
+
 		/*async*/ void SetCurrent(Page newPage, bool popping = false, Action completedCallback = null)
 		{
 			if (newPage == _currentPage)
@@ -89,8 +97,8 @@ namespace Xamarin.Forms.Platform.WinForms
 			IVisualElementRenderer pageRenderer = newPage.GetOrCreateRenderer();
 			_children.Add(pageRenderer);
 
-			pageRenderer.NativeElement.Width = _container.Width;
-			pageRenderer.NativeElement.Height = _container.Height;
+			pageRenderer.NativeElement.Width = _form.Width;
+			pageRenderer.NativeElement.Height = _form.Height;
 
 			completedCallback?.Invoke();
 
@@ -100,10 +108,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			//await UpdateToolbarItems();
 		}
 
-		internal virtual Rectangle ContainerBounds
-		{
-			get { return _bounds; }
-		}
+		internal Rectangle ContainerBounds => _bounds;
 
 		internal void UpdatePageSizes()
 		{
@@ -116,17 +121,36 @@ namespace Xamarin.Forms.Platform.WinForms
 				IVisualElementRenderer renderer = GetRenderer(root);
 				if (renderer != null)
 				{
-					renderer.NativeElement.Width = _container.Width;
-					renderer.NativeElement.Height = _container.Height;
+					renderer.NativeElement.Width = _form.Width;
+					renderer.NativeElement.Height = _form.Height;
 				}
 			}
+		}
+
+		void UpdateBounds()
+		{
+			_bounds = new Rectangle(0.0, 0.0, _form.Width, _form.Height);
 		}
 
 		#region IPlatform
 
 		public SizeRequest GetNativeSize(VisualElement view, double widthConstraint, double heightConstraint)
 		{
-			throw new NotImplementedException();
+			//	暫定
+			var viewRenderer = GetRenderer(view);
+			if (viewRenderer == null)
+			{
+				return new SizeRequest();
+			}
+
+			widthConstraint = widthConstraint < 0 ? double.PositiveInfinity : widthConstraint;
+			heightConstraint = heightConstraint < 0 ? double.PositiveInfinity : heightConstraint;
+			var rawResult = viewRenderer.GetDesiredSize(widthConstraint, heightConstraint);
+			if (rawResult.Minimum == Size.Zero)
+			{
+				rawResult.Minimum = rawResult.Request;
+			}
+			return rawResult;
 		}
 
 		#endregion

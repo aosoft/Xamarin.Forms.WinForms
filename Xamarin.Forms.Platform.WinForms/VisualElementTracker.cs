@@ -14,7 +14,6 @@ namespace Xamarin.Forms.Platform.WinForms
 		where TElement : VisualElement
 		where TNativeElement : Control
 	{
-		Control _container;
 		TNativeElement _control;
 		TElement _element;
 
@@ -146,13 +145,16 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		protected virtual void UpdateNativeControl()
 		{
-			if (Element == null || Control == null)
+			var element = Element;
+			var control = Control;
+			if (element == null || control == null)
 				return;
 
-			UpdateVisibility(Element, Control);
-			UpdateOpacity(Element, Control);
-			UpdateScaleAndRotation(Element, Control);
-			UpdateInputTransparent(Element, Control);
+			UpdateVisibility(element, control);
+			UpdateOpacity(element, control);
+			UpdatePositionSizeAnchor(element, control);
+			UpdateScaleAndRotation(element, control);
+			UpdateInputTransparent(element, control);
 
 			if (_invalidateArrangeNeeded)
 			{
@@ -175,14 +177,21 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		void MaybeInvalidate()
 		{
-			/*
 			if (Element.IsInNativeLayout)
 				return;
 
-			var parent = Control.Parent;
+			UpdatePositionSizeAnchor(Element, Control);
+			//var parent = Control.Parent;
 			//parent?.InvalidateMeasure();
 			//Container.InvalidateMeasure();
-			*/
+		}
+
+		static void UpdatePositionSizeAnchor(VisualElement view, Control control)
+		{
+			control.Left = (int)view.X;
+			control.Top = (int)view.Y;
+			control.Width = (int)view.Width;
+			control.Height = (int)view.Height;
 		}
 
 		static void UpdateInputTransparent(VisualElement view, Control control)

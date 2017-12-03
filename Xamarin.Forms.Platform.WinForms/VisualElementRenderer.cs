@@ -219,7 +219,16 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		public SizeRequest GetDesiredSize(double widthConstraint, double heightConstraint)
 		{
-			throw new NotImplementedException();
+			//	暫定
+			var control = Control;
+			if (control != null)
+			{
+				return new SizeRequest(
+					new Size(
+						Math.Min(control.Width, widthConstraint),
+						Math.Min(control.Height, heightConstraint)));
+			}
+			return new SizeRequest(new Size(widthConstraint, heightConstraint));
 		}
 
 

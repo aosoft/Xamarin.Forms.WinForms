@@ -15,7 +15,9 @@ namespace Xamarin.Forms.Platform.WinForms
 			{
 				if (Control == null)
 				{
-					SetNativeControl(new TNativeElement());
+					var control = new TNativeElement();
+					control.Anchor = AnchorStyles.None;
+					SetNativeControl(control);
 				}
 				UpdateBackgroundColor();
 			}

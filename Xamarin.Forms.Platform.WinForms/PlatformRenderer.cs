@@ -9,12 +9,8 @@ namespace Xamarin.Forms.Platform.WinForms
 {
 	public class PlatformRenderer : System.Windows.Forms.Form
 	{
-		private System.Windows.Forms.ContainerControl _container;
-
 		public PlatformRenderer()
 		{
-			//_container = new System.Windows.Forms.ContainerControl();
-			//this.Controls.Add(_container);
 			Platform = new Platform(this);
 		}
 
