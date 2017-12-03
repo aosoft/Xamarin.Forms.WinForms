@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Xamarin.Forms.Platform.WinForms
 {
-	public class LabelRenderer : VisualElementRenderer<Label, System.Windows.Forms.Label>
+	public class LabelRenderer : ViewRenderer<Label, System.Windows.Forms.Label>
 	{
 		public LabelRenderer()
 		{
@@ -19,17 +19,6 @@ namespace Xamarin.Forms.Platform.WinForms
 
 			if (e.NewElement != null)
 			{
-				if (Control == null)
-				{
-					var elem = new System.Windows.Forms.Label();
-					elem.Anchor =
-						System.Windows.Forms.AnchorStyles.Left |
-						System.Windows.Forms.AnchorStyles.Top |
-						System.Windows.Forms.AnchorStyles.Right |
-						System.Windows.Forms.AnchorStyles.Bottom;
-					SetNativeControl(elem);
-				}
-
 				//_isInitiallyDefault = Element.IsDefault();
 
 				UpdateText(Control);

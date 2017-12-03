@@ -11,6 +11,7 @@ namespace Xamarin.Forms.Platform.WinForms
 		public PageRenderer()
 		{
 		}
+
 		protected override void OnElementChanged(ElementChangedEventArgs<Page> e)
 		{
 			base.OnElementChanged(e);
