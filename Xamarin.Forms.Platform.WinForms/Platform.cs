@@ -12,6 +12,7 @@ namespace Xamarin.Forms.Platform.WinForms
 	{
 		Rectangle _bounds;
 		readonly Form _container;
+		readonly VisualElementRendererCollection _children = new VisualElementRendererCollection();
 		Page _currentPage;
 		readonly NavigationModel _navModel = new NavigationModel();
 
@@ -20,6 +21,7 @@ namespace Xamarin.Forms.Platform.WinForms
 		internal Platform(Form container)
 		{
 			_container = container;
+			_children.ParentNativeElement = container;
 		}
 
 		public void Dispose()
@@ -76,7 +78,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			{
 				Page previousPage = _currentPage;
 				IVisualElementRenderer previousRenderer = GetRenderer(previousPage);
-				_container.Controls.Remove(previousRenderer.NativeElement);
+				_children.Remove(previousRenderer);
 
 				if (popping)
 					previousPage.Cleanup();
@@ -85,7 +87,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			newPage.Layout(ContainerBounds);
 
 			IVisualElementRenderer pageRenderer = newPage.GetOrCreateRenderer();
-			_container.Controls.Add(pageRenderer.NativeElement);
+			_children.Add(pageRenderer);
 
 			pageRenderer.NativeElement.Width = _container.Width;
 			pageRenderer.NativeElement.Height = _container.Height;

@@ -14,15 +14,15 @@ namespace Xamarin.Forms.Platform.WinForms
 		where TNativeElement : Control
 	{
 		VisualElementTracker<TElement, TNativeElement> _tracker;
-		VisualElementRendererCollection _collection = new VisualElementRendererCollection();
+		readonly VisualElementRendererCollection _children = new VisualElementRendererCollection();
 
 		public void Dispose()
 		{
-			foreach (var item in _collection)
+			foreach (var item in _children)
 			{
 				item?.Dispose();
 			}
-			_collection.Clear();
+			_children.Clear();
 		}
 
 		protected VisualElementTracker<TElement, TNativeElement> Tracker
@@ -88,7 +88,7 @@ namespace Xamarin.Forms.Platform.WinForms
 		{
 			TNativeElement oldControl = Control;
 			Control = control;
-			_collection.ParentNativeElement = control;
+			_children.ParentNativeElement = control;
 
 			if (oldControl != null)
 			{
@@ -209,7 +209,7 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		#region IVisualElementRenderer
 
-		public VisualElementRendererCollection Children => _collection;
+		public VisualElementRendererCollection Children => _children;
 
 		VisualElement IVisualElementRenderer.Element => Element;
 
