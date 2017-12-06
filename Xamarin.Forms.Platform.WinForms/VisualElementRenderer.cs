@@ -113,6 +113,10 @@ namespace Xamarin.Forms.Platform.WinForms
 			Element.IsNativeStateConsistent = false;
 			//control.Loaded += OnControlLoaded;
 
+			//	OnCotrolLoaded が呼ばれないので同等の処理を呼んでおく
+			//	これを設定しないと子要素のレイアウト処理が呼ばれない
+			Element.IsNativeStateConsistent = true;
+
 			control.GotFocus += OnControlGotFocus;
 			control.LostFocus += OnControlLostFocus;
 

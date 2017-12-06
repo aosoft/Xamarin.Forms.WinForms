@@ -190,8 +190,8 @@ namespace Xamarin.Forms.Platform.WinForms
 		{
 			control.Left = (int)view.X;
 			control.Top = (int)view.Y;
-			control.Width = (int)view.Width;
-			control.Height = (int)view.Height;
+			control.Width = Math.Max((int)view.Width, 0);
+			control.Height = Math.Max((int)view.Height, 0);
 		}
 
 		static void UpdateInputTransparent(VisualElement view, Control control)

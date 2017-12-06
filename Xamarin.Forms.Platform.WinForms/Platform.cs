@@ -92,10 +92,10 @@ namespace Xamarin.Forms.Platform.WinForms
 					previousPage.Cleanup();
 			}
 
-			newPage.Layout(ContainerBounds);
-
 			IVisualElementRenderer pageRenderer = newPage.GetOrCreateRenderer();
 			_children.Add(pageRenderer);
+
+			newPage.Layout(ContainerBounds);
 
 			pageRenderer.NativeElement.Width = _form.Width;
 			pageRenderer.NativeElement.Height = _form.Height;
