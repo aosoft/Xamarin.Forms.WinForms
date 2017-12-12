@@ -188,10 +188,12 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		static void UpdatePositionSizeAnchor(VisualElement view, Control control)
 		{
-			control.Left = (int)view.X;
-			control.Top = (int)view.Y;
-			control.Width = Math.Max((int)view.Width, 0);
-			control.Height = Math.Max((int)view.Height, 0);
+			control.SetBounds(
+				(int)view.X,
+				(int)view.Y,
+				Math.Max((int)view.Width, 0),
+				Math.Max((int)view.Height, 0),
+				BoundsSpecified.All);
 		}
 
 		static void UpdateInputTransparent(VisualElement view, Control control)
