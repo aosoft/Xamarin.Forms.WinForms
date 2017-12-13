@@ -9,13 +9,13 @@ namespace Xamarin.Forms.Platform.WinForms
 {
 	public static class Forms
 	{
-		static public bool IsInitialized
+		public static bool IsInitialized
 		{
 			get;
 			private set;
 		}
 
-		static public void Init(System.Windows.Forms.Form mainForm)
+		public static void Init(System.Windows.Forms.Form mainForm)
 		{
 			if (IsInitialized)
 			{

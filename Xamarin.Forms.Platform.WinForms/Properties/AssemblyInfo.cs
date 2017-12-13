@@ -41,3 +41,4 @@ using Xamarin.Forms.Platform.WinForms;
 
 [assembly: ExportRenderer(typeof(Page), typeof(PageRenderer))]
 [assembly: ExportRenderer(typeof(Label), typeof(LabelRenderer))]
+[assembly: ExportRenderer(typeof(Layout), typeof(LayoutRenderer))]
