@@ -57,6 +57,41 @@ namespace Xamarin.Forms.Platform.WinForms
 			return renderer;
 		}
 
+		public static System.Drawing.ContentAlignment ToWindowsContentAlignment(TextAlignment horizonatal, TextAlignment vertical)
+		{
+			switch (horizonatal)
+			{
+				case TextAlignment.Start:
+					switch (vertical)
+					{
+						case TextAlignment.Start: return System.Drawing.ContentAlignment.TopLeft;
+						case TextAlignment.Center: return System.Drawing.ContentAlignment.MiddleLeft;
+						case TextAlignment.End: return System.Drawing.ContentAlignment.BottomLeft;
+					}
+					break;
+
+				case TextAlignment.Center:
+					switch (vertical)
+					{
+						case TextAlignment.Start: return System.Drawing.ContentAlignment.TopCenter;
+						case TextAlignment.Center: return System.Drawing.ContentAlignment.MiddleCenter;
+						case TextAlignment.End: return System.Drawing.ContentAlignment.BottomCenter;
+					}
+					break;
+
+				case TextAlignment.End:
+					switch (vertical)
+					{
+						case TextAlignment.Start: return System.Drawing.ContentAlignment.TopRight;
+						case TextAlignment.Center: return System.Drawing.ContentAlignment.MiddleRight;
+						case TextAlignment.End: return System.Drawing.ContentAlignment.BottomRight;
+					}
+					break;
+			}
+			return System.Drawing.ContentAlignment.MiddleCenter;
+		}
+
+
 		internal void SetPage(Page newRoot)
 		{
 			if (newRoot == null)

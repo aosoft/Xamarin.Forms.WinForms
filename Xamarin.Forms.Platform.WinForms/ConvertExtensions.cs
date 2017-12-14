@@ -14,5 +14,23 @@ namespace Xamarin.Forms.Platform.WinForms
 		{
 			return System.Drawing.Color.FromArgb((byte)(color.A * 255), (byte)(color.R * 255), (byte)(color.G * 255), (byte)(color.B * 255));
 		}
+
+		public static System.Drawing.FontStyle ToWindowsFontStyle(this FontAttributes self)
+		{
+			switch (self)
+			{
+				case FontAttributes.Bold:
+					{
+						return System.Drawing.FontStyle.Bold;
+					}
+
+				case FontAttributes.Italic:
+					{
+						return System.Drawing.FontStyle.Italic;
+					}
+			}
+			return System.Drawing.FontStyle.Regular;
+		}
+
 	}
 }

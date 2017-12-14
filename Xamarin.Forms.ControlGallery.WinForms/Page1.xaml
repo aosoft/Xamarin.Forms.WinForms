@@ -13,9 +13,9 @@
       <RowDefinition />
     </Grid.RowDefinitions>
 
-    <Label Grid.Column="0" Grid.Row="0" Text="A" />
+    <Label Grid.Column="0" Grid.Row="0" Text="A" BackgroundColor="Red" />
     <Label Grid.Column="0" Grid.Row="1" Text="B" />
-    <Label Grid.Column="1" Grid.Row="0" Text="C" />
+    <Label Grid.Column="1" Grid.Row="0" Text="C" BackgroundColor="Blue" TextColor="White"/>
     <Label Grid.Column="1" Grid.Row="1" Text="D" />
   </Grid>
 </ContentPage>
