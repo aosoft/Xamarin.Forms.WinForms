@@ -32,5 +32,9 @@ namespace Xamarin.Forms.Platform.WinForms
 			return System.Drawing.FontStyle.Regular;
 		}
 
+		public static Rectangle ToXamarinRectangle(this System.Drawing.Rectangle self)
+		{
+			return new Rectangle(self.Left, self.Top, self.Width, self.Height);
+		}
 	}
 }

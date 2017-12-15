@@ -7,15 +7,70 @@
     <Grid.ColumnDefinitions>
       <ColumnDefinition />
       <ColumnDefinition />
+      <ColumnDefinition />
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
       <RowDefinition />
       <RowDefinition />
+      <RowDefinition />
     </Grid.RowDefinitions>
 
-    <Label Grid.Column="0" Grid.Row="0" Text="A" BackgroundColor="Red" />
-    <Label Grid.Column="0" Grid.Row="1" Text="B" />
-    <Label Grid.Column="1" Grid.Row="0" Text="C" BackgroundColor="Blue" TextColor="White"/>
-    <Label Grid.Column="1" Grid.Row="1" Text="D" />
+    <Label
+      Grid.Column="0" Grid.Row="0"
+      HorizontalTextAlignment="Start"
+      VerticalTextAlignment="Start"
+      Text="LeftTop"
+      />
+    <Label
+      Grid.Column="1" Grid.Row="0"
+      HorizontalTextAlignment="Center"
+      VerticalTextAlignment="Start"
+      Text="CenterTop"
+      />
+    <Label
+      Grid.Column="2" Grid.Row="0"
+      HorizontalTextAlignment="End"
+      VerticalTextAlignment="Start"
+      Text="RightTop"
+      />
+
+    <Label
+      Grid.Column="0" Grid.Row="1"
+      HorizontalTextAlignment="Start"
+      VerticalTextAlignment="Center"
+      Text="LeftCenter"
+      />
+    <Label
+      Grid.Column="1" Grid.Row="1"
+      HorizontalTextAlignment="Center"
+      VerticalTextAlignment="Center"
+      Text="CenterCenter"
+      />
+    <Label
+      Grid.Column="2" Grid.Row="1"
+      HorizontalTextAlignment="End"
+      VerticalTextAlignment="Center"
+      Text="RightCenter"
+      />
+
+    <Label
+      Grid.Column="0" Grid.Row="2"
+      HorizontalTextAlignment="Start"
+      VerticalTextAlignment="End"
+      Text="LeftBottom"
+      />
+    <Label
+      Grid.Column="1" Grid.Row="2"
+      HorizontalTextAlignment="Center"
+      VerticalTextAlignment="End"
+      Text="CenterBottom"
+      />
+    <Label
+      Grid.Column="2" Grid.Row="2"
+      HorizontalTextAlignment="End"
+      VerticalTextAlignment="End"
+      Text="RightBottom"
+      />
+
   </Grid>
 </ContentPage>

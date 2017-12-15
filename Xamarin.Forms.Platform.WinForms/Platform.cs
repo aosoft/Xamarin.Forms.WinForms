@@ -164,7 +164,7 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		void UpdateBounds()
 		{
-			_bounds = new Rectangle(0.0, 0.0, _form.Width, _form.Height);
+			_bounds = _form.ClientRectangle.ToXamarinRectangle();
 		}
 
 		#region IPlatform
