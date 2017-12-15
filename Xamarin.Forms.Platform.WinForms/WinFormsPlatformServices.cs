@@ -16,6 +16,7 @@ namespace Xamarin.Forms.Platform.WinForms
 	{
 		private System.Windows.Forms.Form _mainForm;
 		private int _currentThreadId;
+		private Dictionary<NamedSize, double> _fontSizes = new Dictionary<NamedSize, double>();
 		static private readonly MD5CryptoServiceProvider _md5 = new MD5CryptoServiceProvider();
 
 		internal WinFormsPlatformServices(System.Windows.Forms.Form mainForm, int currentThreadId)
@@ -26,6 +27,15 @@ namespace Xamarin.Forms.Platform.WinForms
 			}
 			_mainForm = mainForm;
 			_currentThreadId = currentThreadId;
+
+			var defFontSize = System.Drawing.SystemFonts.DefaultFont.Size;
+			_fontSizes.Add(NamedSize.Default, defFontSize);
+
+			//	暫定
+			_fontSizes.Add(NamedSize.Micro, defFontSize / 2);
+			_fontSizes.Add(NamedSize.Small, defFontSize);
+			_fontSizes.Add(NamedSize.Medium, defFontSize * 1.5);
+			_fontSizes.Add(NamedSize.Large, defFontSize * 3);
 		}
 
 		public bool IsInvokeRequired => Thread.CurrentThread.ManagedThreadId != _currentThreadId;
@@ -67,8 +77,11 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		public double GetNamedSize(NamedSize size, Type targetElementType, bool useOldSizes)
 		{
-			//	とりあえず適当
-			return 22.0;
+			if (_fontSizes.ContainsKey(size))
+			{
+				return _fontSizes[size];
+			}
+			throw new ArgumentException(nameof(size));
 		}
 
 		public async Task<Stream> GetStreamAsync(Uri uri, CancellationToken cancellationToken)
