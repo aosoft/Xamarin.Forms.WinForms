@@ -23,7 +23,6 @@ namespace Xamarin.Forms.Platform.WinForms
 				UpdateTextColor(Control);
 				UpdateAlign(Control);
 				UpdateFont(Control);
-				UpdateLineBreakMode(Control);
 			}
 		}
 
@@ -46,10 +45,6 @@ namespace Xamarin.Forms.Platform.WinForms
 				e.PropertyName == Label.FontAttributesProperty.PropertyName)
 			{
 				UpdateFont(Control);
-			}
-			else if (e.PropertyName == Label.LineBreakModeProperty.PropertyName)
-			{
-				UpdateLineBreakMode(Control);
 			}
 
 			base.OnElementPropertyChanged(sender, e);
@@ -76,13 +71,10 @@ namespace Xamarin.Forms.Platform.WinForms
 			if (label != null)
 			{
 				var color = label.TextColor;
-				if (color == Color.Default)
-				{
-				}
-				else
-				{
-					nativeElement.ForeColor = color.ToWindowsColor();
-				}
+				nativeElement.ForeColor =
+					color == Color.Default ?
+						System.Drawing.SystemColors.ControlText :
+						color.ToWindowsColor();
 			}
 		}
 
@@ -108,21 +100,10 @@ namespace Xamarin.Forms.Platform.WinForms
 			if (label != null)
 			{
 				nativeElement.Font = new System.Drawing.Font(
-					"",
+					label.FontFamily,
 					(float)label.FontSize,
 					label.FontAttributes.ToWindowsFontStyle());
 			}
-		}
-
-		void UpdateLineBreakMode(System.Windows.Forms.Label nativeElement)
-		{
-			/*if (nativeElement == null)
-				return;
-
-			Label label = Element;
-			if (label != null)
-			{
-			}*/
 		}
 	}
 }
