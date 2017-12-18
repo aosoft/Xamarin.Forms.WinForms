@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConvertExtensions.cs" />
+    <Compile Include="Renderers\ButtonRenderer.cs" />
     <Compile Include="Renderers\DefaultRenderer.cs" />
     <Compile Include="ExportRendererAttribute.cs" />
     <Compile Include="Forms.cs" />

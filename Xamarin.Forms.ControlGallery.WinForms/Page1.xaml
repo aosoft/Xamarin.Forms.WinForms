@@ -13,6 +13,7 @@
       <RowDefinition />
       <RowDefinition />
       <RowDefinition />
+      <RowDefinition />
     </Grid.RowDefinitions>
 
     <Label
@@ -70,6 +71,11 @@
       HorizontalTextAlignment="End"
       VerticalTextAlignment="End"
       Text="RightBottom"
+      />
+    <Button
+      Grid.Column="0" Grid.Row="3"
+      Text="Button!"
+      TextColor="Red"
       />
 
   </Grid>
