@@ -15,5 +15,10 @@ namespace Xamarin.Forms.ControlGallery.WinForms
 		{
 			InitializeComponent();
 		}
+
+		private void Button_Clicked(object sender, EventArgs e)
+		{
+			System.Windows.Forms.MessageBox.Show("Clicked!");
+		}
 	}
 }

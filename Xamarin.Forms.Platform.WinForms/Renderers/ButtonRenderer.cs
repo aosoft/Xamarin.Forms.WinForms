@@ -15,6 +15,7 @@ namespace Xamarin.Forms.Platform.WinForms
 
 			if (e.NewElement != null)
 			{
+				Control.Click += OnClick;
 				UpdateText(Control);
 				UpdateTextColor(Control);
 				UpdateFont(Control);
@@ -38,6 +39,12 @@ namespace Xamarin.Forms.Platform.WinForms
 			}
 
 			base.OnElementPropertyChanged(sender, e);
+		}
+
+		void OnClick(object sender, EventArgs e)
+		{
+			((IButtonController)Element)?.SendReleased();
+			((IButtonController)Element)?.SendClicked();
 		}
 
 		void UpdateText(System.Windows.Forms.Button nativeElement)

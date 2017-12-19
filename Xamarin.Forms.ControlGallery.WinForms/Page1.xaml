@@ -76,6 +76,7 @@
       Grid.Column="0" Grid.Row="3"
       Text="Button!"
       TextColor="Red"
+      Clicked="Button_Clicked"
       />
 
   </Grid>
