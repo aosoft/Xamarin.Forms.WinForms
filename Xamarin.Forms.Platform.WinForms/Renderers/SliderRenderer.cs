@@ -15,6 +15,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			if (e.NewElement != null)
 			{
 				Control.ValueChanged += Platform.BlockRenter((s, e2) => Element.Value = Control.Value);
+				Control.TickFrequency = 0;
 
 				UpdateValue();
 				UpdateMinimum();
