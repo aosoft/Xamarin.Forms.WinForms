@@ -9,9 +9,8 @@ namespace Xamarin.Forms.Platform.WinForms
 {
 	public class LabelRenderer : ViewRenderer<Label, System.Windows.Forms.Label>
 	{
-		public LabelRenderer()
-		{
-		}
+		/*-----------------------------------------------------------------*/
+		#region Event Handler
 
 		protected override void OnElementChanged(ElementChangedEventArgs<Label> e)
 		{
@@ -49,6 +48,12 @@ namespace Xamarin.Forms.Platform.WinForms
 
 			base.OnElementPropertyChanged(sender, e);
 		}
+
+
+		#endregion
+
+		/*-----------------------------------------------------------------*/
+		#region Internals
 
 		void UpdateText(System.Windows.Forms.Label nativeElement)
 		{
@@ -105,5 +110,7 @@ namespace Xamarin.Forms.Platform.WinForms
 					label.FontAttributes.ToWindowsFontStyle());
 			}
 		}
+
+		#endregion
 	}
 }

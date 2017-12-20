@@ -5,9 +5,8 @@ namespace Xamarin.Forms.Platform.WinForms
 {
 	public class ButtonRenderer : ViewRenderer<Button, System.Windows.Forms.Button>
 	{
-		public ButtonRenderer()
-		{
-		}
+		/*-----------------------------------------------------------------*/
+		#region Event Handler
 
 		protected override void OnElementChanged(ElementChangedEventArgs<Button> e)
 		{
@@ -46,6 +45,12 @@ namespace Xamarin.Forms.Platform.WinForms
 			((IButtonController)Element)?.SendReleased();
 			((IButtonController)Element)?.SendClicked();
 		}
+
+
+		#endregion
+
+		/*-----------------------------------------------------------------*/
+		#region Internals
 
 		void UpdateText(System.Windows.Forms.Button nativeElement)
 		{
@@ -89,5 +94,7 @@ namespace Xamarin.Forms.Platform.WinForms
 					button.FontAttributes.ToWindowsFontStyle());
 			}
 		}
+
+		#endregion
 	}
 }

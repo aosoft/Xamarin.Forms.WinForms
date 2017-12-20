@@ -78,6 +78,11 @@
       TextColor="Red"
       Clicked="Button_Clicked"
       />
-
+    <Slider
+      Grid.Column="1" Grid.Row="3"
+      Minimum="0"
+      Maximum="100"
+      Value="10"
+      />
   </Grid>
 </ContentPage>

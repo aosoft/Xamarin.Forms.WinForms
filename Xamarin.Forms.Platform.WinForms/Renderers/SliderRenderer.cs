@@ -14,6 +14,8 @@ namespace Xamarin.Forms.Platform.WinForms
 
 			if (e.NewElement != null)
 			{
+				Control.ValueChanged += Platform.BlockRenter((s, e2) => Element.Value = Control.Value);
+
 				UpdateValue();
 				UpdateMinimum();
 				UpdateMaximum();
@@ -30,6 +32,7 @@ namespace Xamarin.Forms.Platform.WinForms
 				UpdateMaximum();
 			base.OnElementPropertyChanged(sender, e);
 		}
+
 
 		#endregion
 

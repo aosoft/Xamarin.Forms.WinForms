@@ -57,6 +57,47 @@ namespace Xamarin.Forms.Platform.WinForms
 			return renderer;
 		}
 
+		public static EventHandler BlockRenter(EventHandler h)
+		{
+			bool entered = false;
+			return (s, e) =>
+			{
+				if (!entered)
+				{
+					entered = true;
+					try
+					{
+						h(s, e);
+					}
+					finally
+					{
+						entered = false;
+					}
+				}
+			};
+		}
+
+		public static EventHandler<T> BlockRenter<T>(EventHandler<T> h)
+			where T : EventArgs
+		{
+			bool entered = true;
+			return (s, e) =>
+			{
+				if (!entered)
+				{
+					entered = true;
+					try
+					{
+						h(s, e);
+					}
+					finally
+					{
+						entered = false;
+					}
+				}
+			};
+		}
+
 		public static System.Drawing.ContentAlignment ToWindowsContentAlignment(TextAlignment horizonatal, TextAlignment vertical)
 		{
 			switch (horizonatal)
