@@ -60,12 +60,14 @@
     <Compile Include="ExportRendererAttribute.cs" />
     <Compile Include="Forms.cs" />
     <Compile Include="IVisualElementRenderer.cs" />
+    <Compile Include="Renderers\EditorRenderer.cs" />
     <Compile Include="Renderers\LabelRenderer.cs" />
     <Compile Include="Renderers\LayoutRenderer.cs" />
     <Compile Include="Renderers\PageRenderer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Renderers\SliderRenderer.cs" />
     <Compile Include="Renderers\SwitchRenderer.cs" />
+    <Compile Include="Renderers\EntryRenderer.cs" />
     <Compile Include="ViewRenderer.cs" />
     <Compile Include="VisualElementChangedEventArgs.cs" />
     <Compile Include="VisualElementExtensions.cs" />
