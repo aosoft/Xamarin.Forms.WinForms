@@ -47,3 +47,4 @@ using Xamarin.Forms.Platform.WinForms;
 [assembly: ExportRenderer(typeof(Switch), typeof(SwitchRenderer))]
 [assembly: ExportRenderer(typeof(Editor), typeof(EditorRenderer))]
 [assembly: ExportRenderer(typeof(Entry), typeof(EntryRenderer))]
+[assembly: ExportRenderer(typeof(Picker), typeof(PickerRenderer))]

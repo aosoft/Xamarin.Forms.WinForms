@@ -19,6 +19,8 @@ namespace Xamarin.Forms.Platform.WinForms
 				if (e.NewElement != null)
 				{
 					Control.Multiline = true;
+					Control.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+					Control.TextChanged += Platform.BlockRenter((s, e2) => Element.Text = Control.Text);
 
 					UpdateText();
 					UpdateTextColor();
