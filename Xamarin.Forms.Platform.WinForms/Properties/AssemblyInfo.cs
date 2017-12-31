@@ -44,6 +44,7 @@ using Xamarin.Forms.Platform.WinForms;
 [assembly: ExportRenderer(typeof(Layout), typeof(LayoutRenderer))]
 [assembly: ExportRenderer(typeof(Button), typeof(ButtonRenderer))]
 [assembly: ExportRenderer(typeof(Slider), typeof(SliderRenderer))]
+[assembly: ExportRenderer(typeof(Stepper), typeof(StepperRenderer))]
 [assembly: ExportRenderer(typeof(Switch), typeof(SwitchRenderer))]
 [assembly: ExportRenderer(typeof(Editor), typeof(EditorRenderer))]
 [assembly: ExportRenderer(typeof(Entry), typeof(EntryRenderer))]
