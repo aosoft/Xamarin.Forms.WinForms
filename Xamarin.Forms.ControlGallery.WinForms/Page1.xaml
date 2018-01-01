@@ -14,6 +14,8 @@
       <RowDefinition />
       <RowDefinition />
       <RowDefinition />
+      <RowDefinition />
+      <RowDefinition />
     </Grid.RowDefinitions>
 
     <Label
@@ -89,5 +91,37 @@
       x:Name="switch"
       Grid.Column="2" Grid.Row="3"
       />
+    <Label
+      Grid.Column="0" Grid.Row="4"
+      Text="{Binding Source={x:Reference entry}, Path=Text}"
+      />
+    <Label
+      Grid.Column="1" Grid.Row="4"
+      Text="{Binding Source={x:Reference editor}, Path=Text}"
+      />
+    <Label
+      Grid.Column="2" Grid.Row="4"
+      Text="{Binding Source={x:Reference picker}, Path=SelectedIndex}"
+      />
+    <Entry
+      x:Name="entry"
+      Grid.Column="0" Grid.Row="5"
+      />
+    <Editor
+      x:Name="editor"
+      Grid.Column="1" Grid.Row="5"
+      />
+    <Picker
+      x:Name="picker"
+      Grid.Column="2" Grid.Row="5">
+      <Picker.ItemsSource>
+        <x:Array Type="{x:Type x:String}">
+          <x:String>Item 1</x:String>
+          <x:String>Item 2</x:String>
+          <x:String>Item 3</x:String>
+          <x:String>Item 4</x:String>
+        </x:Array>
+      </Picker.ItemsSource>
+    </Picker>
   </Grid>
 </ContentPage>
