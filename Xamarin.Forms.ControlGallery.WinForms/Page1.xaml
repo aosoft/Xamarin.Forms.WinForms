@@ -16,6 +16,7 @@
       <RowDefinition />
       <RowDefinition />
       <RowDefinition />
+      <RowDefinition />
     </Grid.RowDefinitions>
 
     <Label
@@ -123,5 +124,12 @@
         </x:Array>
       </Picker.ItemsSource>
     </Picker>
+    <Stepper 
+      Grid.Column="0"
+      Grid.Row="6"
+      Minimum="1"
+      Increment="1"
+      Maximum="100"
+      Value="45"/>
   </Grid>
 </ContentPage>
