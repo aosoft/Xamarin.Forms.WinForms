@@ -49,3 +49,4 @@ using Xamarin.Forms.Platform.WinForms;
 [assembly: ExportRenderer(typeof(Editor), typeof(EditorRenderer))]
 [assembly: ExportRenderer(typeof(Entry), typeof(EntryRenderer))]
 [assembly: ExportRenderer(typeof(Picker), typeof(PickerRenderer))]
+[assembly: ExportRenderer(typeof(WebView), typeof(WebViewRenderer))]

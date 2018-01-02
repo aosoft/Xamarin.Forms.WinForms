@@ -71,6 +71,7 @@
     <Compile Include="Renderers\StepperRenderer.cs" />
     <Compile Include="Renderers\SwitchRenderer.cs" />
     <Compile Include="Renderers\EntryRenderer.cs" />
+    <Compile Include="Renderers\WebViewRenderer.cs" />
     <Compile Include="ViewRenderer.cs" />
     <Compile Include="VisualElementChangedEventArgs.cs" />
     <Compile Include="VisualElementExtensions.cs" />
