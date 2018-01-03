@@ -65,6 +65,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SKCanvasViewRendererBase.cs" />
+    <Compile Include="SKGLViewRendererBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Xamarin.Forms.Platform.WinForms\Xamarin.Forms.Platform.WinForms.csproj">
