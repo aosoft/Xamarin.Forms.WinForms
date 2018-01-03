@@ -14,10 +14,10 @@ namespace Xamarin.Forms.Platform.WinForms
 {
 	internal class WinFormsPlatformServices : IPlatformServices
 	{
-		private System.Windows.Forms.Form _mainForm;
-		private int _currentThreadId;
-		private Dictionary<NamedSize, double> _fontSizes = new Dictionary<NamedSize, double>();
-		static private readonly MD5CryptoServiceProvider _md5 = new MD5CryptoServiceProvider();
+		System.Windows.Forms.Form _mainForm;
+		int _currentThreadId;
+		Dictionary<NamedSize, double> _fontSizes = new Dictionary<NamedSize, double>();
+		static readonly MD5CryptoServiceProvider _md5 = new MD5CryptoServiceProvider();
 
 		internal WinFormsPlatformServices(System.Windows.Forms.Form mainForm, int currentThreadId)
 		{

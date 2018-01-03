@@ -10,7 +10,7 @@ namespace Xamarin.Forms.Platform.WinForms
 {
 	internal class WinFormsTicker : Ticker
 	{
-		private readonly Timer _timer = null;
+		readonly Timer _timer = null;
 
 		public WinFormsTicker()
 		{

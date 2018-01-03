@@ -25,7 +25,7 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		#region IDisposable Support
 
-		private bool disposedValue = false;
+		bool disposedValue = false;
 
 		protected virtual void Dispose(bool disposing)
 		{
