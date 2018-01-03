@@ -20,6 +20,8 @@ namespace Xamarin.Forms.ControlGallery.WinForms
 			var f = new Platform.WinForms.PlatformRenderer();
 			Xamarin.Forms.Platform.WinForms.Forms.Init(f);
 
+			f.Width = 800;
+			f.Height = 600;
 			f.LoadApplication(new App());
 			System.Windows.Forms.Application.Run(f);
 		}

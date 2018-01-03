@@ -20,7 +20,7 @@ namespace Xamarin.Forms.Platform.WinForms
 				{
 					Control.Multiline = true;
 					Control.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-					Control.TextChanged += Platform.BlockRenter((s, e2) => Element.Text = Control.Text);
+					Control.TextChanged += OnTextChanged;
 
 					UpdateText();
 					UpdateTextColor();
@@ -46,6 +46,11 @@ namespace Xamarin.Forms.Platform.WinForms
 			}
 
 			base.OnElementPropertyChanged(sender, e);
+		}
+
+		void OnTextChanged(object sender, EventArgs e)
+		{
+			((IElementController)Element).SetValueFromRenderer(Editor.TextProperty, Control.Text);
 		}
 
 		#endregion

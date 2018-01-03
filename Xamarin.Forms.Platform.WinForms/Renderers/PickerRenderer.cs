@@ -21,7 +21,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			{
 				e.NewElement.Items.AddCollectionChangedEvent(OnCollectionChanged);
 				Control.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-				Control.SelectedIndexChanged += Platform.BlockRenter((s, e2) => Element.SelectedIndex = Control.SelectedIndex);
+				Control.SelectedIndexChanged += OnSelectedIndexChanged;
 
 				UpdateItems();
 				UpdateSelectedIndex();
@@ -41,6 +41,11 @@ namespace Xamarin.Forms.Platform.WinForms
 			}
 
 			base.OnElementPropertyChanged(sender, e);
+		}
+
+		void OnSelectedIndexChanged(object sender, EventArgs e)
+		{
+			((IElementController)Element).SetValueFromRenderer(Picker.SelectedIndexProperty, Control.SelectedIndex);
 		}
 
 		#endregion

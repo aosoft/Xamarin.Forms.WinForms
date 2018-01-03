@@ -14,7 +14,7 @@ namespace Xamarin.Forms.Platform.WinForms
 
 			if (e.NewElement != null)
 			{
-				Control.ValueChanged += Platform.BlockRenter((s, e2) => Element.Value = Control.Value);
+				Control.ValueChanged += OnValueChanged;
 				Control.TickFrequency = 0;
 
 				UpdateValue();
@@ -32,6 +32,11 @@ namespace Xamarin.Forms.Platform.WinForms
 			else if (e.PropertyName == Slider.MaximumProperty.PropertyName)
 				UpdateMaximum();
 			base.OnElementPropertyChanged(sender, e);
+		}
+
+		void OnValueChanged(object sender, EventArgs e)
+		{
+			((IElementController)Element).SetValueFromRenderer(Slider.ValueProperty, Control.Value);
 		}
 
 

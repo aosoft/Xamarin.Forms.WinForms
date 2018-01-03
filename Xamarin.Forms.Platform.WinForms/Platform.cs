@@ -57,7 +57,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			return renderer;
 		}
 
-		public static EventHandler BlockRenter(EventHandler h)
+		public static EventHandler BlockReenter(EventHandler h)
 		{
 			bool entered = false;
 			return (s, e) =>
@@ -77,7 +77,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			};
 		}
 
-		public static EventHandler<T> BlockRenter<T>(EventHandler<T> h)
+		public static EventHandler<T> BlockReenter<T>(EventHandler<T> h)
 			where T : EventArgs
 		{
 			bool entered = true;

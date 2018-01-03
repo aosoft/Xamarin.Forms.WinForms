@@ -14,7 +14,7 @@ namespace Xamarin.Forms.Platform.WinForms
 
 			if (e.NewElement != null)
 			{
-				Control.CheckedChanged += Platform.BlockRenter((s, e2) => Element.IsToggled = Control.Checked);
+				Control.CheckedChanged += OnCheckedChanged;
 				UpdateToggle();
 			}
 		}
@@ -27,6 +27,12 @@ namespace Xamarin.Forms.Platform.WinForms
 			}
 			base.OnElementPropertyChanged(sender, e);
 		}
+
+		void OnCheckedChanged(object sender, EventArgs e)
+		{
+			((IElementController)Element).SetValueFromRenderer(Switch.IsToggledProperty, Control.Checked);
+		}
+
 
 		#endregion
 
