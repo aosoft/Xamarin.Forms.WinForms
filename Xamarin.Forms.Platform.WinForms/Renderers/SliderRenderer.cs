@@ -14,7 +14,12 @@ namespace Xamarin.Forms.Platform.WinForms
 
 			if (e.NewElement != null)
 			{
-				Control.ValueChanged += OnValueChanged;
+				if (Control == null)
+				{
+					SetNativeControl(new System.Windows.Forms.TrackBar());
+					Control.ValueChanged += OnValueChanged;
+				}
+
 				Control.TickFrequency = 0;
 
 				UpdateValue();

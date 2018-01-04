@@ -14,7 +14,12 @@ namespace Xamarin.Forms.Platform.WinForms
 
 			if (e.NewElement != null)
 			{
-				Control.CheckedChanged += OnCheckedChanged;
+				if (Control == null)
+				{
+					SetNativeControl(new System.Windows.Forms.CheckBox());
+					Control.CheckedChanged += OnCheckedChanged;
+				}
+
 				UpdateToggle();
 			}
 		}

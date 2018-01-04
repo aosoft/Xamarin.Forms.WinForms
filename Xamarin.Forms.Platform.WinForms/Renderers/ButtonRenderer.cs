@@ -14,7 +14,12 @@ namespace Xamarin.Forms.Platform.WinForms
 
 			if (e.NewElement != null)
 			{
-				Control.Click += OnClick;
+				if (Control == null)
+				{
+					SetNativeControl(new System.Windows.Forms.Button());
+					Control.Click += OnClick;
+				}
+
 				UpdateText(Control);
 				UpdateTextColor(Control);
 				UpdateFont(Control);

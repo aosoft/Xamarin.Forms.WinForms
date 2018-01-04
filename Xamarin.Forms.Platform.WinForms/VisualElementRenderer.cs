@@ -124,6 +124,8 @@ namespace Xamarin.Forms.Platform.WinForms
 
 			//Control.HorizontalAlignment = HorizontalAlignment.Stretch;
 			//Control.VerticalAlignment = VerticalAlignment.Stretch;
+			Control.Anchor = AnchorStyles.Left | AnchorStyles.Top;
+			Control.SetBounds(0, 0, 0, 0, BoundsSpecified.All);
 
 			if (Element == null)
 				throw new InvalidOperationException(

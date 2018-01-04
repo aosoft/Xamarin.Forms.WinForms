@@ -18,6 +18,11 @@ namespace Xamarin.Forms.Platform.WinForms
 
 			if (e.NewElement != null)
 			{
+				if (Control == null)
+				{
+					SetNativeControl(new System.Windows.Forms.Label());
+				}
+
 				UpdateText(Control);
 				UpdateTextColor(Control);
 				UpdateAlign(Control);

@@ -18,8 +18,13 @@ namespace Xamarin.Forms.Platform.WinForms
 
 				if (e.NewElement != null)
 				{
+					if (Control == null)
+					{
+						SetNativeControl(new System.Windows.Forms.TextBox());
+						Control.TextChanged += OnTextChanged;
+					}
+
 					Control.Multiline = false;
-					Control.TextChanged += OnTextChanged;
 
 					UpdateText();
 					UpdateTextColor();
