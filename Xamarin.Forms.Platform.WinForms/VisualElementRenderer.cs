@@ -15,14 +15,34 @@ namespace Xamarin.Forms.Platform.WinForms
 	{
 		VisualElementTracker<TElement, TNativeElement> _tracker;
 		readonly VisualElementRendererCollection _children = new VisualElementRendererCollection();
+		bool _disposedValue = false;
+
+		protected virtual void Dispose(bool disposing)
+		{
+			if (!_disposedValue)
+			{
+				if (disposing)
+				{
+					foreach (var item in _children)
+					{
+						item?.Dispose();
+					}
+					_children.Clear();
+				}
+
+				_disposedValue = true;
+			}
+		}
+
+		/*~VisualElementRenderer()
+		{
+			Dispose(false);
+		}*/
 
 		public void Dispose()
 		{
-			foreach (var item in _children)
-			{
-				item?.Dispose();
-			}
-			_children.Clear();
+			Dispose(true);
+			//GC.SuppressFinalize(this);
 		}
 
 		protected VisualElementTracker<TElement, TNativeElement> Tracker
