@@ -20,6 +20,10 @@ using SKNativePaintSurfaceEventArgs = SkiaSharp.Views.UWP.SKPaintSurfaceEventArg
 using Xamarin.Forms.Platform.MacOS;
 using SKNativeView = SkiaSharp.Views.Mac.SKCanvasView;
 using SKNativePaintSurfaceEventArgs = SkiaSharp.Views.Mac.SKPaintSurfaceEventArgs;
+#else
+using Xamarin.Forms.Platform.WinForms;
+using SKNativeView = SkiaSharp.Views.Desktop.SKControl;
+using SKNativePaintSurfaceEventArgs = SkiaSharp.Views.Desktop.SKPaintSurfaceEventArgs;
 #endif
 
 namespace SkiaSharp.Views.Forms
@@ -48,6 +52,11 @@ namespace SkiaSharp.Views.Forms
 			touchHandler = new SKTouchHandler(
 				args => ((ISKCanvasViewController)Element).OnTouch(args),
 				coord => Element.IgnorePixelScaling ? coord : (float)(coord * Control.Dpi));
+#else
+			touchHandler = new SKTouchHandler(
+				args => ((ISKCanvasViewController)Element).OnTouch(args),
+				//coord => Element.IgnorePixelScaling ? coord : (float)(coord * Control.Dpi));
+				coord => coord);
 #endif
 		}
 
@@ -83,7 +92,7 @@ namespace SkiaSharp.Views.Forms
 
 				// set the initial values
 				touchHandler.SetEnabled(Control, e.NewElement.EnableTouchEvents);
-				Control.IgnorePixelScaling = e.NewElement.IgnorePixelScaling;
+				//Control.IgnorePixelScaling = e.NewElement.IgnorePixelScaling;
 
 				// subscribe to events from the user
 				newController.SurfaceInvalidated += OnSurfaceInvalidated;
@@ -112,11 +121,11 @@ namespace SkiaSharp.Views.Forms
 		{
 			base.OnElementPropertyChanged(sender, e);
 
-			if (e.PropertyName == SKFormsView.IgnorePixelScalingProperty.PropertyName)
+			/*if (e.PropertyName == SKFormsView.IgnorePixelScalingProperty.PropertyName)
 			{
 				Control.IgnorePixelScaling = Element.IgnorePixelScaling;
 			}
-			else if (e.PropertyName == SKFormsView.EnableTouchEventsProperty.PropertyName)
+			else*/ if (e.PropertyName == SKFormsView.EnableTouchEventsProperty.PropertyName)
 			{
 				touchHandler.SetEnabled(Control, Element.EnableTouchEvents);
 			}

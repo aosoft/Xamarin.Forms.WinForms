@@ -1,8 +1,5 @@
 ﻿using System;
-using Windows.Devices.Input;
-using Windows.UI.Input;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Input;
+using System.Windows.Forms;
 
 namespace SkiaSharp.Views.Forms
 {
@@ -17,29 +14,29 @@ namespace SkiaSharp.Views.Forms
 			this.scalePixels = scalePixels;
 		}
 
-		public void SetEnabled(FrameworkElement view, bool enableTouchEvents)
+		public void SetEnabled(Control view, bool enableTouchEvents)
 		{
 			if (view != null)
 			{
-				view.PointerEntered -= OnPointerEntered;
-				view.PointerExited -= OnPointerExited;
-				view.PointerPressed -= OnPointerPressed;
-				view.PointerMoved -= OnPointerMoved;
-				view.PointerReleased -= OnPointerReleased;
-				view.PointerCanceled -= OnPointerCancelled;
+				//view.PointerEntered -= OnPointerEntered;
+				//view.PointerExited -= OnPointerExited;
+				view.MouseDown -= OnPointerPressed;
+				view.MouseMove -= OnPointerMoved;
+				view.MouseUp -= OnPointerReleased;
+				//view.PointerCanceled -= OnPointerCancelled;
 				if (enableTouchEvents)
 				{
-					view.PointerEntered += OnPointerEntered;
-					view.PointerExited += OnPointerExited;
-					view.PointerPressed += OnPointerPressed;
-					view.PointerMoved += OnPointerMoved;
-					view.PointerReleased += OnPointerReleased;
-					view.PointerCanceled += OnPointerCancelled;
+					//view.PointerEntered += OnPointerEntered;
+					//view.PointerExited += OnPointerExited;
+					view.MouseDown += OnPointerPressed;
+					view.MouseMove += OnPointerMoved;
+					view.MouseUp += OnPointerReleased;
+					//view.PointerCanceled += OnPointerCancelled;
 				}
 			}
 		}
 
-		public void Detach(FrameworkElement view)
+		public void Detach(Control view)
 		{
 			// clean the view
 			SetEnabled(view, false);
@@ -49,60 +46,59 @@ namespace SkiaSharp.Views.Forms
 			scalePixels = null;
 		}
 
-		private void OnPointerEntered(object sender, PointerRoutedEventArgs args)
+		private void OnPointerEntered(object sender, MouseEventArgs args)
 		{
 			CommonHandler(sender, SKTouchAction.Entered, args);
 		}
 
-		private void OnPointerExited(object sender, PointerRoutedEventArgs args)
+		private void OnPointerExited(object sender, MouseEventArgs args)
 		{
 			CommonHandler(sender, SKTouchAction.Exited, args);
 		}
 
-		private void OnPointerPressed(object sender, PointerRoutedEventArgs args)
+		private void OnPointerPressed(object sender, MouseEventArgs args)
 		{
 			CommonHandler(sender, SKTouchAction.Pressed, args);
 
-			var view = sender as FrameworkElement;
-			view.CapturePointer(args.Pointer);
+			var view = sender as Control;
+			//view.CapturePointer(args.Pointer);
 		}
 
-		private void OnPointerMoved(object sender, PointerRoutedEventArgs args)
+		private void OnPointerMoved(object sender, MouseEventArgs args)
 		{
 			CommonHandler(sender, SKTouchAction.Moved, args);
 		}
 
-		private void OnPointerReleased(object sender, PointerRoutedEventArgs args)
+		private void OnPointerReleased(object sender, MouseEventArgs args)
 		{
 			CommonHandler(sender, SKTouchAction.Released, args);
 		}
 
-		private void OnPointerCancelled(object sender, PointerRoutedEventArgs args)
+		private void OnPointerCancelled(object sender, MouseEventArgs args)
 		{
 			CommonHandler(sender, SKTouchAction.Cancelled, args);
 		}
 
-		private bool CommonHandler(object sender, SKTouchAction touchActionType, PointerRoutedEventArgs evt)
+		private bool CommonHandler(object sender, SKTouchAction touchActionType, MouseEventArgs evt)
 		{
 			if (onTouchAction == null || scalePixels == null)
 				return false;
 
-			var view = sender as FrameworkElement;
+			var view = sender as Control;
 
-			var id = evt.Pointer.PointerId;
+			var id = 0L;// evt.Pointer.PointerId;
 
-			var pointerPoint = evt.GetCurrentPoint(view);
-			var windowsPoint = pointerPoint.Position;
+			var windowsPoint = evt.Location;
 			var skPoint = new SKPoint(scalePixels((float)windowsPoint.X), scalePixels((float)windowsPoint.Y));
 
-			var mouse = GetMouseButton(pointerPoint);
-			var device = GetTouchDevice(evt);
+			var mouse = GetMouseButton(evt.Button);
+			var device = SKTouchDeviceType.Mouse;// GetTouchDevice(evt);
 
-			var args = new SKTouchEventArgs(id, touchActionType, mouse, device, skPoint, evt.Pointer.IsInContact);
+			var args = new SKTouchEventArgs(id, touchActionType, mouse, device, skPoint, false/*evt.Pointer.IsInContact*/);
 			onTouchAction(args);
 			return args.Handled;
 		}
-
+/*
 		private static SKTouchDeviceType GetTouchDevice(PointerRoutedEventArgs evt)
 		{
 			var device = SKTouchDeviceType.Touch;
@@ -121,49 +117,23 @@ namespace SkiaSharp.Views.Forms
 
 			return device;
 		}
-
-		private static SKMouseButton GetMouseButton(PointerPoint pointerPoint)
+*/
+		private static SKMouseButton GetMouseButton(MouseButtons btns)
 		{
-			var properties = pointerPoint.Properties;
-
 			var mouse = SKMouseButton.Unknown;
 
 			// this is mainly for touch
-			if (properties.IsLeftButtonPressed)
+			if (btns.HasFlag(MouseButtons.Left))
 			{
 				mouse = SKMouseButton.Left;
 			}
-			else if (properties.IsMiddleButtonPressed)
+			else if (btns.HasFlag(MouseButtons.Middle))
 			{
 				mouse = SKMouseButton.Middle;
 			}
-			else if (properties.IsRightButtonPressed)
+			else if (btns.HasFlag(MouseButtons.Right))
 			{
 				mouse = SKMouseButton.Right;
-			}
-
-			// this is mainly for mouse
-			switch (properties.PointerUpdateKind)
-			{
-				case PointerUpdateKind.LeftButtonPressed:
-				case PointerUpdateKind.LeftButtonReleased:
-					mouse = SKMouseButton.Left;
-					break;
-				case PointerUpdateKind.RightButtonPressed:
-				case PointerUpdateKind.RightButtonReleased:
-					mouse = SKMouseButton.Right;
-					break;
-				case PointerUpdateKind.MiddleButtonPressed:
-				case PointerUpdateKind.MiddleButtonReleased:
-					mouse = SKMouseButton.Middle;
-					break;
-				case PointerUpdateKind.XButton1Pressed:
-				case PointerUpdateKind.XButton1Released:
-				case PointerUpdateKind.XButton2Pressed:
-				case PointerUpdateKind.XButton2Released:
-				case PointerUpdateKind.Other:
-				default:
-					break;
 			}
 
 			return mouse;

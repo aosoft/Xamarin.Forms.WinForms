@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if OPENGL
+using System;
 using System.ComponentModel;
 using Xamarin.Forms;
 
@@ -20,6 +21,10 @@ using SKNativePaintGLSurfaceEventArgs = SkiaSharp.Views.UWP.SKPaintGLSurfaceEven
 using Xamarin.Forms.Platform.MacOS;
 using SKNativeView = SkiaSharp.Views.Mac.SKGLView;
 using SKNativePaintGLSurfaceEventArgs = SkiaSharp.Views.Mac.SKPaintGLSurfaceEventArgs;
+#else
+using Xamarin.Forms.Platform.WinForms;
+using SKNativeView = SkiaSharp.Views.Desktop.SKGLControl;
+using SKNativePaintGLSurfaceEventArgs = SkiaSharp.Views.Desktop.SKPaintGLSurfaceEventArgs;
 #endif
 
 namespace SkiaSharp.Views.Forms
@@ -204,3 +209,4 @@ namespace SkiaSharp.Views.Forms
 #endif
 	}
 }
+#endif
