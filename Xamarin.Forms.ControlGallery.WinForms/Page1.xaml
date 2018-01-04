@@ -19,13 +19,11 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Label
+        <skia:SKCanvasView
             Grid.Column="0" Grid.Row="0"
             Grid.ColumnSpan="2"
             Grid.RowSpan="2"
-            HorizontalTextAlignment="Start"
-            VerticalTextAlignment="Start"
-            Text="LeftTop"/>
+            PaintSurface="SKCanvasView_PaintSurface"/>
         <Label
             Grid.Column="2" Grid.Row="0"
             HorizontalTextAlignment="End"

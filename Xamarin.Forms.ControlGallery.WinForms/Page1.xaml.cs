@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SkiaSharp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,13 @@ namespace Xamarin.Forms.ControlGallery.WinForms
 		void Button_Clicked(object sender, EventArgs e)
 		{
 			System.Windows.Forms.MessageBox.Show("Clicked!");
+		}
+
+		private void SKCanvasView_PaintSurface(object sender, SkiaSharp.Views.Forms.SKPaintSurfaceEventArgs e)
+		{
+			var p = new SKPaint();
+			p.Color = SKColors.Aqua;
+			e.Surface.Canvas.DrawCircle(100, 100, 20, p);
 		}
 	}
 }

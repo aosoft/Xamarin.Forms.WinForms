@@ -99,6 +99,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SkiaSharp.Views.Forms.WinForms\SkiaSharp.Views.Forms.WinForms.csproj">
+      <Project>{dc2d61aa-3749-485b-a6bb-343e738211a8}</Project>
+      <Name>SkiaSharp.Views.Forms.WinForms</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Xamarin.Forms.Platform.WinForms\Xamarin.Forms.Platform.WinForms.csproj">
       <Project>{cd51aedc-e33d-4620-a9c6-9683891ef615}</Project>
       <Name>Xamarin.Forms.Platform.WinForms</Name>
