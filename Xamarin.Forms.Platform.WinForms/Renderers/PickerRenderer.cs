@@ -19,9 +19,14 @@ namespace Xamarin.Forms.Platform.WinForms
 			}
 			if (e.NewElement != null)
 			{
+				if (Control == null)
+				{
+					SetNativeControl(new System.Windows.Forms.ComboBox());
+					Control.SelectedIndexChanged += OnSelectedIndexChanged;
+				}
+
 				e.NewElement.Items.AddCollectionChangedEvent(OnCollectionChanged);
 				Control.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-				Control.SelectedIndexChanged += OnSelectedIndexChanged;
 
 				UpdateItems();
 				UpdateSelectedIndex();

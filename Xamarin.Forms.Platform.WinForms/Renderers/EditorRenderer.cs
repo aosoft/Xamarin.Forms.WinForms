@@ -18,9 +18,14 @@ namespace Xamarin.Forms.Platform.WinForms
 
 				if (e.NewElement != null)
 				{
+					if (Control == null)
+					{
+						SetNativeControl(new System.Windows.Forms.TextBox());
+						Control.TextChanged += OnTextChanged;
+					}
+
 					Control.Multiline = true;
 					Control.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-					Control.TextChanged += OnTextChanged;
 
 					UpdateText();
 					UpdateTextColor();
