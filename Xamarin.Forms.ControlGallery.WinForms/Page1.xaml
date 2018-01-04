@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-  xmlns="http://xamarin.com/schemas/2014/forms"
-  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-  x:Class="Xamarin.Forms.ControlGallery.WinForms.Page1">
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+    x:Class="Xamarin.Forms.ControlGallery.WinForms.Page1">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -20,29 +21,16 @@
         </Grid.RowDefinitions>
         <Label
             Grid.Column="0" Grid.Row="0"
+            Grid.ColumnSpan="2"
+            Grid.RowSpan="2"
             HorizontalTextAlignment="Start"
             VerticalTextAlignment="Start"
             Text="LeftTop"/>
-        <Label
-            Grid.Column="1" Grid.Row="0"
-            HorizontalTextAlignment="Center"
-            VerticalTextAlignment="Start"
-            Text="CenterTop"/>
         <Label
             Grid.Column="2" Grid.Row="0"
             HorizontalTextAlignment="End"
             VerticalTextAlignment="Start"
             Text="RightTop"/>
-        <Label
-            Grid.Column="0" Grid.Row="1"
-            HorizontalTextAlignment="Start"
-            VerticalTextAlignment="Center"
-            Text="LeftCenter"/>
-        <Label
-            Grid.Column="1" Grid.Row="1"
-            HorizontalTextAlignment="Center"
-            VerticalTextAlignment="Center"
-            Text="CenterCenter"/>
         <Label
             Grid.Column="2" Grid.Row="1"
             HorizontalTextAlignment="End"

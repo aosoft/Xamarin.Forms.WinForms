@@ -69,6 +69,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ISKCanvasViewController.cs" />
     <Compile Include="RendererTypes.cs" />
+    <Compile Include="SKCanvasViewRenderer.cs" />
     <Compile Include="SKCanvasViewRendererBase.cs" />
     <Compile Include="SKGLViewRendererBase.cs" />
     <Compile Include="SKTouchHandler.cs" />
