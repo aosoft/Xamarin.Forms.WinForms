@@ -1,5 +1,4 @@
-﻿#if OPENGL
-using System;
+﻿using System;
 using System.ComponentModel;
 using Xamarin.Forms;
 
@@ -53,6 +52,11 @@ namespace SkiaSharp.Views.Forms
 			touchHandler = new SKTouchHandler(
 				args => ((ISKGLViewController)Element).OnTouch(args),
 				coord => (float)(coord * Control.ContentsScale));
+#else
+			touchHandler = new SKTouchHandler(
+				args => ((ISKCanvasViewController)Element).OnTouch(args),
+				//coord => Element.IgnorePixelScaling ? coord : (float)(coord * Control.Dpi));
+				coord => coord);
 #endif
 		}
 
@@ -209,4 +213,3 @@ namespace SkiaSharp.Views.Forms
 #endif
 	}
 }
-#endif

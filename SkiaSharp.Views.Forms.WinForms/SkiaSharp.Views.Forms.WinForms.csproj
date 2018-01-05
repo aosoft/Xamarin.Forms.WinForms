@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SkiaSharp.Views.Forms.WinForms</RootNamespace>
-    <AssemblyName>SkiaSharp.Views.Forms.WinForms</AssemblyName>
+    <AssemblyName>SkiaSharp.Views.Forms</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -34,14 +34,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="OpenTK, Version=2.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenTK.2.0.0\lib\net20\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK.GLControl, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenTK.GLControl.1.1.2349.61993\lib\NET40\OpenTK.GLControl.dll</HintPath>
+    </Reference>
     <Reference Include="SkiaSharp, Version=1.59.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
       <HintPath>..\packages\SkiaSharp.1.59.3\lib\net45\SkiaSharp.dll</HintPath>
     </Reference>
     <Reference Include="SkiaSharp.Views.Desktop, Version=1.59.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
       <HintPath>..\packages\SkiaSharp.Views.1.59.3\lib\net45\SkiaSharp.Views.Desktop.dll</HintPath>
-    </Reference>
-    <Reference Include="SkiaSharp.Views.Forms, Version=1.59.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SkiaSharp.Views.Forms.1.59.3\lib\netstandard1.3\SkiaSharp.Views.Forms.dll</HintPath>
     </Reference>
     <Reference Include="SkiaSharp.Views.WPF, Version=1.59.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
       <HintPath>..\packages\SkiaSharp.Views.1.59.3\lib\net45\SkiaSharp.Views.WPF.dll</HintPath>
@@ -69,11 +72,8 @@
   <ItemGroup>
     <Compile Include="Forms.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ISKCanvasViewController.cs" />
-    <Compile Include="RendererTypes.cs" />
     <Compile Include="SKCanvasViewRenderer.cs" />
-    <Compile Include="SKCanvasViewRendererBase.cs" />
-    <Compile Include="SKGLViewRendererBase.cs" />
+    <Compile Include="SKGLViewRenderer.cs" />
     <Compile Include="SKTouchHandler.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -83,8 +83,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
+    <None Include="OpenTK.dll.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <Import Project="..\SkiaSharp\source\SkiaSharp.Views.Forms\SkiaSharp.Views.Forms.Native.Shared\SkiaSharp.Views.Forms.Native.Shared.projitems" Label="Shared" />
+  <Import Project="..\SkiaSharp\source\SkiaSharp.Views.Forms\SkiaSharp.Views.Forms.Shared\SkiaSharp.Views.Forms.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
