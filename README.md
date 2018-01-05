@@ -1,4 +1,6 @@
 Xamarin.Forms.WinForms
 ====
 
-Copyright (c) .NET Foundation Contributors / TAN-Y
+Copyright (c) Yasuhiro Taniuchi
+Copyright (c) .NET Foundation Contributors
+Copyright (c) 2015-2016 Xamarin, Inc.

@@ -19,6 +19,7 @@ namespace Xamarin.Forms.ControlGallery.WinForms
 
 			var f = new Platform.WinForms.PlatformRenderer();
 			Xamarin.Forms.Platform.WinForms.Forms.Init(f);
+			SkiaSharp.Views.Forms.WinForms.Forms.Init();
 
 			f.Width = 800;
 			f.Height = 600;

@@ -1,13 +1,27 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.15
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Forms.Platform.WinForms", "Xamarin.Forms.Platform.WinForms\Xamarin.Forms.Platform.WinForms.csproj", "{563D7C2E-14E2-47EC-95E4-4EA0BBA75C18}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Forms.ControlGallery.WinForms", "Xamarin.Forms.ControlGallery.WinForms\Xamarin.Forms.ControlGallery.WinForms.csproj", "{63390A59-21A4-42AC-B3E0-18B65DDDD87A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkiaSharp.Views.Forms.WinForms", "SkiaSharp.Views.Forms.WinForms\SkiaSharp.Views.Forms.WinForms.csproj", "{DC2D61AA-3749-485B-A6BB-343E738211A8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SkiaSharp", "SkiaSharp", "{51B3B764-9726-4919-9D00-0D797ECE00DD}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SkiaSharp.Views.Forms.Native.Shared", "SkiaSharp\source\SkiaSharp.Views.Forms\SkiaSharp.Views.Forms.Native.Shared\SkiaSharp.Views.Forms.Native.Shared.shproj", "{CEBD25FD-DD4F-4D5F-B809-D50D02176F41}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SkiaSharp.Views.Forms.Shared", "SkiaSharp\source\SkiaSharp.Views.Forms\SkiaSharp.Views.Forms.Shared\SkiaSharp.Views.Forms.Shared.shproj", "{314FB505-9858-4E03-B799-91B0BA627D05}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		SkiaSharp\source\SkiaSharp.Views.Forms\SkiaSharp.Views.Forms.Shared\SkiaSharp.Views.Forms.Shared.projitems*{314fb505-9858-4e03-b799-91b0ba627d05}*SharedItemsImports = 13
+		SkiaSharp\source\SkiaSharp.Views.Forms\SkiaSharp.Views.Forms.Native.Shared\SkiaSharp.Views.Forms.Native.Shared.projitems*{cebd25fd-dd4f-4d5f-b809-d50d02176f41}*SharedItemsImports = 13
+		SkiaSharp\source\SkiaSharp.Views.Forms\SkiaSharp.Views.Forms.Native.Shared\SkiaSharp.Views.Forms.Native.Shared.projitems*{dc2d61aa-3749-485b-a6bb-343e738211a8}*SharedItemsImports = 4
+		SkiaSharp\source\SkiaSharp.Views.Forms\SkiaSharp.Views.Forms.Shared\SkiaSharp.Views.Forms.Shared.projitems*{dc2d61aa-3749-485b-a6bb-343e738211a8}*SharedItemsImports = 4
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -21,8 +35,19 @@ Global
 		{63390A59-21A4-42AC-B3E0-18B65DDDD87A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63390A59-21A4-42AC-B3E0-18B65DDDD87A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63390A59-21A4-42AC-B3E0-18B65DDDD87A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC2D61AA-3749-485B-A6BB-343E738211A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC2D61AA-3749-485B-A6BB-343E738211A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC2D61AA-3749-485B-A6BB-343E738211A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC2D61AA-3749-485B-A6BB-343E738211A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CEBD25FD-DD4F-4D5F-B809-D50D02176F41} = {51B3B764-9726-4919-9D00-0D797ECE00DD}
+		{314FB505-9858-4E03-B799-91B0BA627D05} = {51B3B764-9726-4919-9D00-0D797ECE00DD}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E3CCA848-AD6D-4679-9B85-F01E11D83F10}
 	EndGlobalSection
 EndGlobal
