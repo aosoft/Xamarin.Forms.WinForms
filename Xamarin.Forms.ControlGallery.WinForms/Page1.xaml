@@ -19,7 +19,7 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <skia:SKCanvasView
+        <skia:SKGLView
             Grid.Column="0" Grid.Row="0"
             Grid.ColumnSpan="2"
             Grid.RowSpan="2"
@@ -70,11 +70,11 @@
             Increment="1"
             Maximum="100"
             Value="45"/>
-        <WebView 
+        <!--<WebView 
             Grid.Column="1"
             Grid.ColumnSpan="2"
             Grid.Row="4" 
-            Source="www.google.com"/>
+            Source="www.google.com"/>-->
         <Label
             Grid.Column="0" Grid.Row="5"
             Text="{Binding Source={x:Reference entry}, Path=Text}"

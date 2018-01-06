@@ -22,11 +22,20 @@ namespace Xamarin.Forms.ControlGallery.WinForms
 			System.Windows.Forms.MessageBox.Show("Clicked!");
 		}
 
-		private void SKCanvasView_PaintSurface(object sender, SkiaSharp.Views.Forms.SKPaintSurfaceEventArgs e)
+		private void SKCanvasView_PaintSurface(object sender, SkiaSharp.Views.Forms.SKPaintGLSurfaceEventArgs e)
 		{
-			var p = new SKPaint();
-			p.Color = SKColors.Aqua;
-			e.Surface.Canvas.DrawCircle(100, 100, 20, p);
+			e.Surface.Canvas.Clear(SKColors.White);
+			using (var p = new SKPaint())
+			using (var shader = SKShader.CreateLinearGradient(
+				new SKPoint(0.0f, 0.0f),
+				new SKPoint(100.0f, 100.0f),
+				new [] { SKColors.Red, SKColors.Green },
+				null,
+				SKShaderTileMode.Clamp))
+			{
+				p.Shader = shader;
+				e.Surface.Canvas.DrawRect(new SKRect(0.0f, 0.0f, 100.0f, 100.0f), p);
+			}
 		}
 	}
 }

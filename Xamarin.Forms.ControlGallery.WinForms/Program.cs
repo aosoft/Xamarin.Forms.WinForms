@@ -14,6 +14,8 @@ namespace Xamarin.Forms.ControlGallery.WinForms
 		[STAThread]
 		static void Main()
 		{
+			OpenTK.Toolkit.Init();
+
 			System.Windows.Forms.Application.EnableVisualStyles();
 			System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
 
