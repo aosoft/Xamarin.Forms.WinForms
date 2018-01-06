@@ -20,20 +20,23 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <skia:SKGLView
+            x:Name="skiaView"
             Grid.Column="0" Grid.Row="0"
             Grid.ColumnSpan="2"
             Grid.RowSpan="2"
             PaintSurface="SKCanvasView_PaintSurface"/>
-        <Label
+        <Slider
+            x:Name="sliderAngle"
             Grid.Column="2" Grid.Row="0"
-            HorizontalTextAlignment="End"
-            VerticalTextAlignment="Start"
-            Text="RightTop"/>
+            Minimum="0.0"
+            Maximum="360.0"
+            Value="0.0"
+            ValueChanged="sliderAngle_ValueChanged"/>
         <Label
             Grid.Column="2" Grid.Row="1"
             HorizontalTextAlignment="End"
             VerticalTextAlignment="Center"
-            Text="RightCenter"/>
+            Text="{Binding Source={x:Reference sliderAngle}, Path=Value}"/>
         <Label
             Grid.Column="0" Grid.Row="2"
             HorizontalTextAlignment="Start"

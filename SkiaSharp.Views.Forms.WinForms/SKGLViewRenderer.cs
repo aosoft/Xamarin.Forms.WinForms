@@ -12,14 +12,10 @@ namespace SkiaSharp.Views.Forms
 	{
 		protected override void SetupRenderLoop(bool oneShot)
 		{
-			/*if (oneShot)
+			if (oneShot)
 			{
-				Control.RequestRender();
+				Control.Invalidate();
 			}
-
-			Control.RenderMode = Element.HasRenderLoop
-				? Rendermode.Continuously
-				: Rendermode.WhenDirty;*/
 		}
 	}
 }

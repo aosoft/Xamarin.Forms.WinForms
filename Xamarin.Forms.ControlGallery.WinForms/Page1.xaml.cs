@@ -24,18 +24,31 @@ namespace Xamarin.Forms.ControlGallery.WinForms
 
 		private void SKCanvasView_PaintSurface(object sender, SkiaSharp.Views.Forms.SKPaintGLSurfaceEventArgs e)
 		{
+			var view = sender as View;
+			var w = (float)view.Width / 2;
+			var h = (float)view.Height / 2;
+			var r = w < h ? w : h;
+
+			var angle = 3.14159 * sliderAngle.Value / 180.0;
+			var len = new SKPoint((float)Math.Cos(angle) * r, (float)Math.Sin(angle) * r);
+
 			e.Surface.Canvas.Clear(SKColors.White);
 			using (var p = new SKPaint())
 			using (var shader = SKShader.CreateLinearGradient(
-				new SKPoint(0.0f, 0.0f),
-				new SKPoint(100.0f, 100.0f),
-				new [] { SKColors.Red, SKColors.Green },
-				null,
+				new SKPoint(w + len.X, h + len.Y),
+				new SKPoint(w - len.X, h - len.Y),
+				new[] { SKColors.Red, SKColors.Lime },
+				new[] { 0.0f, 1.0f },
 				SKShaderTileMode.Clamp))
 			{
 				p.Shader = shader;
-				e.Surface.Canvas.DrawRect(new SKRect(0.0f, 0.0f, 100.0f, 100.0f), p);
+				e.Surface.Canvas.DrawCircle(w, h, r,  p);
 			}
+		}
+
+		private void sliderAngle_ValueChanged(object sender, ValueChangedEventArgs e)
+		{
+			skiaView.InvalidateSurface();
 		}
 	}
 }
