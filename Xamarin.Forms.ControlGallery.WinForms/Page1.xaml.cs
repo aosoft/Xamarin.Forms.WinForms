@@ -24,9 +24,8 @@ namespace Xamarin.Forms.ControlGallery.WinForms
 
 		private void SKCanvasView_PaintSurface(object sender, SkiaSharp.Views.Forms.SKPaintGLSurfaceEventArgs e)
 		{
-			var view = sender as View;
-			var w = (float)view.Width / 2;
-			var h = (float)view.Height / 2;
+			var w = (float)e.RenderTarget.Size.Width / 2;
+			var h = (float)e.RenderTarget.Size.Height / 2;
 			var r = w < h ? w : h;
 
 			var angle = 3.14159 * sliderAngle.Value / 180.0;
