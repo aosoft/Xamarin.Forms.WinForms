@@ -111,7 +111,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			{
 				nativeElement.Font = new System.Drawing.Font(
 					label.FontFamily,
-					(float)label.FontSize,
+					Math.Max((float)label.FontSize, 1.0f),
 					label.FontAttributes.ToWindowsFontStyle());
 			}
 		}
