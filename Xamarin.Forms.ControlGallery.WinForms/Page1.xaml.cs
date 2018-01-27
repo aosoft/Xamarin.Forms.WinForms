@@ -1,5 +1,6 @@
 ﻿using SkiaSharp;
 using System;
+using OpenTK.Graphics.OpenGL;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace Xamarin.Forms.ControlGallery.WinForms
 		public Page1()
 		{
 			InitializeComponent();
+			openglView.OnDisplay = OpenGLView_OnDisplay;
 		}
 
 		void Button_Clicked(object sender, EventArgs e)
@@ -22,10 +24,16 @@ namespace Xamarin.Forms.ControlGallery.WinForms
 			System.Windows.Forms.MessageBox.Show("Clicked!");
 		}
 
-		private void SKCanvasView_PaintSurface(object sender, SkiaSharp.Views.Forms.SKPaintGLSurfaceEventArgs e)
+		private void OpenGLView_OnDisplay(Rectangle rect)
 		{
-			var w = (float)e.RenderTarget.Size.Width / 2;
-			var h = (float)e.RenderTarget.Size.Height / 2;
+			GL.ClearColor(0.5f, 1.0f, 0.0f, 1.0f);
+			GL.Clear((ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit));
+		}
+
+		private void SKCanvasView_PaintSurface(object sender, SkiaSharp.Views.Forms.SKPaintSurfaceEventArgs e)
+		{
+			var w = (float)e.Info.Width / 2;
+			var h = (float)e.Info.Height / 2;
 			var r = w < h ? w : h;
 
 			var angle = 3.14159 * sliderAngle.Value / 180.0;

@@ -19,7 +19,7 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <skia:SKGLView
+        <skia:SKCanvasView
             x:Name="skiaView"
             Grid.Column="0" Grid.Row="0"
             Grid.ColumnSpan="2"
@@ -37,11 +37,15 @@
             HorizontalTextAlignment="End"
             VerticalTextAlignment="Center"
             Text="{Binding Source={x:Reference sliderAngle}, Path=Value}"/>
-        <Label
+        <!--<Label
             Grid.Column="0" Grid.Row="2"
             HorizontalTextAlignment="Start"
             VerticalTextAlignment="End"
-            Text="LeftBottom"/>
+            Text="LeftBottom"/>-->
+        <OpenGLView
+            x:Name="openglView"
+            Grid.Column="0" Grid.Row="2"
+            />
         <Label
             Grid.Column="1" Grid.Row="2"
             HorizontalTextAlignment="Center"

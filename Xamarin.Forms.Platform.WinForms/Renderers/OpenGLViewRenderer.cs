@@ -54,7 +54,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			{
 				var glControl = new GLControl(new GraphicsMode(32, 24), 2, 0, GraphicsContextFlags.Default);
 				glControl.MakeCurrent();
-				glControl.Dock = DockStyle.Fill;
+				glControl.Dock = DockStyle.None;
 
 				glControl.Paint += OnPaint;
 
