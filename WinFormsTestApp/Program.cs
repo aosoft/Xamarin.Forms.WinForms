@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Xamarin.Forms.ControlGallery.WinForms
+namespace WinFormsTestApp
 {
 	static class Program
 	{
@@ -19,7 +19,7 @@ namespace Xamarin.Forms.ControlGallery.WinForms
 			System.Windows.Forms.Application.EnableVisualStyles();
 			System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
 
-			var f = new Platform.WinForms.PlatformRenderer();
+			var f = new Xamarin.Forms.Platform.WinForms.PlatformRenderer();
 			Xamarin.Forms.Platform.WinForms.Forms.Init(f);
 
 			f.Width = 800;

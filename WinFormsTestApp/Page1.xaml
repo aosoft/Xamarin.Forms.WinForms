@@ -3,7 +3,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
-    x:Class="Xamarin.Forms.ControlGallery.WinForms.Page1">
+    x:Class="WinFormsTestApp.Page1">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />

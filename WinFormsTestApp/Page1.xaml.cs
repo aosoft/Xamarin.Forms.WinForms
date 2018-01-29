@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace Xamarin.Forms.ControlGallery.WinForms
+namespace WinFormsTestApp
 {
 	public partial class Page1 : ContentPage
 	{
