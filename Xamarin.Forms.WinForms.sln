@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Forms.Platform.WinForms", "Xamarin.Forms.Platform.WinForms\Xamarin.Forms.Platform.WinForms.csproj", "{563D7C2E-14E2-47EC-95E4-4EA0BBA75C18}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Forms.ControlGallery.WinForms", "Xamarin.Forms.ControlGallery.WinForms\Xamarin.Forms.ControlGallery.WinForms.csproj", "{63390A59-21A4-42AC-B3E0-18B65DDDD87A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsTestApp", "WinFormsTestApp\WinFormsTestApp.csproj", "{63390A59-21A4-42AC-B3E0-18B65DDDD87A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkiaSharp.Views.Forms.WinForms", "SkiaSharp.Views.Forms.WinForms\SkiaSharp.Views.Forms.WinForms.csproj", "{DC2D61AA-3749-485B-A6BB-343E738211A8}"
 EndProject
