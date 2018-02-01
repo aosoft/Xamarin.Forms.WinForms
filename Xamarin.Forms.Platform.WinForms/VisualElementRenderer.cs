@@ -28,6 +28,8 @@ namespace Xamarin.Forms.Platform.WinForms
 						item?.Dispose();
 					}
 					_children.Clear();
+
+					SetNativeControl(null);
 				}
 
 				_disposedValue = true;
@@ -104,7 +106,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			*/
 		}
 
-		protected void SetNativeControl(TNativeElement control)
+		protected virtual void SetNativeControl(TNativeElement control)
 		{
 			TNativeElement oldControl = Control;
 			Control = control;

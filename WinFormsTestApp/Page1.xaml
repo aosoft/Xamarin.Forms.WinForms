@@ -42,8 +42,14 @@
             HorizontalTextAlignment="Start"
             VerticalTextAlignment="End"
             Text="LeftBottom"/>-->
-        <OpenGLView
+        <!--<OpenGLView
             x:Name="openglView"
+            Grid.Column="0" Grid.Row="2"
+            />-->
+        <BoxView
+            Color="Blue"
+            Rotation="30"
+            Scale="0.1"
             Grid.Column="0" Grid.Row="2"
             />
         <Label

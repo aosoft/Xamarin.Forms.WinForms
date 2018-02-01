@@ -16,7 +16,7 @@ namespace WinFormsTestApp
 		public Page1()
 		{
 			InitializeComponent();
-			openglView.OnDisplay = OpenGLView_OnDisplay;
+			//openglView.OnDisplay = OpenGLView_OnDisplay;
 		}
 
 		void Button_Clicked(object sender, EventArgs e)
