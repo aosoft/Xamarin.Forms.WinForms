@@ -10,8 +10,6 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		protected override void OnElementChanged(ElementChangedEventArgs<Slider> e)
 		{
-			base.OnElementChanged(e);
-
 			if (e.NewElement != null)
 			{
 				if (Control == null)
@@ -26,6 +24,8 @@ namespace Xamarin.Forms.Platform.WinForms
 				UpdateMinimum();
 				UpdateMaximum();
 			}
+
+			base.OnElementChanged(e);
 		}
 
 		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)

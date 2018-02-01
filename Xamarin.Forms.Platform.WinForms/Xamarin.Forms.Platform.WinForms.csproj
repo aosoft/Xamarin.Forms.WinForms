@@ -66,6 +66,7 @@
     <Compile Include="Renderers\ActivityIndicatorRenderer.cs" />
     <Compile Include="Renderers\BoxViewRenderer.cs" />
     <Compile Include="Renderers\ButtonRenderer.cs" />
+    <Compile Include="Renderers\DatePickerRenderer.cs" />
     <Compile Include="Renderers\DefaultRenderer.cs" />
     <Compile Include="ExportRendererAttribute.cs" />
     <Compile Include="Forms.cs" />

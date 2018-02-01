@@ -11,8 +11,6 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		protected override void OnElementChanged(ElementChangedEventArgs<Picker> e)
 		{
-			base.OnElementChanged(e);
-
 			if (e.OldElement != null)
 			{
 				e.OldElement.Items.RemoveCollectionChangedEvent(OnCollectionChanged);
@@ -32,6 +30,8 @@ namespace Xamarin.Forms.Platform.WinForms
 				UpdateSelectedIndex();
 				UpdateTextColor();
 			}
+
+			base.OnElementChanged(e);
 		}
 
 		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)

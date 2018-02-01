@@ -8,8 +8,6 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		protected override void OnElementChanged(ElementChangedEventArgs<Layout> e)
 		{
-			base.OnElementChanged(e);
-
 			if (e.NewElement != null)
 			{
 				if (Control == null)
@@ -17,6 +15,8 @@ namespace Xamarin.Forms.Platform.WinForms
 					SetNativeControl(new System.Windows.Forms.Panel());
 				}
 			}
+
+			base.OnElementChanged(e);
 		}
 
 		#endregion

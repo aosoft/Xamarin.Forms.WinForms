@@ -10,12 +10,8 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		protected override void OnElementChanged(ElementChangedEventArgs<Entry> e)
 		{
-			base.OnElementChanged(e);
-
 			if (e.NewElement != null)
 			{
-				base.OnElementChanged(e);
-
 				if (e.NewElement != null)
 				{
 					if (Control == null)
@@ -31,6 +27,8 @@ namespace Xamarin.Forms.Platform.WinForms
 					UpdateFont();
 				}
 			}
+
+			base.OnElementChanged(e);
 		}
 
 		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)

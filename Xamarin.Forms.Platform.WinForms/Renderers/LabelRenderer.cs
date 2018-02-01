@@ -14,8 +14,6 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		protected override void OnElementChanged(ElementChangedEventArgs<Label> e)
 		{
-			base.OnElementChanged(e);
-
 			if (e.NewElement != null)
 			{
 				if (Control == null)
@@ -28,6 +26,8 @@ namespace Xamarin.Forms.Platform.WinForms
 				UpdateAlign(Control);
 				UpdateFont(Control);
 			}
+
+			base.OnElementChanged(e);
 		}
 
 		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)

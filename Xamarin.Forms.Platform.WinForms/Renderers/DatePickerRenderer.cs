@@ -6,21 +6,19 @@ using System.Threading.Tasks;
 
 namespace Xamarin.Forms.Platform.WinForms
 {
-	public class PageRenderer : VisualElementRenderer<Page, System.Windows.Forms.Panel>
+	public class DatePickerRenderer : ViewRenderer<Button, System.Windows.Forms.DateTimePicker>
 	{
-		public PageRenderer()
-		{
-		}
-
-		protected override void OnElementChanged(ElementChangedEventArgs<Page> e)
+		protected override void OnElementChanged(ElementChangedEventArgs<Button> e)
 		{
 			if (e.NewElement != null)
 			{
 				if (Control == null)
 				{
-					SetNativeControl(new System.Windows.Forms.Panel());
+					SetNativeControl(new System.Windows.Forms.DateTimePicker());
 				}
+
 			}
+
 			base.OnElementChanged(e);
 		}
 	}

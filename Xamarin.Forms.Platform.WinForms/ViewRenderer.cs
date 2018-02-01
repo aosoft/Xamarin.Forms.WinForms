@@ -9,12 +9,12 @@ namespace Xamarin.Forms.Platform.WinForms
 	{
 		protected override void OnElementChanged(ElementChangedEventArgs<TElement> e)
 		{
-			base.OnElementChanged(e);
-
 			if (e.NewElement != null)
 			{
 				UpdateBackgroundColor();
 			}
+
+			base.OnElementChanged(e);
 		}
 
 	}
