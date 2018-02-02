@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using WForms = System.Windows.Forms;
 
 namespace Xamarin.Forms.Platform.WinForms
 {
-	public class LabelRenderer : ViewRenderer<Label, System.Windows.Forms.Label>
+	public class LabelRenderer : ViewRenderer<Label, WForms.Label>
 	{
 		/*-----------------------------------------------------------------*/
 		#region Event Handler
@@ -18,7 +15,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			{
 				if (Control == null)
 				{
-					SetNativeControl(new System.Windows.Forms.Label());
+					SetNativeControl(new WForms.Label());
 				}
 
 				UpdateText(Control);
@@ -60,7 +57,7 @@ namespace Xamarin.Forms.Platform.WinForms
 		/*-----------------------------------------------------------------*/
 		#region Internals
 
-		void UpdateText(System.Windows.Forms.Label nativeElement)
+		void UpdateText(WForms.Label nativeElement)
 		{
 			if (nativeElement == null)
 				return;
@@ -72,7 +69,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			}
 		}
 
-		void UpdateTextColor(System.Windows.Forms.Label nativeElement)
+		void UpdateTextColor(WForms.Label nativeElement)
 		{
 			if (nativeElement == null)
 				return;
@@ -88,7 +85,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			}
 		}
 
-		void UpdateAlign(System.Windows.Forms.Label nativeElement)
+		void UpdateAlign(WForms.Label nativeElement)
 		{
 			if (nativeElement == null)
 				return;
@@ -101,7 +98,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			}
 		}
 
-		void UpdateFont(System.Windows.Forms.Label nativeElement)
+		void UpdateFont(WForms.Label nativeElement)
 		{
 			if (nativeElement == null)
 				return;

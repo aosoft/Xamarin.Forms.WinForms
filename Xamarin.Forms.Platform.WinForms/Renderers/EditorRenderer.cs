@@ -1,9 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
+using WForms = System.Windows.Forms;
 
 namespace Xamarin.Forms.Platform.WinForms
 {
-	public class EditorRenderer : ViewRenderer<Editor, System.Windows.Forms.TextBox>
+	public class EditorRenderer : ViewRenderer<Editor, WForms.TextBox>
 	{
 		/*-----------------------------------------------------------------*/
 		#region Event Handler
@@ -16,12 +17,12 @@ namespace Xamarin.Forms.Platform.WinForms
 				{
 					if (Control == null)
 					{
-						SetNativeControl(new System.Windows.Forms.TextBox());
+						SetNativeControl(new WForms.TextBox());
 						Control.TextChanged += OnTextChanged;
 					}
 
 					Control.Multiline = true;
-					Control.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+					Control.ScrollBars = WForms.ScrollBars.Vertical;
 
 					UpdateText();
 					UpdateTextColor();

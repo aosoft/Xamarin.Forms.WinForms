@@ -1,9 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
+using WForms = System.Windows.Forms;
 
 namespace Xamarin.Forms.Platform.WinForms
 {
-	public class SwitchRenderer : ViewRenderer<Switch, System.Windows.Forms.CheckBox>
+	public class SwitchRenderer : ViewRenderer<Switch, WForms.CheckBox>
 	{
 		/*-----------------------------------------------------------------*/
 		#region Event Handler
@@ -14,7 +15,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			{
 				if (Control == null)
 				{
-					SetNativeControl(new System.Windows.Forms.CheckBox());
+					SetNativeControl(new WForms.CheckBox());
 					Control.CheckedChanged += OnCheckedChanged;
 				}
 

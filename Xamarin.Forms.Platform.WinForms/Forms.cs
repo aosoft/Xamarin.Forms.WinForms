@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using Xamarin.Forms.Internals;
+using WForms = System.Windows.Forms;
 
 namespace Xamarin.Forms.Platform.WinForms
 {
@@ -15,7 +16,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			private set;
 		}
 
-		public static void Init(System.Windows.Forms.Form mainForm)
+		public static void Init(WForms.Form mainForm)
 		{
 			if (IsInitialized)
 			{

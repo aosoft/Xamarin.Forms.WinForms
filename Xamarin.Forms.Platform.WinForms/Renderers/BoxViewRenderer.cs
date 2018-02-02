@@ -2,10 +2,11 @@
 using System.ComponentModel;
 using System.Windows.Forms;
 using System.Drawing;
+using WForms = System.Windows.Forms;
 
 namespace Xamarin.Forms.Platform.WinForms
 {
-	public class BoxViewRenderer : DrawingViewRenderer<BoxView, System.Windows.Forms.Control>
+	public class BoxViewRenderer : DrawingViewRenderer<BoxView, WForms.Control>
 	{
 		Brush _brush = null;
 
@@ -25,7 +26,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			{
 				if (Control == null)
 				{
-					SetNativeControl(new System.Windows.Forms.Control());
+					SetNativeControl(new WForms.Control());
 				}
 
 				UpdateColor(Control);
@@ -38,7 +39,7 @@ namespace Xamarin.Forms.Platform.WinForms
 		{
 			base.OnPaint(sender, e);
 
-			var control = sender as System.Windows.Forms.Control;
+			var control = sender as WForms.Control;
 
 			if (control != null && _brush != null)
 			{
@@ -56,7 +57,7 @@ namespace Xamarin.Forms.Platform.WinForms
 				UpdateColor(Control);
 		}
 
-		void UpdateColor(System.Windows.Forms.Control nativeElement)
+		void UpdateColor(WForms.Control nativeElement)
 		{
 			if (nativeElement == null)
 				return;

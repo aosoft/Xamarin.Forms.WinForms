@@ -2,13 +2,14 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using WForms = System.Windows.Forms;
 
 namespace Xamarin.Forms.Platform.WinForms
 {
 	public class DrawingViewRenderer<TElement, TNativeElement> :
 		ViewRenderer<TElement, TNativeElement>
 		where TElement : View
-		where TNativeElement : System.Windows.Forms.Control
+		where TNativeElement : WForms.Control
 	{
 		Matrix _matrix = new Matrix();
 
@@ -55,7 +56,7 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		}
 
-		protected virtual void OnPaint(object sender, System.Windows.Forms.PaintEventArgs e)
+		protected virtual void OnPaint(object sender, WForms.PaintEventArgs e)
 		{
 			var control = sender as TNativeElement;
 			var element = Element;

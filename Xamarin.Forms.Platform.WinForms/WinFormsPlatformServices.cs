@@ -9,17 +9,18 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Forms.Internals;
+using WForms = System.Windows.Forms;
 
 namespace Xamarin.Forms.Platform.WinForms
 {
 	internal class WinFormsPlatformServices : IPlatformServices
 	{
-		System.Windows.Forms.Form _mainForm;
+		WForms.Form _mainForm;
 		int _currentThreadId;
 		Dictionary<NamedSize, double> _fontSizes = new Dictionary<NamedSize, double>();
 		static readonly MD5CryptoServiceProvider _md5 = new MD5CryptoServiceProvider();
 
-		internal WinFormsPlatformServices(System.Windows.Forms.Form mainForm, int currentThreadId)
+		internal WinFormsPlatformServices(WForms.Form mainForm, int currentThreadId)
 		{
 			if (mainForm == null)
 			{
@@ -118,7 +119,7 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		public void StartTimer(TimeSpan interval, Func<bool> callback)
 		{
-			var timer = new System.Windows.Forms.Timer();
+			var timer = new WForms.Timer();
 			timer.Interval = (int)interval.TotalMilliseconds;
 			timer.Tick += (s, e) =>
 			{
@@ -132,7 +133,7 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		public void QuitApplication()
 		{
-			System.Windows.Forms.Application.Exit();
+			WForms.Application.Exit();
 		}
 	}
 }

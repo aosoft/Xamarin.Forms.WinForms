@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms.Internals;
+using WForms = System.Windows.Forms;
 
 namespace Xamarin.Forms.Platform.WinForms
 {
@@ -16,7 +17,7 @@ namespace Xamarin.Forms.Platform.WinForms
 		internal WinFormsDeviceInfo()
 		{
 			//	DPI は考慮しない
-			var bounds = System.Windows.Forms.Screen.PrimaryScreen.Bounds;
+			var bounds = WForms.Screen.PrimaryScreen.Bounds;
 			_pixelScreenSize = new Size(bounds.Width, bounds.Height);
 			_scaledScreenSize = _pixelScreenSize;
 		}

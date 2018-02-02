@@ -4,10 +4,11 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WForms = System.Windows.Forms;
 
 namespace Xamarin.Forms.Platform.WinForms
 {
-	public class PlatformRenderer : System.Windows.Forms.Form
+	public class PlatformRenderer : WForms.Form
 	{
 		public PlatformRenderer()
 		{

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
+using WForms = System.Windows.Forms;
 
 namespace Xamarin.Forms.Platform.WinForms
 {
-	public class SliderRenderer : ViewRenderer<Slider, System.Windows.Forms.TrackBar>
+	public class SliderRenderer : ViewRenderer<Slider, WForms.TrackBar>
 	{
 		/*-----------------------------------------------------------------*/
 		#region Event Handler
@@ -14,7 +15,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			{
 				if (Control == null)
 				{
-					SetNativeControl(new System.Windows.Forms.TrackBar());
+					SetNativeControl(new WForms.TrackBar());
 					Control.ValueChanged += OnValueChanged;
 				}
 

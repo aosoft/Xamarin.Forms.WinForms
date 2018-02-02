@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using WForms = System.Windows.Forms;
 
 namespace Xamarin.Forms.Platform.WinForms
 {
-	public class DatePickerRenderer : ViewRenderer<DatePicker, System.Windows.Forms.DateTimePicker>
+	public class DatePickerRenderer : ViewRenderer<DatePicker, WForms.DateTimePicker>
 	{
 		protected override void OnElementChanged(ElementChangedEventArgs<DatePicker> e)
 		{
@@ -14,7 +11,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			{
 				if (Control == null)
 				{
-					SetNativeControl(new System.Windows.Forms.DateTimePicker());
+					SetNativeControl(new WForms.DateTimePicker());
 					Control.ValueChanged += DateTimePicker_OnValueChanged;
 				}
 
@@ -28,7 +25,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			base.OnElementChanged(e);
 		}
 
-		void UpdateDate(System.Windows.Forms.DateTimePicker nativeElement)
+		void UpdateDate(WForms.DateTimePicker nativeElement)
 		{
 			var element = Element;
 			if (nativeElement != null && element != null)
@@ -37,7 +34,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			}
 		}
 
-		void UpdateMaximumDate(System.Windows.Forms.DateTimePicker nativeElement)
+		void UpdateMaximumDate(WForms.DateTimePicker nativeElement)
 		{
 			var element = Element;
 			if (nativeElement != null && element != null)
@@ -46,7 +43,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			}
 		}
 
-		void UpdateMinimumDate(System.Windows.Forms.DateTimePicker nativeElement)
+		void UpdateMinimumDate(WForms.DateTimePicker nativeElement)
 		{
 			var element = Element;
 			if (nativeElement != null && element != null)
@@ -55,7 +52,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			}
 		}
 
-		void UpdateTextColor(System.Windows.Forms.DateTimePicker nativeElement)
+		void UpdateTextColor(WForms.DateTimePicker nativeElement)
 		{
 			var element = Element;
 			if (nativeElement != null && element != null)

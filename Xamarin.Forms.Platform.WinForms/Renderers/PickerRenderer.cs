@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using WForms = System.Windows.Forms;
 
 namespace Xamarin.Forms.Platform.WinForms
 {
-	public class PickerRenderer : ViewRenderer<Picker, System.Windows.Forms.ComboBox>
+	public class PickerRenderer : ViewRenderer<Picker, WForms.ComboBox>
 	{
 		/*-----------------------------------------------------------------*/
 		#region Event Handler
@@ -19,12 +20,12 @@ namespace Xamarin.Forms.Platform.WinForms
 			{
 				if (Control == null)
 				{
-					SetNativeControl(new System.Windows.Forms.ComboBox());
+					SetNativeControl(new WForms.ComboBox());
 					Control.SelectedIndexChanged += OnSelectedIndexChanged;
 				}
 
 				e.NewElement.Items.AddCollectionChangedEvent(OnCollectionChanged);
-				Control.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+				Control.DropDownStyle = WForms.ComboBoxStyle.DropDownList;
 
 				UpdateItems();
 				UpdateSelectedIndex();

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
+using WForms = System.Windows.Forms;
 
 namespace Xamarin.Forms.Platform.WinForms
 {
-	public class ButtonRenderer : ViewRenderer<Button, System.Windows.Forms.Button>
+	public class ButtonRenderer : ViewRenderer<Button, WForms.Button>
 	{
 		/*-----------------------------------------------------------------*/
 		#region Event Handler
@@ -14,7 +15,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			{
 				if (Control == null)
 				{
-					SetNativeControl(new System.Windows.Forms.Button());
+					SetNativeControl(new WForms.Button());
 					Control.Click += OnClick;
 				}
 
@@ -57,7 +58,7 @@ namespace Xamarin.Forms.Platform.WinForms
 		/*-----------------------------------------------------------------*/
 		#region Internals
 
-		void UpdateText(System.Windows.Forms.Button nativeElement)
+		void UpdateText(WForms.Button nativeElement)
 		{
 			if (nativeElement == null)
 				return;
@@ -69,7 +70,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			}
 		}
 
-		void UpdateTextColor(System.Windows.Forms.Button nativeElement)
+		void UpdateTextColor(WForms.Button nativeElement)
 		{
 			if (nativeElement == null)
 				return;
@@ -85,7 +86,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			}
 		}
 
-		void UpdateFont(System.Windows.Forms.Button nativeElement)
+		void UpdateFont(WForms.Button nativeElement)
 		{
 			if (nativeElement == null)
 				return;

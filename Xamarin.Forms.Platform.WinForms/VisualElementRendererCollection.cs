@@ -5,20 +5,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using WinFormsControl = System.Windows.Forms.Control;
+using WForms = System.Windows.Forms;
 
 namespace Xamarin.Forms.Platform.WinForms
 {
 	public class VisualElementRendererCollection : IEnumerable<IVisualElementRenderer>
 	{
-		WinFormsControl _parentNativeElement = null;
+		WForms.Control _parentNativeElement = null;
 		List<IVisualElementRenderer> _collection = new List<IVisualElementRenderer>();
 
 		public VisualElementRendererCollection()
 		{
 		}
 
-		public WinFormsControl ParentNativeElement
+		public WForms.Control ParentNativeElement
 		{
 			get => _parentNativeElement;
 
@@ -74,7 +74,7 @@ namespace Xamarin.Forms.Platform.WinForms
 		IEnumerator IEnumerable.GetEnumerator()
 			=> ((IEnumerable<IVisualElementRenderer>)_collection).GetEnumerator();
 
-		void SetNativeElementParent(IVisualElementRenderer renderer, WinFormsControl parent)
+		void SetNativeElementParent(IVisualElementRenderer renderer, WForms.Control parent)
 		{
 			var nativeElement = renderer?.NativeElement;
 			if (nativeElement != null)
@@ -83,7 +83,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			}
 		}
 
-		void UpdateParent(WinFormsControl parent)
+		void UpdateParent(WForms.Control parent)
 		{
 			foreach (var item in _collection)
 			{

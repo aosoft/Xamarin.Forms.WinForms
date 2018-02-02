@@ -1,9 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
+using WForms = System.Windows.Forms;
 
 namespace Xamarin.Forms.Platform.WinForms
 {
-	public class EntryRenderer : ViewRenderer<Entry, System.Windows.Forms.TextBox>
+	public class EntryRenderer : ViewRenderer<Entry, WForms.TextBox>
 	{
 		/*-----------------------------------------------------------------*/
 		#region Event Handler
@@ -16,7 +17,7 @@ namespace Xamarin.Forms.Platform.WinForms
 				{
 					if (Control == null)
 					{
-						SetNativeControl(new System.Windows.Forms.TextBox());
+						SetNativeControl(new WForms.TextBox());
 						Control.TextChanged += OnTextChanged;
 					}
 
