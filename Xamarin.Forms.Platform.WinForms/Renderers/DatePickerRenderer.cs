@@ -12,7 +12,6 @@ namespace Xamarin.Forms.Platform.WinForms
 				if (Control == null)
 				{
 					SetNativeControl(new WForms.DateTimePicker());
-					Control.ValueChanged += DateTimePicker_OnValueChanged;
 				}
 
 				// Update control property 
@@ -23,6 +22,20 @@ namespace Xamarin.Forms.Platform.WinForms
 			}
 
 			base.OnElementChanged(e);
+		}
+
+		protected override void OnNativeElementChanged(NativeElementChangedEventArgs<WForms.DateTimePicker> e)
+		{
+			base.OnNativeElementChanged(e);
+			if (e.OldControl != null)
+			{
+				e.OldControl.ValueChanged -= DateTimePicker_OnValueChanged;
+			}
+
+			if (e.NewControl != null)
+			{
+				e.NewControl.ValueChanged += DateTimePicker_OnValueChanged;
+			}
 		}
 
 		void UpdateDate(WForms.DateTimePicker nativeElement)

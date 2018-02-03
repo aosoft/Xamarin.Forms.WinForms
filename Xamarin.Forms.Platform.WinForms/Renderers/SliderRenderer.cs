@@ -16,7 +16,7 @@ namespace Xamarin.Forms.Platform.WinForms
 				if (Control == null)
 				{
 					SetNativeControl(new WForms.TrackBar());
-					Control.ValueChanged += OnValueChanged;
+
 				}
 
 				Control.TickFrequency = 0;
@@ -27,6 +27,20 @@ namespace Xamarin.Forms.Platform.WinForms
 			}
 
 			base.OnElementChanged(e);
+		}
+
+		protected override void OnNativeElementChanged(NativeElementChangedEventArgs<WForms.TrackBar> e)
+		{
+			base.OnNativeElementChanged(e);
+			if (e.OldControl != null)
+			{
+				e.OldControl.ValueChanged -= OnValueChanged;
+			}
+
+			if (e.NewControl != null)
+			{
+				e.NewControl.ValueChanged += OnValueChanged;
+			}
 		}
 
 		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)

@@ -21,7 +21,6 @@ namespace Xamarin.Forms.Platform.WinForms
 				if (Control == null)
 				{
 					SetNativeControl(new WForms.ComboBox());
-					Control.SelectedIndexChanged += OnSelectedIndexChanged;
 				}
 
 				e.NewElement.Items.AddCollectionChangedEvent(OnCollectionChanged);
@@ -33,6 +32,20 @@ namespace Xamarin.Forms.Platform.WinForms
 			}
 
 			base.OnElementChanged(e);
+		}
+
+		protected override void OnNativeElementChanged(NativeElementChangedEventArgs<WForms.ComboBox> e)
+		{
+			base.OnNativeElementChanged(e);
+			if (e.OldControl != null)
+			{
+				e.OldControl.SelectedIndexChanged -= OnSelectedIndexChanged;
+			}
+
+			if (e.NewControl != null)
+			{
+				e.NewControl.SelectedIndexChanged += OnSelectedIndexChanged;
+			}
 		}
 
 		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)

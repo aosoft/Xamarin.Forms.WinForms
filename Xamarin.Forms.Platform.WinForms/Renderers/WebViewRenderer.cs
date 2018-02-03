@@ -74,12 +74,6 @@ namespace Xamarin.Forms.Platform.WinForms
 				{
 					SetNativeControl(new WebBrowser());
 
-					if (Control != null)
-					{
-						Control.Navigating += OnLoadStarted;
-						Control.Navigated += OnLoadFinished;
-					}
-
 					WebViewController.EvalRequested += OnEvalRequested;
 					WebViewController.GoBackRequested += OnGoBackRequested;
 					WebViewController.GoForwardRequested += OnGoForwardRequested;
@@ -87,6 +81,22 @@ namespace Xamarin.Forms.Platform.WinForms
 			}
 
 			Load();
+		}
+
+		protected override void OnNativeElementChanged(NativeElementChangedEventArgs<WebBrowser> e)
+		{
+			base.OnNativeElementChanged(e);
+			if (e.OldControl != null)
+			{
+				e.OldControl.Navigating -= OnLoadStarted;
+				e.OldControl.Navigated -= OnLoadFinished;
+			}
+
+			if (e.NewControl != null)
+			{
+				e.NewControl.Navigating += OnLoadStarted;
+				e.NewControl.Navigated += OnLoadFinished;
+			}
 		}
 
 		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)

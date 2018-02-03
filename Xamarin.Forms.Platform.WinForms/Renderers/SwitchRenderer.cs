@@ -16,13 +16,26 @@ namespace Xamarin.Forms.Platform.WinForms
 				if (Control == null)
 				{
 					SetNativeControl(new WForms.CheckBox());
-					Control.CheckedChanged += OnCheckedChanged;
 				}
 
 				UpdateToggle();
 			}
 
 			base.OnElementChanged(e);
+		}
+
+		protected override void OnNativeElementChanged(NativeElementChangedEventArgs<WForms.CheckBox> e)
+		{
+			base.OnNativeElementChanged(e);
+			if (e.OldControl != null)
+			{
+				e.OldControl.CheckedChanged -= OnCheckedChanged;
+			}
+
+			if (e.NewControl != null)
+			{
+				e.NewControl.CheckedChanged += OnCheckedChanged;
+			}
 		}
 
 		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)

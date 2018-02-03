@@ -88,6 +88,10 @@ namespace Xamarin.Forms.Platform.WinForms
 			ElementChanged?.Invoke(this, args);
 		}
 
+		protected virtual void OnNativeElementChanged(NativeElementChangedEventArgs<TNativeElement> e)
+		{
+		}
+
 		protected virtual void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName == VisualElement.IsEnabledProperty.PropertyName)
@@ -106,7 +110,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			*/
 		}
 
-		protected virtual void SetNativeControl(TNativeElement control)
+		protected void SetNativeControl(TNativeElement control)
 		{
 			TNativeElement oldControl = Control;
 			Control = control;
@@ -121,33 +125,34 @@ namespace Xamarin.Forms.Platform.WinForms
 
 			UpdateTracker();
 
-			if (control == null)
-				return;
+			if (control != null)
+			{
+				//Control.HorizontalAlignment = HorizontalAlignment.Stretch;
+				//Control.VerticalAlignment = VerticalAlignment.Stretch;
+				Control.Anchor = AnchorStyles.Left | AnchorStyles.Top;
+				Control.SetBounds(0, 0, 0, 0, BoundsSpecified.All);
 
-			//Control.HorizontalAlignment = HorizontalAlignment.Stretch;
-			//Control.VerticalAlignment = VerticalAlignment.Stretch;
-			Control.Anchor = AnchorStyles.Left | AnchorStyles.Top;
-			Control.SetBounds(0, 0, 0, 0, BoundsSpecified.All);
+				if (Element == null)
+					throw new InvalidOperationException(
+						"Cannot assign a native control without an Element; Renderer unbound and/or disposed. " +
+						"Please consult Xamarin.Forms renderers for reference implementation of OnElementChanged.");
 
-			if (Element == null)
-				throw new InvalidOperationException(
-					"Cannot assign a native control without an Element; Renderer unbound and/or disposed. " +
-					"Please consult Xamarin.Forms renderers for reference implementation of OnElementChanged.");
+				Element.IsNativeStateConsistent = false;
+				//control.Loaded += OnControlLoaded;
 
-			Element.IsNativeStateConsistent = false;
-			//control.Loaded += OnControlLoaded;
+				//	OnCotrolLoaded が呼ばれないので同等の処理を呼んでおく
+				//	これを設定しないと子要素のレイアウト処理が呼ばれない
+				Element.IsNativeStateConsistent = true;
 
-			//	OnCotrolLoaded が呼ばれないので同等の処理を呼んでおく
-			//	これを設定しないと子要素のレイアウト処理が呼ばれない
-			Element.IsNativeStateConsistent = true;
+				control.GotFocus += OnControlGotFocus;
+				control.LostFocus += OnControlLostFocus;
 
-			control.GotFocus += OnControlGotFocus;
-			control.LostFocus += OnControlLostFocus;
+				UpdateBackgroundColor();
 
-			UpdateBackgroundColor();
-
-			//if (Element != null && !string.IsNullOrEmpty(Element.AutomationId))
-			//	SetAutomationId(Element.AutomationId);
+				//if (Element != null && !string.IsNullOrEmpty(Element.AutomationId))
+				//	SetAutomationId(Element.AutomationId);
+			}
+			OnNativeElementChanged(new NativeElementChangedEventArgs<TNativeElement>(oldControl, control));
 		}
 
 		protected virtual void UpdateBackgroundColor()

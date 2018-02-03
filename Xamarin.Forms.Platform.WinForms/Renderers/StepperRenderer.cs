@@ -19,11 +19,23 @@ namespace Xamarin.Forms.Platform.WinForms
 				UpdateMaximum();
 				UpdateValue();
 				UpdateIncrement();
-
-				Control.ValueChanged += OnValueChanged;
 			}
 
 			base.OnElementChanged(e);
+		}
+
+		protected override void OnNativeElementChanged(NativeElementChangedEventArgs<WForms.NumericUpDown> e)
+		{
+			base.OnNativeElementChanged(e);
+			if (e.OldControl != null)
+			{
+				e.OldControl.ValueChanged -= OnValueChanged;
+			}
+
+			if (e.NewControl != null)
+			{
+				e.NewControl.ValueChanged += OnValueChanged;
+			}
 		}
 
 		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)

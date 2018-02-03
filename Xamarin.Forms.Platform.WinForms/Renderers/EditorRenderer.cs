@@ -18,7 +18,6 @@ namespace Xamarin.Forms.Platform.WinForms
 					if (Control == null)
 					{
 						SetNativeControl(new WForms.TextBox());
-						Control.TextChanged += OnTextChanged;
 					}
 
 					Control.Multiline = true;
@@ -31,6 +30,20 @@ namespace Xamarin.Forms.Platform.WinForms
 			}
 
 			base.OnElementChanged(e);
+		}
+
+		protected override void OnNativeElementChanged(NativeElementChangedEventArgs<WForms.TextBox> e)
+		{
+			base.OnNativeElementChanged(e);
+			if (e.OldControl != null)
+			{
+				e.OldControl.TextChanged -= OnTextChanged;
+			}
+
+			if (e.NewControl != null)
+			{
+				e.NewControl.TextChanged += OnTextChanged;
+			}
 		}
 
 		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)

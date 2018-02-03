@@ -21,4 +21,18 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		public TElement OldElement { get; private set; }
 	}
+
+	public class NativeElementChangedEventArgs<TNativeElement> : EventArgs
+		where TNativeElement : System.Windows.Forms.Control
+	{
+		public NativeElementChangedEventArgs(TNativeElement oldControl, TNativeElement newControl)
+		{
+			OldControl = oldControl;
+			NewControl = newControl;
+		}
+
+		public TNativeElement NewControl { get; private set; }
+
+		public TNativeElement OldControl { get; private set; }
+	}
 }

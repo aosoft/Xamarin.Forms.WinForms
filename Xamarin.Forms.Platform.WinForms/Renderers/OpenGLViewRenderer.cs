@@ -56,8 +56,6 @@ namespace Xamarin.Forms.Platform.WinForms
 				glControl.MakeCurrent();
 				glControl.Dock = DockStyle.None;
 
-				glControl.Paint += OnPaint;
-
 				SetNativeControl(glControl);
 
 				_timer = new Timer();
@@ -72,6 +70,20 @@ namespace Xamarin.Forms.Platform.WinForms
 			}
 
 			base.OnElementChanged(e);
+		}
+
+		protected override void OnNativeElementChanged(NativeElementChangedEventArgs<GLControl> e)
+		{
+			base.OnNativeElementChanged(e);
+			if (e.OldControl != null)
+			{
+				e.OldControl.Paint -= OnPaint;
+			}
+
+			if (e.NewControl != null)
+			{
+				e.NewControl.Paint += OnPaint;
+			}
 		}
 
 		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)

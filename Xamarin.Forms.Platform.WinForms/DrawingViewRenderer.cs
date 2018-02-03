@@ -20,21 +20,17 @@ namespace Xamarin.Forms.Platform.WinForms
 			base.OnElementChanged(e);
 		}
 
-
-		protected override void SetNativeControl(TNativeElement control)
+		protected override void OnNativeElementChanged(NativeElementChangedEventArgs<TNativeElement> e)
 		{
-			var oldControl = Control;
-			base.SetNativeControl(control);
-			var newControl = Control;
-
-			if (oldControl != null)
+			base.OnNativeElementChanged(e);
+			if (e.OldControl != null)
 			{
-				oldControl.Paint -= OnPaint;
+				e.OldControl.Paint -= OnPaint;
 			}
 
-			if (newControl != null)
+			if (e.NewControl != null)
 			{
-				newControl.Paint += OnPaint;
+				e.NewControl.Paint += OnPaint;
 			}
 		}
 
