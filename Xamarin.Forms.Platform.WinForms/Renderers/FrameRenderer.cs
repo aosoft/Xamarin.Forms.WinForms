@@ -8,7 +8,7 @@ namespace Xamarin.Forms.Platform.WinForms
 {
 	public class FrameRenderer : DrawingViewRenderer<Frame, WForms.Control>
 	{
-		Brush _brush = null;
+		Pen _pen = null;
 		VisualElement _currentView;
 
 		protected override void Dispose(bool disposing)
@@ -16,8 +16,8 @@ namespace Xamarin.Forms.Platform.WinForms
 			base.Dispose(disposing);
 			if (disposing)
 			{
-				_brush?.Dispose();
-				_brush = null;
+				_pen?.Dispose();
+				_pen = null;
 			}
 		}
 
@@ -42,11 +42,11 @@ namespace Xamarin.Forms.Platform.WinForms
 
 			var control = sender as WForms.Control;
 
-			if (control != null && _brush != null)
+			if (control != null && _pen != null)
 			{
-				e.Graphics.FillRectangle(
-					_brush,
-					new RectangleF(0.0f, 0.0f, control.Width, control.Height));
+				e.Graphics.DrawRectangle(
+					_pen,
+					new System.Drawing.Rectangle(0, 0, control.Width - 1, control.Height - 1));
 			}
 		}
 
@@ -62,6 +62,10 @@ namespace Xamarin.Forms.Platform.WinForms
 				e.PropertyName == Frame.HasShadowProperty.PropertyName)
 			{
 				UpdateOutlineColor(Control);
+			}
+			else if (e.PropertyName == Frame.CornerRadiusProperty.PropertyName)
+			{
+				UpdateCornerRadius(Control);
 			}
 		}
 
@@ -91,13 +95,23 @@ namespace Xamarin.Forms.Platform.WinForms
 			if (nativeElement == null)
 				return;
 
-			_brush?.Dispose();
-			_brush = null;
+			_pen?.Dispose();
+			_pen = null;
 			var element = Element;
 			if (element != null)
 			{
-				_brush = new SolidBrush(element.OutlineColor.ToWindowsColor());
+				_pen = new Pen(element.OutlineColor.ToWindowsColor());
 			}
+
+			nativeElement.Invalidate();
+		}
+
+		void UpdateCornerRadius(WForms.Control nativeElement)
+		{
+			if (nativeElement == null)
+				return;
+
+			nativeElement.Invalidate();
 		}
 	}
 }

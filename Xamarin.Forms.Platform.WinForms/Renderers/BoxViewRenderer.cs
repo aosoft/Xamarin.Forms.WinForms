@@ -69,6 +69,8 @@ namespace Xamarin.Forms.Platform.WinForms
 			{
 				_brush = new SolidBrush(element.Color.ToWindowsColor());
 			}
+
+			nativeElement.Invalidate();
 		}
 
 	}
