@@ -147,7 +147,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			_pen?.Dispose();
 			_pen = null;
 			var element = Element;
-			if (element != null)
+			if (element != null && element.OutlineColor != Color.Default)
 			{
 				_pen = new Pen(element.OutlineColor.ToWindowsColor());
 			}
