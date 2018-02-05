@@ -3,7 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WinFormsTestApp.Page2">
     <ContentPage.Content>
-        <Frame OutlineColor="Red" BackgroundColor="Yellow">
+        <Frame
+            OutlineColor="Red"
+            BackgroundColor="Yellow"
+            CornerRadius="8">
             <Label Text="Label" HorizontalTextAlignment="End"/>
         </Frame>
     </ContentPage.Content>

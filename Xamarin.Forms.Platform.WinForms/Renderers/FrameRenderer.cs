@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using WForms = System.Windows.Forms;
 
 namespace Xamarin.Forms.Platform.WinForms
@@ -40,13 +41,61 @@ namespace Xamarin.Forms.Platform.WinForms
 		{
 			base.OnPaint(sender, e);
 
-			var control = sender as WForms.Control;
+			var element = Element;
 
-			if (control != null && _pen != null)
+			if (element != null && _pen != null)
 			{
-				e.Graphics.DrawRectangle(
-					_pen,
-					new System.Drawing.Rectangle(0, 0, control.Width - 1, control.Height - 1));
+				var padding = element.Padding;
+				var rect = new System.Drawing.Rectangle(
+						(int)(element.X + padding.Left / 2),
+						(int)(element.Y + padding.Top / 2),
+						(int)(element.Width - padding.Right),
+						(int)(element.Height - padding.Bottom));
+				var radius = element.CornerRadius;
+				var diameter = radius * 2;
+				if (radius > 0.0)
+				{
+					using (var gp = new GraphicsPath())
+					{
+						gp.StartFigure();
+						gp.AddArc(
+							(float)rect.Left,
+							(float)rect.Top,
+							diameter, diameter, 180, 90);
+						gp.AddLine(
+							(float)(rect.Left + radius), (float)rect.Top,
+							(float)(rect.Right - radius), (float)rect.Top);
+						gp.AddArc(
+							(float)rect.Right - diameter,
+							(float)rect.Top,
+							diameter, diameter, 270, 90);
+						gp.AddLine(
+							(float)rect.Right, (float)rect.Top + radius,
+							(float)rect.Right, (float)rect.Bottom - radius);
+						gp.AddArc(
+							(float)rect.Right - diameter,
+							(float)rect.Bottom - diameter,
+							diameter, diameter, 0, 90);
+						gp.AddLine(
+							(float)(rect.Right - radius), (float)rect.Bottom,
+							(float)(rect.Left + radius), (float)rect.Bottom);
+						gp.AddArc(
+							(float)rect.Left,
+							(float)rect.Bottom - diameter,
+							diameter, diameter, 90, 90);
+						gp.AddLine(
+							(float)rect.Left, (float)rect.Bottom - radius,
+							(float)rect.Left, (float)rect.Top + radius);
+
+						gp.CloseFigure();
+
+						e.Graphics.DrawPath(_pen, gp);
+					}
+				}
+				else
+				{
+					e.Graphics.DrawRectangle(_pen, rect);
+				}
 			}
 		}
 
