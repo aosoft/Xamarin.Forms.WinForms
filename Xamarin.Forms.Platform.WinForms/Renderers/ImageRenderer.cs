@@ -1,16 +1,20 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows.Forms;
-using System.Drawing;
-using WForms = System.Windows.Forms;
 using System.Threading.Tasks;
 using Xamarin.Forms.Internals;
 using System.Threading;
+
+using WDrawing = System.Drawing;
+using WForms = System.Windows.Forms;
+using System.IO;
 
 namespace Xamarin.Forms.Platform.WinForms
 {
 	public class ImageRenderer : DrawingViewRenderer<Image, WForms.Control>
 	{
+		WDrawing.Image _source = null;
+
 		protected override async void OnElementChanged(ElementChangedEventArgs<Image> e)
 		{
 			if (e.NewElement != null)
@@ -37,19 +41,53 @@ namespace Xamarin.Forms.Platform.WinForms
 				UpdateAspect();
 		}
 
+		protected override void OnPaint(object sender, PaintEventArgs e)
+		{
+			base.OnPaint(sender, e);
+			if (_source == null)
+			{
+				return;
+			}
+			UpdatePropertyHelper((element, control) =>
+			{
+				if (_source.Width > 0 && _source.Height > 0)
+				{
+					switch (element.Aspect)
+					{
+						case Aspect.AspectFit:
+							{
+								var w = (float)control.Width;
+								var h = (float)(w * _source.Height / _source.Width);
+								if (h > control.Height)
+								{
+									h = (float)control.Height;
+									w = (float)(h * _source.Width / _source.Height);
+								}
+								e.Graphics.DrawImage(
+									_source,
+									(control.Width - w) / 2,
+									(control.Height - h) / 2,
+									w, h);
+							}
+							return;
+
+						case Aspect.AspectFill:
+							{
+							}
+							return;
+
+					}
+				}
+				e.Graphics.DrawImage(
+					_source,
+					0, 0,
+					control.Width, control.Height);
+			});
+		}
+
 		void UpdateAspect()
 		{
-			/*Control.Stretch = Element.Aspect.ToStretch();
-			if (Element.Aspect == Aspect.AspectFill) // Then Center Crop
-			{
-				Control.HorizontalAlignment = HorizontalAlignment.Center;
-				Control.VerticalAlignment = VerticalAlignment.Center;
-			}
-			else // Default
-			{
-				Control.HorizontalAlignment = HorizontalAlignment.Left;
-				Control.VerticalAlignment = VerticalAlignment.Top;
-			}*/
+			Control?.Invalidate();
 		}
 
 		protected virtual async Task TryUpdateSource()
@@ -70,44 +108,38 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		protected async Task UpdateSource()
 		{
-			/*
-			if (Element == null || Control == null)
+			var element = Element;
+			if (element != null)
 			{
-				return;
-			}
-
-			Element.SetIsLoading(true);
-
-			ImageSource source = Element.Source;
-			IImageSourceHandler handler;
-			if (source != null && (handler = Registrar.Registered.GetHandler<IImageSourceHandler>(source.GetType())) != null)
-			{
-				System.Windows.Media.ImageSource imagesource;
-
+				element.SetIsLoading(true);
 				try
 				{
-					imagesource = await handler.LoadImageAsync(source);
+					_source?.Dispose();
+					_source = null;
+
+					var source = Element.Source;
+					IImageSourceHandler handler;
+					if (source != null && (handler = Registrar.Registered.GetHandler<IImageSourceHandler>(source.GetType())) != null)
+					{
+						try
+						{
+							_source = await handler.LoadImageAsync(source);
+						}
+						catch (OperationCanceledException)
+						{
+						}
+
+						RefreshImage();
+					}
 				}
-				catch (OperationCanceledException)
+				finally
 				{
-					imagesource = null;
+					element.SetIsLoading(false);
 				}
 
-				// In the time it takes to await the imagesource, some zippy little app
-				// might have disposed of this Image already.
-				if (Control != null)
-				{
-					Control.Source = imagesource;
-				}
+				Control?.Invalidate();
+			}
 
-				RefreshImage();
-			}
-			else
-			{
-				Control.Source = null;
-				Element.SetIsLoading(false);
-			}
-			*/
 		}
 
 		void RefreshImage()
@@ -115,22 +147,22 @@ namespace Xamarin.Forms.Platform.WinForms
 			((IVisualElementController)Element)?.InvalidateMeasure(InvalidationTrigger.RendererReady);
 		}
 	}
-	/*
+
 	public interface IImageSourceHandler : IRegisterable
 	{
-		Task<System.Windows.Media.ImageSource> LoadImageAsync(ImageSource imagesoure, CancellationToken cancelationToken = default(CancellationToken));
+		Task<WDrawing.Image> LoadImageAsync(ImageSource imagesoure, CancellationToken cancelationToken = default(CancellationToken));
 	}
 
 	public sealed class FileImageSourceHandler : IImageSourceHandler
 	{
-		public Task<System.Windows.Media.ImageSource> LoadImageAsync(ImageSource imagesoure, CancellationToken cancelationToken = new CancellationToken())
+		public Task<WDrawing.Image> LoadImageAsync(ImageSource imagesoure, CancellationToken cancelationToken = new CancellationToken())
 		{
-			System.Windows.Media.ImageSource image = null;
+			WDrawing.Image image = null;
 			FileImageSource filesource = imagesoure as FileImageSource;
 			if (filesource != null)
 			{
 				string file = filesource.File;
-				image = new BitmapImage(new Uri(file, UriKind.RelativeOrAbsolute));
+				image = new WDrawing.Bitmap(file);
 			}
 			return Task.FromResult(image);
 		}
@@ -138,18 +170,15 @@ namespace Xamarin.Forms.Platform.WinForms
 
 	public sealed class StreamImageSourceHandler : IImageSourceHandler
 	{
-		public async Task<System.Windows.Media.ImageSource> LoadImageAsync(ImageSource imagesource, CancellationToken cancelationToken = new CancellationToken())
+		public async Task<WDrawing.Image> LoadImageAsync(ImageSource imagesource, CancellationToken cancelationToken = new CancellationToken())
 		{
-			BitmapImage bitmapimage = null;
+			WDrawing.Image bitmapimage = null;
 			StreamImageSource streamsource = imagesource as StreamImageSource;
 			if (streamsource != null && streamsource.Stream != null)
 			{
 				using (Stream stream = await ((IStreamImageSource)streamsource).GetStreamAsync(cancelationToken))
 				{
-					bitmapimage = new BitmapImage()
-					{
-						StreamSource = stream
-					};
+					bitmapimage = new WDrawing.Bitmap(stream);
 				}
 			}
 			return bitmapimage;
@@ -158,19 +187,22 @@ namespace Xamarin.Forms.Platform.WinForms
 
 	public sealed class UriImageSourceHandler : IImageSourceHandler
 	{
-		public async Task<System.Windows.Media.ImageSource> LoadImageAsync(ImageSource imagesoure, CancellationToken cancelationToken = new CancellationToken())
+		public async Task<WDrawing.Image> LoadImageAsync(ImageSource imagesoure, CancellationToken cancelationToken = new CancellationToken())
 		{
-			BitmapImage bitmapimage = null;
+			WDrawing.Image bitmapimage = null;
 			var imageLoader = imagesoure as UriImageSource;
 			if (imageLoader?.Uri != null)
 			{
-				bitmapimage = new BitmapImage();
-				bitmapimage.BeginInit();
-				bitmapimage.UriSource = imageLoader.Uri;
-				bitmapimage.EndInit();
+				using (var http = new System.Net.Http.HttpClient())
+				{
+					using (var stream = await http.GetStreamAsync(imageLoader.Uri))
+					{
+						bitmapimage = new WDrawing.Bitmap(stream);
+					}
+				}
 			}
 			return bitmapimage;
 		}
 	}
-	*/
+
 }
