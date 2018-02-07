@@ -31,7 +31,7 @@ namespace Xamarin.Forms.Platform.WinForms
 					SetNativeControl(new WForms.Control());
 				}
 
-				UpdateOutlineColor(Control);
+				UpdateOutlineColor();
 			}
 
 			base.OnElementChanged(e);
@@ -105,62 +105,58 @@ namespace Xamarin.Forms.Platform.WinForms
 
 			if (e.PropertyName == Frame.ContentProperty.PropertyName)
 			{
-				UpdateContent(Control);
+				UpdateContent();
 			}
 			else if (e.PropertyName == Frame.OutlineColorProperty.PropertyName ||
 				e.PropertyName == Frame.HasShadowProperty.PropertyName)
 			{
-				UpdateOutlineColor(Control);
+				UpdateOutlineColor();
 			}
 			else if (e.PropertyName == Frame.CornerRadiusProperty.PropertyName)
 			{
-				UpdateCornerRadius(Control);
+				UpdateCornerRadius();
 			}
 		}
 
-		void UpdateContent(WForms.Control nativeElement)
+		void UpdateContent()
 		{
-			if (nativeElement == null)
-				return;
-
-			if (_currentView != null)
+			UpdatePropertyHelper((element, control) =>
 			{
-				_currentView.Cleanup(); // cleanup old view
-			}
-
-			_currentView = Element.Content;
-			if (_currentView != null)
-			{
-				var r = _currentView.GetOrCreateRenderer();
-				if (r != null)
+				if (_currentView != null)
 				{
-					r.NativeElement.Parent = nativeElement;
+					_currentView.Cleanup(); // cleanup old view
 				}
-			}
+
+				_currentView = element.Content;
+				if (_currentView != null)
+				{
+					var r = _currentView.GetOrCreateRenderer();
+					if (r != null)
+					{
+						r.NativeElement.Parent = control;
+					}
+				}
+			});
 		}
 
-		void UpdateOutlineColor(WForms.Control nativeElement)
+		void UpdateOutlineColor()
 		{
-			if (nativeElement == null)
-				return;
-
-			_pen?.Dispose();
-			_pen = null;
-			var element = Element;
-			if (element != null && element.OutlineColor != Color.Default)
+			UpdatePropertyHelper((element, control) =>
 			{
-				_pen = new Pen(element.OutlineColor.ToWindowsColor());
-			}
+				_pen?.Dispose();
+				_pen = null;
+				if (element.OutlineColor != Color.Default)
+				{
+					_pen = new Pen(element.OutlineColor.ToWindowsColor());
+				}
 
-			nativeElement.Invalidate();
+				control.Invalidate();
+			});
 		}
 
-		void UpdateCornerRadius(WForms.Control nativeElement)
+		void UpdateCornerRadius()
 		{
-			if (nativeElement == null)
-				return;
-
-			nativeElement.Invalidate();
+			UpdatePropertyHelper((element, control) => control.Invalidate());
 		}
 	}
 }

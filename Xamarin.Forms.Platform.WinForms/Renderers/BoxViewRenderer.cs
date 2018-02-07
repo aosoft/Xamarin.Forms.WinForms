@@ -29,7 +29,7 @@ namespace Xamarin.Forms.Platform.WinForms
 					SetNativeControl(new WForms.Control());
 				}
 
-				UpdateColor(Control);
+				UpdateColor();
 			}
 
 			base.OnElementChanged(e);
@@ -54,23 +54,18 @@ namespace Xamarin.Forms.Platform.WinForms
 			base.OnElementPropertyChanged(sender, e);
 
 			if (e.PropertyName == BoxView.ColorProperty.PropertyName)
-				UpdateColor(Control);
+				UpdateColor();
 		}
 
-		void UpdateColor(WForms.Control nativeElement)
+		void UpdateColor()
 		{
-			if (nativeElement == null)
-				return;
-
-			_brush?.Dispose();
-			_brush = null;
-			var element = Element;
-			if (element != null)
+			UpdatePropertyHelper((element, control) =>
 			{
+				_brush?.Dispose();
+				_brush = null;
 				_brush = new SolidBrush(element.Color.ToWindowsColor());
-			}
-
-			nativeElement.Invalidate();
+				control.Invalidate();
+			});
 		}
 
 	}

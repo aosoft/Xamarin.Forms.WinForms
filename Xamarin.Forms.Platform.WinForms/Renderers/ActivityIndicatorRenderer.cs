@@ -15,8 +15,8 @@ namespace Xamarin.Forms.Platform.WinForms
 					SetNativeControl(new WForms.ProgressBar());
 				}
 
-				UpdateIsIndeterminate(Control);
-				UpdateColor(Control);
+				UpdateIsIndeterminate();
+				UpdateColor();
 			}
 
 			base.OnElementChanged(e);
@@ -27,33 +27,30 @@ namespace Xamarin.Forms.Platform.WinForms
 			base.OnElementPropertyChanged(sender, e);
 
 			if (e.PropertyName == ActivityIndicator.IsRunningProperty.PropertyName)
-				UpdateIsIndeterminate(Control);
+				UpdateIsIndeterminate();
 			else if (e.PropertyName == ActivityIndicator.ColorProperty.PropertyName)
-				UpdateColor(Control);
+				UpdateColor();
 		}
 
-		void UpdateColor(WForms.ProgressBar nativeElement)
+		void UpdateColor()
 		{
-			if (nativeElement == null)
-				return;
-
-			nativeElement.ForeColor = Element?.Color.ToWindowsColor() ?? System.Drawing.SystemColors.Control;
+			UpdatePropertyHelper((element, control) => control.ForeColor = element.Color.ToWindowsColor());
 		}
 
-		void UpdateIsIndeterminate(WForms.ProgressBar nativeElement)
+		void UpdateIsIndeterminate()
 		{
-			if (nativeElement == null)
-				return;
-
-			if (Element?.IsRunning ?? false)
+			UpdatePropertyHelper((element, control) =>
 			{
-				nativeElement.Style = WForms.ProgressBarStyle.Marquee;
-			}
-			else
-			{
-				nativeElement.Style = WForms.ProgressBarStyle.Continuous;
-				nativeElement.Value = 0;
-			}
+				if (element.IsRunning)
+				{
+					control.Style = WForms.ProgressBarStyle.Marquee;
+				}
+				else
+				{
+					control.Style = WForms.ProgressBarStyle.Continuous;
+					control.Value = 0;
+				}
+			});
 		}
 	}
 }

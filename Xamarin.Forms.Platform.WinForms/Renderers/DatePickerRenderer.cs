@@ -14,11 +14,10 @@ namespace Xamarin.Forms.Platform.WinForms
 					SetNativeControl(new WForms.DateTimePicker());
 				}
 
-				// Update control property 
-				UpdateDate(Control);
-				UpdateMinimumDate(Control);
-				UpdateMaximumDate(Control);
-				UpdateTextColor(Control);
+				UpdateDate();
+				UpdateMinimumDate();
+				UpdateMaximumDate();
+				UpdateTextColor();
 			}
 
 			base.OnElementChanged(e);
@@ -38,44 +37,24 @@ namespace Xamarin.Forms.Platform.WinForms
 			}
 		}
 
-		void UpdateDate(WForms.DateTimePicker nativeElement)
+		void UpdateDate()
 		{
-			var element = Element;
-			if (nativeElement != null && element != null)
-			{
-				nativeElement.Value = Element.Date;
-			}
+			UpdatePropertyHelper((element, control) => control.Value = element.Date);
 		}
 
-		void UpdateMaximumDate(WForms.DateTimePicker nativeElement)
+		void UpdateMaximumDate()
 		{
-			var element = Element;
-			if (nativeElement != null && element != null)
-			{
-				nativeElement.MaxDate = Element.MaximumDate;
-			}
+			UpdatePropertyHelper((element, control) => control.MaxDate = element.MaximumDate);
 		}
 
-		void UpdateMinimumDate(WForms.DateTimePicker nativeElement)
+		void UpdateMinimumDate()
 		{
-			var element = Element;
-			if (nativeElement != null && element != null)
-			{
-				nativeElement.MinDate = Element.MinimumDate;
-			}
+			UpdatePropertyHelper((element, control) => control.MinDate = element.MinimumDate);
 		}
 
-		void UpdateTextColor(WForms.DateTimePicker nativeElement)
+		void UpdateTextColor()
 		{
-			var element = Element;
-			if (nativeElement != null && element != null)
-			{
-				var color = element.TextColor;
-				nativeElement.ForeColor =
-					color == Color.Default ?
-						System.Drawing.SystemColors.ControlText :
-						color.ToWindowsColor();
-			}
+			UpdatePropertyHelper((element, control) => control.ForeColor = element.TextColor.ToWindowsColor());
 		}
 
 		void DateTimePicker_OnValueChanged(object sender, EventArgs e)

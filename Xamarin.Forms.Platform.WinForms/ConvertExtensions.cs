@@ -12,7 +12,10 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		public static System.Drawing.Color ToWindowsColor(this Color color)
 		{
-			return System.Drawing.Color.FromArgb((byte)(color.A * 255), (byte)(color.R * 255), (byte)(color.G * 255), (byte)(color.B * 255));
+			return 
+				color == Color.Default ?
+					System.Drawing.SystemColors.Control :
+					System.Drawing.Color.FromArgb((byte)(color.A * 255), (byte)(color.R * 255), (byte)(color.G * 255), (byte)(color.B * 255));
 		}
 
 		public static System.Drawing.FontStyle ToWindowsFontStyle(this FontAttributes self)

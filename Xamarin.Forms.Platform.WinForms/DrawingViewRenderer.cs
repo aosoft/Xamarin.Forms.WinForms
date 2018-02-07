@@ -15,7 +15,7 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		protected override void OnElementChanged(ElementChangedEventArgs<TElement> e)
 		{
-			UpdateTransform(Control);
+			UpdateTransform();
 
 			base.OnElementChanged(e);
 		}
@@ -47,16 +47,15 @@ namespace Xamarin.Forms.Platform.WinForms
 				e.PropertyName == VisualElement.TranslationXProperty.PropertyName ||
 				e.PropertyName == VisualElement.TranslationYProperty.PropertyName)
 			{
-				UpdateTransform(Control);
+				UpdateTransform();
 			}
 
 		}
 
 		protected virtual void OnPaint(object sender, WForms.PaintEventArgs e)
 		{
-			var control = sender as TNativeElement;
 			var element = Element;
-			if (element == null || control == null)
+			if (element == null)
 			{
 				return;
 			}
@@ -68,46 +67,41 @@ namespace Xamarin.Forms.Platform.WinForms
 			e.Graphics.Transform = _matrix;
 		}
 
-		void UpdateTransform(TNativeElement control)
+		void UpdateTransform()
 		{
 			_matrix.Reset();
-
-			var element = Element;
-			if (element == null || control == null)
+			UpdatePropertyHelper((element, control) =>
 			{
-				return;
-			}
+				var pt = new PointF(
+					(float)(element.Width * element.AnchorX),
+					(float)(element.Height * element.AnchorY));
+				if (pt.X >= 0.0f && pt.Y >= 0.0f)
+				{
+					var scale = (float)element.Scale;
 
-			var pt = new PointF(
-				(float)(element.Width * element.AnchorX),
-				(float)(element.Height * element.AnchorY));
-			if (pt.X >= 0.0f && pt.Y >= 0.0f)
-			{
-				var scale = (float)element.Scale;
+					_matrix.Translate(-pt.X, -pt.Y);
+					_matrix.Scale(scale, scale, MatrixOrder.Append);
+					_matrix.Rotate((float)element.Rotation, MatrixOrder.Append);
+					_matrix.Translate(
+						(float)(element.TranslationX + pt.X),
+						(float)(element.TranslationY + pt.Y),
+						MatrixOrder.Append);
 
-				_matrix.Translate(-pt.X, -pt.Y);
-				_matrix.Scale(scale, scale, MatrixOrder.Append);
-				_matrix.Rotate((float)element.Rotation, MatrixOrder.Append);
-				_matrix.Translate(
-					(float)(element.TranslationX + pt.X),
-					(float)(element.TranslationY + pt.Y),
-					MatrixOrder.Append);
+					/*
+					var matrixT1 = new OpenTK.Matrix3 { M31 = -pt.X, M32 = -pt.Y, M11 = 1.0f, M22 = 1.0f, M33 = 1.0f };
+					var matrixR = OpenTK.Matrix3.CreateRotationZ(OpenTK.MathHelper.DegreesToRadians((float)element.Rotation));
+					var matrixS = OpenTK.Matrix3.CreateScale(scale, scale, 1.0f);
+					var matrixT2 = new OpenTK.Matrix3 { M31 = pt.X + (float)(element.TranslationX), M32 = pt.Y + (float)(element.TranslationY), M11 = 1.0f, M22 = 1.0f, M33 = 1.0f };
 
-				/*
-				var matrixT1 = new OpenTK.Matrix3 { M31 = -pt.X, M32 = -pt.Y, M11 = 1.0f, M22 = 1.0f, M33 = 1.0f };
-				var matrixR = OpenTK.Matrix3.CreateRotationZ(OpenTK.MathHelper.DegreesToRadians((float)element.Rotation));
-				var matrixS = OpenTK.Matrix3.CreateScale(scale, scale, 1.0f);
-				var matrixT2 = new OpenTK.Matrix3 { M31 = pt.X + (float)(element.TranslationX), M32 = pt.Y + (float)(element.TranslationY), M11 = 1.0f, M22 = 1.0f, M33 = 1.0f };
+					var matrix = matrixT1 * matrixS * matrixR * matrixT2;
 
-				var matrix = matrixT1 * matrixS * matrixR * matrixT2;
-
-				_matrix?.Dispose();
-				_matrix = null;
-				_matrix = new Matrix(matrix.M11, matrix.M12, matrix.M21, matrix.M22, matrix.M31, matrix.M32);
-				*/
-			}
-
-			control.Invalidate();
+					_matrix?.Dispose();
+					_matrix = null;
+					_matrix = new Matrix(matrix.M11, matrix.M12, matrix.M21, matrix.M22, matrix.M31, matrix.M32);
+					*/
+				}
+				control.Invalidate();
+			});
 		}
 	}
 }

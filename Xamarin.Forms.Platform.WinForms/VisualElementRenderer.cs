@@ -155,12 +155,21 @@ namespace Xamarin.Forms.Platform.WinForms
 			OnNativeElementChanged(new NativeElementChangedEventArgs<TNativeElement>(oldControl, control));
 		}
 
+		protected void UpdatePropertyHelper(Action<TElement, TNativeElement> func)
+		{
+			var element = Element;
+			var control = Control;
+			if (element != null && control != null)
+			{
+				func(element, control);
+			}
+		}
+
 		protected virtual void UpdateBackgroundColor()
 		{
-			Color backgroundColor = Element.BackgroundColor;
-			var control = Control as Control;
-			if (control != null)
+			UpdatePropertyHelper((element, control) =>
 			{
+				var backgroundColor = Element.BackgroundColor;
 				if (!backgroundColor.IsDefault)
 				{
 					control.BackColor = backgroundColor.ToWindowsColor();
@@ -169,7 +178,7 @@ namespace Xamarin.Forms.Platform.WinForms
 				{
 					control.BackColor = System.Drawing.SystemColors.Window;
 				}
-			}
+			});
 		}
 
 		protected virtual void UpdateNativeControl()
@@ -222,11 +231,7 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		void UpdateEnabled()
 		{
-			var control = Control as Control;
-			if (control != null)
-				control.Enabled = Element.IsEnabled;
-			/*else
-				IsHitTestVisible = Element.IsEnabled && !Element.InputTransparent;*/
+			UpdatePropertyHelper((element, control) => control.Enabled = Element.IsEnabled);
 		}
 
 		void UpdateTracker()

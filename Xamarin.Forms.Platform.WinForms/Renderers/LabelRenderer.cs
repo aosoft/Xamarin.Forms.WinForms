@@ -18,10 +18,10 @@ namespace Xamarin.Forms.Platform.WinForms
 					SetNativeControl(new WForms.Label());
 				}
 
-				UpdateText(Control);
-				UpdateTextColor(Control);
-				UpdateAlign(Control);
-				UpdateFont(Control);
+				UpdateText();
+				UpdateTextColor();
+				UpdateAlign();
+				UpdateFont();
 			}
 
 			base.OnElementChanged(e);
@@ -31,21 +31,21 @@ namespace Xamarin.Forms.Platform.WinForms
 		{
 			if (e.PropertyName == Label.TextProperty.PropertyName || e.PropertyName == Label.FormattedTextProperty.PropertyName)
 			{
-				UpdateText(Control);
+				UpdateText();
 			}
 			else if (e.PropertyName == Label.TextColorProperty.PropertyName)
 			{
-				UpdateTextColor(Control);
+				UpdateTextColor();
 			}
 			else if (e.PropertyName == Label.HorizontalTextAlignmentProperty.PropertyName ||
 				e.PropertyName == Label.VerticalTextAlignmentProperty.PropertyName)
 			{
-				UpdateAlign(Control);
+				UpdateAlign();
 			}
 			else if (e.PropertyName == Label.FontSizeProperty.PropertyName ||
 				e.PropertyName == Label.FontAttributesProperty.PropertyName)
 			{
-				UpdateFont(Control);
+				UpdateFont();
 			}
 
 			base.OnElementPropertyChanged(sender, e);
@@ -57,60 +57,30 @@ namespace Xamarin.Forms.Platform.WinForms
 		/*-----------------------------------------------------------------*/
 		#region Internals
 
-		void UpdateText(WForms.Label nativeElement)
+		void UpdateText()
 		{
-			if (nativeElement == null)
-				return;
-
-			Label label = Element;
-			if (label != null)
-			{
-				nativeElement.Text = label.Text;
-			}
+			UpdatePropertyHelper((element, control) => control.Text = element.Text);
 		}
 
-		void UpdateTextColor(WForms.Label nativeElement)
+		void UpdateTextColor()
 		{
-			if (nativeElement == null)
-				return;
-
-			Label label = Element;
-			if (label != null)
-			{
-				var color = label.TextColor;
-				nativeElement.ForeColor =
-					color == Color.Default ?
-						System.Drawing.SystemColors.ControlText :
-						color.ToWindowsColor();
-			}
+			UpdatePropertyHelper((element, control) => control.ForeColor = element.TextColor.ToWindowsColor());
 		}
 
-		void UpdateAlign(WForms.Label nativeElement)
+		void UpdateAlign()
 		{
-			if (nativeElement == null)
-				return;
-
-			Label label = Element;
-			if (label != null)
-			{
-				nativeElement.TextAlign = Platform.ToWindowsContentAlignment(
-					label.HorizontalTextAlignment, label.VerticalTextAlignment);
-			}
+			UpdatePropertyHelper((element, control) => control.TextAlign =
+				Platform.ToWindowsContentAlignment(
+					element.HorizontalTextAlignment, element.VerticalTextAlignment));
 		}
 
-		void UpdateFont(WForms.Label nativeElement)
+		void UpdateFont()
 		{
-			if (nativeElement == null)
-				return;
-
-			Label label = Element;
-			if (label != null)
-			{
-				nativeElement.Font = new System.Drawing.Font(
-					label.FontFamily,
-					Math.Max((float)label.FontSize, 1.0f),
-					label.FontAttributes.ToWindowsFontStyle());
-			}
+			UpdatePropertyHelper((element, control) =>
+				control.Font = new System.Drawing.Font(
+					element.FontFamily,
+					Math.Max((float)element.FontSize, 1.0f),
+					element.FontAttributes.ToWindowsFontStyle()));
 		}
 
 		#endregion

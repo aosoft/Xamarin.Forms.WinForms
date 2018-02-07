@@ -19,9 +19,9 @@ namespace Xamarin.Forms.Platform.WinForms
 					Control.Click += OnClick;
 				}
 
-				UpdateText(Control);
-				UpdateTextColor(Control);
-				UpdateFont(Control);
+				UpdateText();
+				UpdateTextColor();
+				UpdateFont();
 			}
 
 			base.OnElementChanged(e);
@@ -31,16 +31,16 @@ namespace Xamarin.Forms.Platform.WinForms
 		{
 			if (e.PropertyName == Button.TextProperty.PropertyName)
 			{
-				UpdateText(Control);
+				UpdateText();
 			}
 			else if (e.PropertyName == Button.TextColorProperty.PropertyName)
 			{
-				UpdateTextColor(Control);
+				UpdateTextColor();
 			}
 			else if (e.PropertyName == Button.FontSizeProperty.PropertyName ||
 				e.PropertyName == Button.FontAttributesProperty.PropertyName)
 			{
-				UpdateFont(Control);
+				UpdateFont();
 			}
 
 			base.OnElementPropertyChanged(sender, e);
@@ -58,47 +58,25 @@ namespace Xamarin.Forms.Platform.WinForms
 		/*-----------------------------------------------------------------*/
 		#region Internals
 
-		void UpdateText(WForms.Button nativeElement)
+		void UpdateText()
 		{
-			if (nativeElement == null)
-				return;
-
-			Button Button = Element;
-			if (Button != null)
-			{
-				nativeElement.Text = Button.Text;
-			}
+			UpdatePropertyHelper((element, control) => control.Text = element.Text);
 		}
 
-		void UpdateTextColor(WForms.Button nativeElement)
+		void UpdateTextColor()
 		{
-			if (nativeElement == null)
-				return;
-
-			Button button = Element;
-			if (button != null)
-			{
-				var color = button.TextColor;
-				nativeElement.ForeColor =
-					color == Color.Default ?
-						System.Drawing.SystemColors.ControlText :
-						color.ToWindowsColor();
-			}
+			UpdatePropertyHelper((element, control) => control.ForeColor = element.TextColor.ToWindowsColor());
 		}
 
-		void UpdateFont(WForms.Button nativeElement)
+		void UpdateFont()
 		{
-			if (nativeElement == null)
-				return;
-
-			Button button = Element;
-			if (button != null)
+			UpdatePropertyHelper((element, control) =>
 			{
-				nativeElement.Font = new System.Drawing.Font(
-					button.FontFamily,
-					(float)button.FontSize,
-					button.FontAttributes.ToWindowsFontStyle());
-			}
+				control.Font = new System.Drawing.Font(
+					element.FontFamily,
+					(float)element.FontSize,
+					element.FontAttributes.ToWindowsFontStyle());
+			});
 		}
 
 		#endregion
