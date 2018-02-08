@@ -73,9 +73,25 @@ namespace Xamarin.Forms.Platform.WinForms
 
 						case Aspect.AspectFill:
 							{
+								var w = (float)_source.Width;
+								var h = (float)(w * control.Height / control.Width);
+								if (h > _source.Height)
+								{
+									h = (float)_source.Height;
+									w = (float)(h * control.Width / control.Height);
+								}
+								e.Graphics.DrawImage(
+									_source,
+									new WDrawing.RectangleF(
+										0, 0,
+										(float)control.Width, (float)control.Height),
+									new WDrawing.RectangleF(
+										(_source.Width - w) / 2,
+										(_source.Height - h) / 2,
+										w, h),
+									WDrawing.GraphicsUnit.Pixel);
 							}
 							return;
-
 					}
 				}
 				e.Graphics.DrawImage(

@@ -7,7 +7,7 @@
             OutlineColor="Red"
             BackgroundColor="Yellow"
             CornerRadius="8">
-            <Image Source="https://assets-cdn.github.com/images/modules/logos_page/GitHub-Logo.png" Aspect="AspectFit"/>
+            <Image Source="https://assets-cdn.github.com/images/modules/logos_page/GitHub-Logo.png" Aspect="AspectFill"/>
         </Frame>
     </ContentPage.Content>
 </ContentPage>
