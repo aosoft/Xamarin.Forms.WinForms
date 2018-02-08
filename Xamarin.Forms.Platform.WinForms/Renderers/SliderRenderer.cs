@@ -6,6 +6,8 @@ namespace Xamarin.Forms.Platform.WinForms
 {
 	public class SliderRenderer : ViewRenderer<Slider, WForms.TrackBar>
 	{
+		public static readonly int Scale = 100;
+
 		/*-----------------------------------------------------------------*/
 		#region Event Handler
 
@@ -56,7 +58,7 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		void OnValueChanged(object sender, EventArgs e)
 		{
-			((IElementController)Element).SetValueFromRenderer(Slider.ValueProperty, Control.Value);
+			((IElementController)Element).SetValueFromRenderer(Slider.ValueProperty, (double)Control.Value / Scale);
 		}
 
 
@@ -67,26 +69,17 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		void UpdateValue()
 		{
-			if (Control != null && Element != null)
-			{
-				Control.Value = (int)Element.Value;
-			}
+			UpdatePropertyHelper((element, control) => control.Value = (int)(element.Value * Scale));
 		}
 
 		void UpdateMinimum()
 		{
-			if (Control != null && Element != null)
-			{
-				Control.Minimum = (int)Element.Minimum;
-			}
+			UpdatePropertyHelper((element, control) => control.Minimum = (int)(element.Minimum * Scale));
 		}
 
 		void UpdateMaximum()
 		{
-			if (Control != null && Element != null)
-			{
-				Control.Maximum = (int)Element.Maximum;
-			}
+			UpdatePropertyHelper((element, control) => control.Maximum = (int)(element.Maximum * Scale));
 		}
 
 		#endregion
