@@ -192,6 +192,15 @@ namespace Xamarin.Forms.Platform.WinForms
 			*/
 		}
 
+		protected virtual Size Measure(TNativeElement control, Size constraint)
+		{
+			var size = control.GetPreferredSize(new System.Drawing.Size(
+				double.IsInfinity(constraint.Width) ? (int)constraint.Width : int.MaxValue,
+				double.IsInfinity(constraint.Height) ? (int)constraint.Height : int.MaxValue));
+
+			return new Size(size.Width, size.Height);
+		}
+
 		void OnControlGotFocus(object sender, EventArgs args)
 		{
 			((IVisualElementController)Element).SetValueFromRenderer(VisualElement.IsFocusedPropertyKey, true);
@@ -257,14 +266,10 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		public SizeRequest GetDesiredSize(double widthConstraint, double heightConstraint)
 		{
-			//	暫定
 			var control = Control;
 			if (control != null)
 			{
-				return new SizeRequest(
-					new Size(
-						Math.Min(control.Width, widthConstraint),
-						Math.Min(control.Height, heightConstraint)));
+				return new SizeRequest(Measure(control, new Size(widthConstraint, heightConstraint)));
 			}
 			return new SizeRequest(new Size(widthConstraint, heightConstraint));
 		}
