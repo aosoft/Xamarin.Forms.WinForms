@@ -81,6 +81,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Renderers\PickerRenderer.cs" />
     <Compile Include="Renderers\ProgressBarRenderer.cs" />
+    <Compile Include="Renderers\SearchBarControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Renderers\SearchBarRenderer.cs" />
     <Compile Include="Renderers\SliderRenderer.cs" />
     <Compile Include="Renderers\StepperRenderer.cs" />
     <Compile Include="Renderers\SwitchRenderer.cs" />

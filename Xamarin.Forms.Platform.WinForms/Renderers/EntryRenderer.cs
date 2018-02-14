@@ -20,6 +20,7 @@ namespace Xamarin.Forms.Platform.WinForms
 						SetNativeControl(new WForms.TextBox());
 					}
 
+					Control.AutoSize = false;
 					Control.Multiline = false;
 
 					UpdateText();
