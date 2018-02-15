@@ -16,7 +16,6 @@ namespace Xamarin.Forms.Platform.WinForms
 				if (Control == null)
 				{
 					SetNativeControl(new WForms.Button());
-					Control.Click += OnClick;
 				}
 
 				UpdateText();
@@ -25,6 +24,20 @@ namespace Xamarin.Forms.Platform.WinForms
 			}
 
 			base.OnElementChanged(e);
+		}
+
+		protected override void OnNativeElementChanged(NativeElementChangedEventArgs<WForms.Button> e)
+		{
+			base.OnNativeElementChanged(e);
+			if (e.OldControl != null)
+			{
+				e.OldControl.Click -= OnClick;
+			}
+
+			if (e.NewControl != null)
+			{
+				e.NewControl.Click += OnClick;
+			}
 		}
 
 		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)

@@ -78,37 +78,21 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		void UpdateText()
 		{
-			var nativeElement = Control;
-			if (nativeElement != null)
-			{
-				nativeElement.Text = Element.Text;
-			}
+			UpdatePropertyHelper((element, control) => control.Text = element.Text);
 		}
 
 		void UpdateTextColor()
 		{
-			var nativeElement = Control;
-			if (nativeElement != null)
-			{
-				var color = Element.TextColor;
-				nativeElement.ForeColor =
-					color == Color.Default ?
-						System.Drawing.SystemColors.ControlText :
-						color.ToWindowsColor();
-			}
+			UpdatePropertyHelper((element, control) => control.ForeColor = element.TextColor.ToWindowsColor());
 		}
 
 		void UpdateFont()
 		{
-			var nativeElement = Control;
-			var element = Element;
-			if (nativeElement != null)
-			{
-				nativeElement.Font = new System.Drawing.Font(
+			UpdatePropertyHelper((element, control) =>
+				control.Font = new System.Drawing.Font(
 					element.FontFamily,
-					(float)element.FontSize,
-					element.FontAttributes.ToWindowsFontStyle());
-			}
+					Math.Max((float)element.FontSize, 1.0f),
+					element.FontAttributes.ToWindowsFontStyle()));
 		}
 
 		#endregion

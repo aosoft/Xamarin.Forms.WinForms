@@ -1,4 +1,6 @@
-﻿
+﻿using WDrawing = System.Drawing;
+using WForms = System.Windows.Forms;
+
 namespace Xamarin.Forms.Platform.WinForms
 {
 	internal static class ConvertExtensions
@@ -10,32 +12,48 @@ namespace Xamarin.Forms.Platform.WinForms
 		}
 		*/
 
-		public static System.Drawing.Color ToWindowsColor(this Color color)
+		public static WForms.HorizontalAlignment ToWindowsHorizontalAlignment(this TextAlignment horizonatal)
+		{
+			switch (horizonatal)
+			{
+				case TextAlignment.Start: return WForms.HorizontalAlignment.Left;
+				case TextAlignment.Center: return WForms.HorizontalAlignment.Center;
+				case TextAlignment.End: return WForms.HorizontalAlignment.Right;
+			}
+			return WForms.HorizontalAlignment.Left;
+		}
+
+		public static WDrawing.Color ToWindowsColor(this Color color)
+		{
+			return color.ToWindowsColor(WDrawing.SystemColors.Control);
+		}
+
+		public static WDrawing.Color ToWindowsColor(this Color color, WDrawing.Color defaultColor)
 		{
 			return 
 				color == Color.Default ?
-					System.Drawing.SystemColors.Control :
-					System.Drawing.Color.FromArgb((byte)(color.A * 255), (byte)(color.R * 255), (byte)(color.G * 255), (byte)(color.B * 255));
+					defaultColor :
+					WDrawing.Color.FromArgb((byte)(color.A * 255), (byte)(color.R * 255), (byte)(color.G * 255), (byte)(color.B * 255));
 		}
 
-		public static System.Drawing.FontStyle ToWindowsFontStyle(this FontAttributes self)
+		public static WDrawing.FontStyle ToWindowsFontStyle(this FontAttributes self)
 		{
 			switch (self)
 			{
 				case FontAttributes.Bold:
 					{
-						return System.Drawing.FontStyle.Bold;
+						return WDrawing.FontStyle.Bold;
 					}
 
 				case FontAttributes.Italic:
 					{
-						return System.Drawing.FontStyle.Italic;
+						return WDrawing.FontStyle.Italic;
 					}
 			}
-			return System.Drawing.FontStyle.Regular;
+			return WDrawing.FontStyle.Regular;
 		}
 
-		public static Rectangle ToXamarinRectangle(this System.Drawing.Rectangle self)
+		public static Rectangle ToXamarinRectangle(this WDrawing.Rectangle self)
 		{
 			return new Rectangle(self.Left, self.Top, self.Width, self.Height);
 		}
