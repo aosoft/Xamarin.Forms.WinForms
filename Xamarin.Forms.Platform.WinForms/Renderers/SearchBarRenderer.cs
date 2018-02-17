@@ -34,12 +34,14 @@ namespace Xamarin.Forms.Platform.WinForms
 			base.OnNativeElementChanged(e);
 			if (e.OldControl != null)
 			{
+				e.OldControl.SearchTextChanged -= OnSearchTextChanged;
 				e.OldControl.SearchButtonClick -= OnSearchButtonClick;
 				e.OldControl.CancelButtonClick -= OnCancelButtonClick;
 			}
 
 			if (e.NewControl != null)
 			{
+				e.NewControl.SearchTextChanged += OnSearchTextChanged;
 				e.NewControl.SearchButtonClick += OnSearchButtonClick;
 				e.NewControl.CancelButtonClick += OnCancelButtonClick;
 			}
@@ -67,11 +69,26 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		void OnSearchButtonClick(object sender, EventArgs e)
 		{
+			Element?.OnSearchButtonPressed();
 		}
 
 		void OnCancelButtonClick(object sender, EventArgs e)
 		{
+			var element = Element;
+			if (element != null)
+			{
+				element.Text = string.Empty;
+			}
 		}
+
+		void OnSearchTextChanged(object sender, EventArgs e)
+		{
+			UpdatePropertyHelper((element, control) =>
+			{
+				((IElementController)element).SetValueFromRenderer(SearchBar.TextProperty, control.SearchText);
+			});
+		}
+
 
 		void UpdateText()
 		{
