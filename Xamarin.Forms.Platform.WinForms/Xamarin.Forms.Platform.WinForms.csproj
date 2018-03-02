@@ -84,6 +84,7 @@
     <Compile Include="Controls\SearchBarControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Renderers\ScrollViewRenderer.cs" />
     <Compile Include="Renderers\SearchBarRenderer.cs" />
     <Compile Include="Renderers\SliderRenderer.cs" />
     <Compile Include="Renderers\StepperRenderer.cs" />

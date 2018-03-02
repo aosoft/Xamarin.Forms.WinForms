@@ -3,20 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WinFormsTestApp.Page2">
     <ContentPage.Content>
-        <Frame
+        <ScrollView Orientation="Both">
+            <Frame OutlineColor="Red" CornerRadius="8" WidthRequest="2048" HeightRequest="2048" />
+        </ScrollView>
+        <!--<Frame
             OutlineColor="Red"
             BackgroundColor="Yellow"
             CornerRadius="8">
             <SearchBar HeightRequest="20" />
-            <!--<Image Source="https://assets-cdn.github.com/images/modules/logos_page/GitHub-Logo.png" Aspect="AspectFill"/>-->
-            <!--<Grid>
+            <Image Source="https://assets-cdn.github.com/images/modules/logos_page/GitHub-Logo.png" Aspect="AspectFill"/>
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <ProgressBar Grid.Row="0" Progress="{Binding Source={x:Reference slider}, Path=Value}" />
                 <Slider Grid.Row="1" Value="0" Minimum="0" Maximum="1" x:Name="slider" />
-            </Grid>-->
-        </Frame>
+            </Grid>
+        </Frame>-->
     </ContentPage.Content>
 </ContentPage>

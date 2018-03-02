@@ -10,7 +10,6 @@ namespace Xamarin.Forms.Platform.WinForms
 	public class FrameRenderer : DrawingViewRenderer<Frame, WForms.Control>
 	{
 		Pen _pen = null;
-		VisualElement _currentView;
 
 		protected override void Dispose(bool disposing)
 		{
@@ -103,11 +102,7 @@ namespace Xamarin.Forms.Platform.WinForms
 		{
 			base.OnElementPropertyChanged(sender, e);
 
-			if (e.PropertyName == Frame.ContentProperty.PropertyName)
-			{
-				UpdateContent();
-			}
-			else if (e.PropertyName == Frame.OutlineColorProperty.PropertyName ||
+			if (e.PropertyName == Frame.OutlineColorProperty.PropertyName ||
 				e.PropertyName == Frame.HasShadowProperty.PropertyName)
 			{
 				UpdateOutlineColor();
@@ -116,27 +111,6 @@ namespace Xamarin.Forms.Platform.WinForms
 			{
 				UpdateCornerRadius();
 			}
-		}
-
-		void UpdateContent()
-		{
-			UpdatePropertyHelper((element, control) =>
-			{
-				if (_currentView != null)
-				{
-					_currentView.Cleanup(); // cleanup old view
-				}
-
-				_currentView = element.Content;
-				if (_currentView != null)
-				{
-					var r = _currentView.GetOrCreateRenderer();
-					if (r != null)
-					{
-						r.NativeElement.Parent = control;
-					}
-				}
-			});
 		}
 
 		void UpdateOutlineColor()
