@@ -6,6 +6,14 @@ namespace Xamarin.Forms.Platform.WinForms
 {
 	public class ScrollViewRenderer : ViewRenderer<ScrollView, WForms.Panel>
 	{
+		WForms.ScrollEventHandler _onScrollEventHandler = null;
+
+		public ScrollViewRenderer()
+		{
+			var h = Platform.BlockReenter<WForms.ScrollEventArgs>((s, e) => OnNativeScroll(s, e));
+			_onScrollEventHandler = (s, e) => h(s, e);
+		}
+
 		protected override void OnElementChanged(ElementChangedEventArgs<ScrollView> e)
 		{
 			if (e.OldElement != null)
@@ -20,11 +28,10 @@ namespace Xamarin.Forms.Platform.WinForms
 					SetNativeControl(new WForms.Panel());
 				}
 				e.NewElement.ScrollToRequested += OnScrollToRequested;
-				UpdateOrientation();
 				UpdateScrollXPosition();
 				UpdateScrollYPosition();
 				UpdateContentSize();
-				UpdateMargins();
+				UpdateOrientation();
 			}
 
 			base.OnElementChanged(e);
@@ -35,10 +42,14 @@ namespace Xamarin.Forms.Platform.WinForms
 			base.OnNativeElementChanged(e);
 			if (e.OldControl != null)
 			{
+				e.OldControl.Scroll -= _onScrollEventHandler;
+				e.OldControl.SizeChanged -= OnNativeSizeChanged;
 			}
 
 			if (e.NewControl != null)
 			{
+				e.NewControl.Scroll += _onScrollEventHandler;
+				e.NewControl.SizeChanged += OnNativeSizeChanged;
 			}
 		}
 
@@ -95,6 +106,36 @@ namespace Xamarin.Forms.Platform.WinForms
 			});
 		}
 
+		void OnNativeScroll(object sender, WForms.ScrollEventArgs e)
+		{
+			UpdatePropertyHelper((element, control) =>
+			{
+				switch (e.ScrollOrientation)
+				{
+					case WForms.ScrollOrientation.HorizontalScroll:
+						{
+							element.SetScrolledPosition(
+								(double)e.NewValue, element.ScrollY);
+						}
+						break;
+
+					case WForms.ScrollOrientation.VerticalScroll:
+						{
+							element.SetScrolledPosition(
+								element.ScrollX, (double)e.NewValue);
+						}
+						break;
+				}
+			});
+		}
+
+		void OnNativeSizeChanged(object sender, EventArgs e)
+		{
+			UpdateOrientation();
+			UpdateScrollXPosition();
+			UpdateScrollYPosition();
+		}
+
 		void UpdateContentSize()
 		{
 			UpdatePropertyHelper((element, control) =>
@@ -102,8 +143,10 @@ namespace Xamarin.Forms.Platform.WinForms
 				var size = element.ContentSize;
 				control.HorizontalScroll.Minimum = 0;
 				control.HorizontalScroll.Maximum = Math.Max(1, ((int)size.Width) - 1);
+				control.HorizontalScroll.Value = 0;
 				control.VerticalScroll.Minimum = 0;
 				control.VerticalScroll.Maximum = Math.Max(1, ((int)size.Height) - 1);
+				control.VerticalScroll.Value = 0;
 			});
 		}
 

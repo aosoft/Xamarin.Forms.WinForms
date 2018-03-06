@@ -80,7 +80,7 @@ namespace Xamarin.Forms.Platform.WinForms
 		public static EventHandler<T> BlockReenter<T>(EventHandler<T> h)
 			where T : EventArgs
 		{
-			bool entered = true;
+			bool entered = false;
 			return (s, e) =>
 			{
 				if (!entered)
