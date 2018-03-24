@@ -76,6 +76,7 @@
     <Compile Include="Renderers\ImageRenderer.cs" />
     <Compile Include="Renderers\LabelRenderer.cs" />
     <Compile Include="Renderers\LayoutRenderer.cs" />
+    <Compile Include="Renderers\MultiPageRenderer.cs" />
     <Compile Include="Renderers\OpenGLViewRenderer.cs" />
     <Compile Include="Renderers\PageRenderer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -90,6 +91,8 @@
     <Compile Include="Renderers\StepperRenderer.cs" />
     <Compile Include="Renderers\SwitchRenderer.cs" />
     <Compile Include="Renderers\EntryRenderer.cs" />
+    <Compile Include="Renderers\TabbedInternalPageRenderer.cs" />
+    <Compile Include="Renderers\TabbedPageRenderer.cs" />
     <Compile Include="Renderers\WebViewRenderer.cs" />
     <Compile Include="ViewRenderer.cs" />
     <Compile Include="VisualElementChangedEventArgs.cs" />

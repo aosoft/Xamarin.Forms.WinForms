@@ -118,7 +118,8 @@ namespace Xamarin.Forms.Platform.WinForms
 
 			if (oldControl != null)
 			{
-				//oldControl.Loaded -= OnControlLoaded;
+				oldControl.HandleCreated -= OnHandleCreated;
+				oldControl.HandleDestroyed -= OnHandleDestroyed;
 				oldControl.GotFocus -= OnControlGotFocus;
 				oldControl.LostFocus -= OnControlLostFocus;
 			}
@@ -138,11 +139,8 @@ namespace Xamarin.Forms.Platform.WinForms
 						"Please consult Xamarin.Forms renderers for reference implementation of OnElementChanged.");
 
 				Element.IsNativeStateConsistent = false;
-				//control.Loaded += OnControlLoaded;
-
-				//	OnCotrolLoaded が呼ばれないので同等の処理を呼んでおく
-				//	これを設定しないと子要素のレイアウト処理が呼ばれない
-				Element.IsNativeStateConsistent = true;
+				control.HandleCreated += OnHandleCreated;
+				control.HandleDestroyed += OnHandleDestroyed;
 
 				control.GotFocus += OnControlGotFocus;
 				control.LostFocus += OnControlLostFocus;
@@ -153,6 +151,14 @@ namespace Xamarin.Forms.Platform.WinForms
 				//	SetAutomationId(Element.AutomationId);
 			}
 			OnNativeElementChanged(new NativeElementChangedEventArgs<TNativeElement>(oldControl, control));
+		}
+
+		protected virtual void Appearing()
+		{
+		}
+
+		protected virtual void Disappearing()
+		{
 		}
 
 		protected void UpdatePropertyHelper(Action<TElement, TNativeElement> func)
@@ -206,9 +212,15 @@ namespace Xamarin.Forms.Platform.WinForms
 			((IVisualElementController)Element).SetValueFromRenderer(VisualElement.IsFocusedPropertyKey, true);
 		}
 
-		void OnControlLoaded(object sender, EventArgs args)
+		void OnHandleCreated(object sender, EventArgs args)
 		{
 			Element.IsNativeStateConsistent = true;
+			Appearing();
+		}
+
+		void OnHandleDestroyed(object sender, EventArgs args)
+		{
+			Disappearing();
 		}
 
 		void OnControlLostFocus(object sender, EventArgs args)

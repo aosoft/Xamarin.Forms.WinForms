@@ -2,12 +2,25 @@
 
 namespace Xamarin.Forms.Platform.WinForms
 {
-	public class PageRenderer : VisualElementRenderer<Page, WForms.Panel>
+	public class PageRenderer<TElement, TNativeElement> : VisualElementRenderer<TElement, TNativeElement>
+		where TElement : Page
+		where TNativeElement : WForms.Control
 	{
-		public PageRenderer()
+		protected override void Appearing()
 		{
+			base.Appearing();
+			Element?.SendAppearing();
 		}
 
+		protected override void Disappearing()
+		{
+			Element?.SendDisappearing();
+			base.Disappearing();
+		}
+	}
+
+	public class PageRenderer : PageRenderer<Page, WForms.Panel>
+	{
 		protected override void OnElementChanged(ElementChangedEventArgs<Page> e)
 		{
 			if (e.NewElement != null)
