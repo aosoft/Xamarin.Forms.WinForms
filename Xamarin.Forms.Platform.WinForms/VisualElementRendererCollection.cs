@@ -45,6 +45,15 @@ namespace Xamarin.Forms.Platform.WinForms
 			}
 		}
 
+		public void Insert(int index, IVisualElementRenderer renderer)
+		{
+			if (renderer != null)
+			{
+				SetNativeElementParent(renderer, _parentNativeElement);
+				_collection.Insert(index, renderer);
+			}
+		}
+
 		public void RemoveAt(int index)
 		{
 			var renderer = _collection[index];
@@ -66,6 +75,19 @@ namespace Xamarin.Forms.Platform.WinForms
 		{
 			UpdateParent(null);
 			_collection.Clear();
+		}
+
+		public IVisualElementRenderer Find(WForms.Control control)
+		{
+			foreach (var item in _collection)
+			{
+				if (control == item?.NativeElement)
+				{
+					return item;
+				}
+			}
+
+			return null;
 		}
 
 		IEnumerator<IVisualElementRenderer> IEnumerable<IVisualElementRenderer>.GetEnumerator()
