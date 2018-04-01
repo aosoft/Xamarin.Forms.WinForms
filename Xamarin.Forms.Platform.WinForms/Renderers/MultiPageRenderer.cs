@@ -15,11 +15,13 @@ namespace Xamarin.Forms.Platform.WinForms
 		{
 			if (e.OldElement != null)
 			{
-				((INotifyCollectionChanged)e.OldElement.Children).CollectionChanged -= OnPagesChanged;
+				e.OldElement.CurrentPageChanged -= OnCurrentPageChanged;
+				e.OldElement.PagesChanged -= OnPagesChanged;
 			}
 			if (e.NewElement != null)
 			{
-				((INotifyCollectionChanged)e.NewElement.Children).CollectionChanged += OnPagesChanged;
+				e.NewElement.CurrentPageChanged += OnCurrentPageChanged;
+				e.NewElement.PagesChanged += OnPagesChanged;
 			}
 			base.OnElementChanged(e);
 		}
@@ -27,6 +29,10 @@ namespace Xamarin.Forms.Platform.WinForms
 		protected override void OnNativeElementChanged(NativeElementChangedEventArgs<TNativeElement> e)
 		{
 			base.OnNativeElementChanged(e);
+		}
+
+		protected virtual void OnCurrentPageChanged(object sender, EventArgs e)
+		{
 		}
 
 		protected virtual void OnPagesChanged(object sender, NotifyCollectionChangedEventArgs e)
