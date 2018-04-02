@@ -16,6 +16,23 @@ namespace Xamarin.Forms.Platform.WinForms
 			_onNativeSelected = (s, e) => h(s, e);
 		}
 
+		protected override void OnElementChanged(ElementChangedEventArgs<TabbedPage> e)
+		{
+			if (e.OldElement != null)
+			{
+			}
+
+			if (e.NewElement != null)
+			{
+				if (Control == null)
+				{
+					SetNativeControl(new WForms.TabControl());
+				}
+			}
+
+			base.OnElementChanged(e);
+		}
+
 		protected override void OnNativeElementChanged(NativeElementChangedEventArgs<WForms.TabControl> e)
 		{
 			base.OnNativeElementChanged(e);
@@ -30,6 +47,18 @@ namespace Xamarin.Forms.Platform.WinForms
 			}
 		}
 
+		protected override void OnCurrentPageChanged(object sender, EventArgs e)
+		{
+			base.OnCurrentPageChanged(sender, e);
+			UpdatePropertyHelper((element, control) =>
+			{
+				var selected = element.SelectedItem as Page;
+				if (selected != null)
+				{
+					control.SelectedTab = (Platform.GetRenderer(selected) as TabbedInternalPageRenderer)?.Control;
+				}
+			});
+		}
 
 		protected override void OnPagesChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
