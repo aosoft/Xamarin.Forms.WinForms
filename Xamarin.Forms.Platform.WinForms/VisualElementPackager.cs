@@ -101,7 +101,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			if (view == null)
 				return;
 
-			IVisualElementRenderer childRenderer = Platform.CreateRenderer(view);
+			IVisualElementRenderer childRenderer = Platform.CreateRenderer(view, _renderer);
 			Platform.SetRenderer(view, childRenderer);
 
 			/*

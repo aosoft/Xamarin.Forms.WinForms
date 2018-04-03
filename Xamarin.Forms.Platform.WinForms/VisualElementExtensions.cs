@@ -5,7 +5,7 @@ namespace Xamarin.Forms.Platform.WinForms
 {
 	public static class VisualElementExtensions
 	{
-		public static IVisualElementRenderer GetOrCreateRenderer(this VisualElement self)
+		public static IVisualElementRenderer GetOrCreateRenderer(this VisualElement self, IVisualElementRenderer parent)
 		{
 			if (self == null)
 				throw new ArgumentNullException("self");
@@ -13,7 +13,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			IVisualElementRenderer renderer = Platform.GetRenderer(self);
 			if (renderer == null)
 			{
-				renderer = Platform.CreateRenderer(self);
+				renderer = Platform.CreateRenderer(self, parent);
 				Platform.SetRenderer(self, renderer);
 			}
 

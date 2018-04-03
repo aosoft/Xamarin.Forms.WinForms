@@ -46,13 +46,23 @@ namespace Xamarin.Forms.Platform.WinForms
 			element.IsPlatformEnabled = value != null;
 		}
 
-		public static IVisualElementRenderer CreateRenderer(VisualElement element)
+		public static IVisualElementRenderer CreateRenderer(VisualElement element, IVisualElementRenderer parent)
 		{
 			if (element == null)
 				throw new ArgumentNullException(nameof(element));
 
-			IVisualElementRenderer renderer = Registrar.Registered.GetHandler<IVisualElementRenderer>(element.GetType()) ??
-											  new DefaultRenderer();
+			IVisualElementRenderer renderer = null;
+
+			if (parent is TabbedPageRenderer &&
+				element is Page)
+			{
+				//	Interim implementation
+				renderer = new TabbedInternalPageRenderer();
+			}
+			else
+			{
+				renderer = Registrar.Registered.GetHandler<IVisualElementRenderer>(element.GetType()) ?? new DefaultRenderer();
+			}
 			renderer.SetElement(element);
 			return renderer;
 		}
@@ -168,7 +178,7 @@ namespace Xamarin.Forms.Platform.WinForms
 					previousPage.Cleanup();
 			}
 
-			IVisualElementRenderer pageRenderer = newPage.GetOrCreateRenderer();
+			IVisualElementRenderer pageRenderer = newPage.GetOrCreateRenderer(null);
 			_children.Add(pageRenderer);
 
 			newPage.Layout(ContainerBounds);
