@@ -333,6 +333,11 @@ namespace Xamarin.Forms.Platform.WinForms
 				controller.EffectControlProvider = this;
 		}
 
+		public virtual IVisualElementRenderer CreateChildRenderer(VisualElement element)
+		{
+			return null;
+		}
+
 		#endregion
 
 		#region IEffectControlProvider

@@ -51,17 +51,11 @@ namespace Xamarin.Forms.Platform.WinForms
 			if (element == null)
 				throw new ArgumentNullException(nameof(element));
 
-			IVisualElementRenderer renderer = null;
+			IVisualElementRenderer renderer = parent?.CreateChildRenderer(element);
 
-			if (parent is TabbedPageRenderer &&
-				element is Page)
+			if (renderer == null)
 			{
-				//	Interim implementation
-				renderer = new TabbedInternalPageRenderer();
-			}
-			else
-			{
-				renderer = Registrar.Registered.GetHandler<IVisualElementRenderer>(element.GetType()) ?? new DefaultRenderer();
+				renderer = Registrar.Registered.GetHandlerForObject<IVisualElementRenderer>(element) ?? new DefaultRenderer();
 			}
 			renderer.SetElement(element);
 			return renderer;

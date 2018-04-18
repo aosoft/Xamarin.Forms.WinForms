@@ -2,8 +2,14 @@
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WinFormsTestApp.TabbedPage1">
-  <!--Pages can be added as references or inline-->
-  <ContentPage Title="Tab 1" />
-  <ContentPage Title="Tab 2" />
-  <ContentPage Title="Tab 3" />
+    <!--Pages can be added as references or inline-->
+    <ContentPage Title="Tab 1">
+        <Label TextColor="Blue" Text="Tab 1" />
+    </ContentPage>
+    <ContentPage Title="Tab 2">
+        <Label TextColor="Red" Text="Tab 2" />
+    </ContentPage>
+    <ContentPage Title="Tab 3">
+        <Label TextColor="Green" Text="Tab 3" />
+    </ContentPage>
 </TabbedPage>

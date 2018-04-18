@@ -16,6 +16,15 @@ namespace Xamarin.Forms.Platform.WinForms
 			_onNativeSelected = (s, e) => h(s, e);
 		}
 
+		public override IVisualElementRenderer CreateChildRenderer(VisualElement element)
+		{
+			if (element is Page)
+			{
+				return new TabbedInternalPageRenderer();
+			}
+			return base.CreateChildRenderer(element);
+		}
+
 		protected override void OnElementChanged(ElementChangedEventArgs<TabbedPage> e)
 		{
 			if (e.OldElement != null)
@@ -60,6 +69,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			});
 		}
 
+		/*
 		protected override void OnPagesChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			base.OnPagesChanged(sender, e);
@@ -69,17 +79,6 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		void AddTab(object o, int index, bool create)
 		{
-			UpdatePropertyHelper((element, control) =>
-			{
-				TabbedInternalPageRenderer tabitem = null;
-				if (create)
-				{
-					tabitem = new TabbedInternalPageRenderer();
-				}
-
-				Children.Insert(index, tabitem);
-			});
-
 		}
 
 		void RemoveTab(object o, int index)
@@ -88,8 +87,8 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		void ResetTab()
 		{
-			Children.Clear();
 		}
+		*/
 
 		void OnNativeSelected(object sender, WForms.TabControlEventArgs e)
 		{

@@ -16,5 +16,7 @@ namespace Xamarin.Forms.Platform.WinForms
 		SizeRequest GetDesiredSize(double widthConstraint, double heightConstraint);
 
 		void SetElement(VisualElement element);
+
+		IVisualElementRenderer CreateChildRenderer(VisualElement element);
 	}
 }
