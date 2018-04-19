@@ -5,7 +5,7 @@ using WForms = System.Windows.Forms;
 
 namespace Xamarin.Forms.Platform.WinForms
 {
-	public class SearchBarControl : WForms.UserControl
+	public class WFormsSearchBar : WForms.UserControl
 	{
 		public class CustomTextBox : WForms.TextBox
 		{
@@ -68,7 +68,7 @@ namespace Xamarin.Forms.Platform.WinForms
 		CustomTextBox _textbox;
 		WForms.Button _btnSearch;
 
-		public SearchBarControl()
+		public WFormsSearchBar()
 		{
 			_textbox = new CustomTextBox()
 			{

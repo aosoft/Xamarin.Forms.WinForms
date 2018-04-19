@@ -5,7 +5,7 @@ using WDrawing = System.Drawing;
 
 namespace Xamarin.Forms.Platform.WinForms
 {
-	public class SearchBarRenderer : ViewRenderer<SearchBar, SearchBarControl>
+	public class SearchBarRenderer : ViewRenderer<SearchBar, WFormsSearchBar>
 	{
 		const string DefaultPlaceholder = "Search";
 
@@ -15,7 +15,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			{
 				if (Control == null)
 				{
-					SetNativeControl(new SearchBarControl());
+					SetNativeControl(new WFormsSearchBar());
 				}
 
 				UpdateText();
@@ -29,7 +29,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			base.OnElementChanged(e);
 		}
 
-		protected override void OnNativeElementChanged(NativeElementChangedEventArgs<SearchBarControl> e)
+		protected override void OnNativeElementChanged(NativeElementChangedEventArgs<WFormsSearchBar> e)
 		{
 			base.OnNativeElementChanged(e);
 			if (e.OldControl != null)
