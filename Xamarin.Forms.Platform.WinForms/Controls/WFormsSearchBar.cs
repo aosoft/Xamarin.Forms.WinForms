@@ -163,16 +163,16 @@ namespace Xamarin.Forms.Platform.WinForms
 		protected override void OnLoad(EventArgs e)
 		{
 			base.OnLoad(e);
-			UpdateSize();
+			UpdateLayout();
 		}
 
 		protected override void OnSizeChanged(EventArgs e)
 		{
 			base.OnSizeChanged(e);
-			UpdateSize();
+			UpdateLayout();
 		}
 
-		void UpdateSize()
+		void UpdateLayout()
 		{
 			int bw = Math.Min(Width, Height);
 			int bh = Height;

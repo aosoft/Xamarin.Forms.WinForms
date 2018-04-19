@@ -60,12 +60,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\WFormsCarouselPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ConvertExtensions.cs" />
     <Compile Include="DrawingViewRenderer.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Renderers\ActivityIndicatorRenderer.cs" />
     <Compile Include="Renderers\BoxViewRenderer.cs" />
     <Compile Include="Renderers\ButtonRenderer.cs" />
+    <Compile Include="Renderers\CarouselPageRenderer.cs" />
     <Compile Include="Renderers\DatePickerRenderer.cs" />
     <Compile Include="Renderers\DefaultRenderer.cs" />
     <Compile Include="ExportRendererAttribute.cs" />
