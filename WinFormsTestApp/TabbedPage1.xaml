@@ -5,12 +5,18 @@
     x:Class="WinFormsTestApp.TabbedPage1">
     <!--Pages can be added as references or inline-->
     <ContentPage Title="Tab 1">
-        <Label TextColor="Blue" Text="Tab 1" />
+        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+            <Label TextColor="Blue" Text="Tab 1" FontSize="24" />
+        </StackLayout>
     </ContentPage>
     <ContentPage Title="Tab 2">
-        <Label TextColor="Red" Text="Tab 2" />
+        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+            <Label TextColor="Red" Text="Tab 2" FontSize="24" />
+        </StackLayout>
     </ContentPage>
     <ContentPage Title="Tab 3">
-        <Label TextColor="Green" Text="Tab 3" />
+        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+            <Label TextColor="Green" Text="Tab 3" FontSize="24" />
+        </StackLayout>
     </ContentPage>
 </CarouselPage>

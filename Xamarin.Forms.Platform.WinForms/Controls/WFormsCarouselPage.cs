@@ -11,6 +11,8 @@ namespace Xamarin.Forms.Platform.WinForms
 		WForms.Button _btnForward;
 		WForms.Panel _content;
 
+		int _selectedIndex = -1;
+
 		public WFormsCarouselPage()
 		{
 			var size = ClientSize;
@@ -57,6 +59,9 @@ namespace Xamarin.Forms.Platform.WinForms
 					WForms.AnchorStyles.Top |
 					WForms.AnchorStyles.Bottom
 			};
+
+			_btnBack.Click += OnBackButtonClicked;
+			_btnForward.Click += OnForwardButtonClicked;
 		}
 
 
@@ -81,20 +86,68 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		public WForms.Panel Content => _content;
 
-		protected override void OnLoad(EventArgs e)
+		public int SelectedIndex
 		{
-			base.OnLoad(e);
-			UpdateLayout();
+			get => _selectedIndex;
+			set
+			{
+				var children = Children;
+				if (children != null)
+				{
+					int count = children.Count;
+					int newIndex = count < 0 ? -1 : Math.Max(0, Math.Min(value, count - 1));
+					if (newIndex != _selectedIndex)
+					{
+						for (int i = 0; i < count; i++)
+						{
+							children[i].Visible = i == newIndex;
+						}
+						_selectedIndex = newIndex;
+					}
+				}
+			}
 		}
 
-		protected override void OnSizeChanged(EventArgs e)
+		protected override void OnControlAdded(WForms.ControlEventArgs e)
 		{
-			base.OnSizeChanged(e);
-			UpdateLayout();
+			base.OnControlAdded(e);
+			UpdateContentChildren();
 		}
 
-		void UpdateLayout()
+		protected override void OnControlRemoved(WForms.ControlEventArgs e)
 		{
+			base.OnControlAdded(e);
+			UpdateContentChildren();
+		}
+
+		void OnBackButtonClicked(object sender, EventArgs e)
+		{
+			SelectedIndex--;
+		}
+
+		void OnForwardButtonClicked(object sender, EventArgs e)
+		{
+			SelectedIndex++;
+		}
+
+		void UpdateContentChildren()
+		{
+			var children = Children;
+			if (children != null)
+			{
+				if (children.Count < 0)
+				{
+					SelectedIndex = -1;
+				}
+				else if (_selectedIndex < 0)
+				{
+					SelectedIndex = 0;
+				}
+				else
+				{
+					SelectedIndex = _selectedIndex;
+				}
+			}
 		}
 	}
 }
