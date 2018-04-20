@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace WinFormsTestApp
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class TabbedPage1 : TabbedPage
+    public partial class TabbedPage1 : CarouselPage
     {
-        public TabbedPage1 ()
+        public TabbedPage1()
         {
             InitializeComponent();
         }

@@ -177,8 +177,9 @@ namespace Xamarin.Forms.Platform.WinForms
 
 			newPage.Layout(ContainerBounds);
 
-			pageRenderer.NativeElement.Width = _form.Width;
-			pageRenderer.NativeElement.Height = _form.Height;
+			var size = _form.ClientSize;
+			pageRenderer.NativeElement.Width = size.Width;
+			pageRenderer.NativeElement.Height = size.Height;
 
 			completedCallback?.Invoke();
 
@@ -193,6 +194,7 @@ namespace Xamarin.Forms.Platform.WinForms
 		internal void UpdatePageSizes()
 		{
 			Rectangle bounds = ContainerBounds;
+			var size = _form.ClientSize;
 			if (bounds.IsEmpty)
 				return;
 			foreach (Page root in _navModel.Roots)
@@ -201,8 +203,8 @@ namespace Xamarin.Forms.Platform.WinForms
 				IVisualElementRenderer renderer = GetRenderer(root);
 				if (renderer != null)
 				{
-					renderer.NativeElement.Width = _form.Width;
-					renderer.NativeElement.Height = _form.Height;
+					renderer.NativeElement.Width = size.Width;
+					renderer.NativeElement.Height = size.Height;
 				}
 			}
 		}
