@@ -5,7 +5,7 @@ using WForms = System.Windows.Forms;
 
 namespace Xamarin.Forms.Platform.WinForms
 {
-	public class WFormsCarouselPage : WForms.UserControl
+	public class WFormsCarouselPage : WForms.UserControl, INativeElement
 	{
 		WForms.Button _btnBack;
 		WForms.Button _btnForward;
@@ -57,10 +57,8 @@ namespace Xamarin.Forms.Platform.WinForms
 					WForms.AnchorStyles.Top |
 					WForms.AnchorStyles.Bottom
 			};
-
-
-
 		}
+
 
 		protected override void Dispose(bool disposing)
 		{
@@ -75,6 +73,13 @@ namespace Xamarin.Forms.Platform.WinForms
 			}
 			base.Dispose(disposing);
 		}
+
+
+		public WForms.Control ParentForChildren => _content;
+
+		public ControlCollection Children => _content?.Controls;
+
+		public WForms.Panel Content => _content;
 
 		protected override void OnLoad(EventArgs e)
 		{
