@@ -23,9 +23,9 @@ namespace Xamarin.Forms.Platform.WinForms
 
 				Control.TickFrequency = 0;
 
-				UpdateValue();
-				UpdateMinimum();
-				UpdateMaximum();
+                UpdateMinimum();
+                UpdateMaximum();
+                UpdateValue();				
 			}
 
 			base.OnElementChanged(e);
