@@ -14,6 +14,7 @@ namespace Xamarin.Forms.Platform.WinForms
 					SetNativeControl(new WForms.DateTimePicker());
 				}
 
+				UpdateFormat();
 				UpdateDate();
 				UpdateMinimumDate();
 				UpdateMaximumDate();
@@ -40,6 +41,11 @@ namespace Xamarin.Forms.Platform.WinForms
 		void UpdateDate()
 		{
 			UpdatePropertyHelper((element, control) => control.Value = element.Date);
+		}
+
+		void UpdateFormat()
+		{
+            UpdatePropertyHelper((element, control) => { control.Format = WForms.DateTimePickerFormat.Custom; control.CustomFormat = element.Format; });
 		}
 
 		void UpdateMaximumDate()
