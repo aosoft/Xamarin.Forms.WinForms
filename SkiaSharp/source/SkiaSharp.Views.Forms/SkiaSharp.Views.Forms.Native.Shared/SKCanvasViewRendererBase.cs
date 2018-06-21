@@ -26,6 +26,10 @@ using Xamarin.Forms.Platform.Tizen;
 using SKNativeView = SkiaSharp.Views.Tizen.SKCanvasView;
 using SKNativePaintSurfaceEventArgs = SkiaSharp.Views.Tizen.SKPaintSurfaceEventArgs;
 using TForms = Xamarin.Forms.Platform.Tizen.Forms;
+#elif __WINDOWS_DESKTOP__
+using Xamarin.Forms.Platform.WinForms;
+using SKNativeView = SkiaSharp.Views.Desktop.SKControl;
+using SKNativePaintSurfaceEventArgs = SkiaSharp.Views.Desktop.SKPaintSurfaceEventArgs;
 #endif
 
 namespace SkiaSharp.Views.Forms
@@ -91,7 +95,8 @@ namespace SkiaSharp.Views.Forms
 
 				// set the initial values
 				touchHandler.SetEnabled(Control, e.NewElement.EnableTouchEvents);
-				Control.IgnorePixelScaling = e.NewElement.IgnorePixelScaling;
+				//	#7 temporary
+				//Control.IgnorePixelScaling = e.NewElement.IgnorePixelScaling;
 
 				// subscribe to events from the user
 				newController.SurfaceInvalidated += OnSurfaceInvalidated;
@@ -126,11 +131,13 @@ namespace SkiaSharp.Views.Forms
 		{
 			base.OnElementPropertyChanged(sender, e);
 
-			if (e.PropertyName == SKFormsView.IgnorePixelScalingProperty.PropertyName)
+			//	#7 temporary
+			/*if (e.PropertyName == SKFormsView.IgnorePixelScalingProperty.PropertyName)
 			{
 				Control.IgnorePixelScaling = Element.IgnorePixelScaling;
 			}
-			else if (e.PropertyName == SKFormsView.EnableTouchEventsProperty.PropertyName)
+			else*/
+			if (e.PropertyName == SKFormsView.EnableTouchEventsProperty.PropertyName)
 			{
 				touchHandler.SetEnabled(Control, Element.EnableTouchEvents);
 			}
@@ -168,7 +175,7 @@ namespace SkiaSharp.Views.Forms
 #elif TIZEN4_0
 				x = Tizen.ScalingInfo.FromPixel(x);
 				x = Tizen.ScalingInfo.FromPixel(y);
-#elif __IOS__ || __MACOS__ || WINDOWS_UWP
+#elif __IOS__ || __MACOS__ || WINDOWS_UWP || __WINDOWS_DESKTOP__
 				// Tizen and Android are the reverse of the other platforms
 #else
 #error Missing platform logic
@@ -187,6 +194,10 @@ namespace SkiaSharp.Views.Forms
 #elif WINDOWS_UWP
 				x = x * Control.Dpi;
 				y = y * Control.Dpi;
+#elif __WINDOWS_DESKTOP__
+				//	#7 temporary
+				//x = x * Control.Dpi;
+				//y = y * Control.Dpi;
 #else
 #error Missing platform logic
 #endif

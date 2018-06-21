@@ -26,6 +26,10 @@ using Xamarin.Forms.Platform.Tizen;
 using SKNativeView = SkiaSharp.Views.Tizen.SKGLSurfaceView;
 using SKNativePaintGLSurfaceEventArgs = SkiaSharp.Views.Tizen.SKPaintGLSurfaceEventArgs;
 using TForms = Xamarin.Forms.Platform.Tizen.Forms;
+#elif __WINDOWS_DESKTOP__
+using Xamarin.Forms.Platform.WinForms;
+using SKNativeView = SkiaSharp.Views.Desktop.SKGLControl;
+using SKNativePaintGLSurfaceEventArgs = SkiaSharp.Views.Desktop.SKPaintGLSurfaceEventArgs;
 #endif
 
 namespace SkiaSharp.Views.Forms
@@ -183,6 +187,10 @@ namespace SkiaSharp.Views.Forms
 #elif WINDOWS_UWP
 			x = x * Control.ContentsScale;
 			y = y * Control.ContentsScale;
+#elif __WINDOWS_DESKTOP__
+			//	#7 temporary
+			//x = x * Control.Dpi;
+			//y = y * Control.Dpi;
 #else
 #error Missing platform logic
 #endif
