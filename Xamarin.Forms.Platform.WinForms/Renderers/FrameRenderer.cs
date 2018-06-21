@@ -102,7 +102,7 @@ namespace Xamarin.Forms.Platform.WinForms
 		{
 			base.OnElementPropertyChanged(sender, e);
 
-			if (e.PropertyName == Frame.OutlineColorProperty.PropertyName ||
+			if (e.PropertyName == Frame.BorderColorProperty.PropertyName ||
 				e.PropertyName == Frame.HasShadowProperty.PropertyName)
 			{
 				UpdateOutlineColor();
@@ -119,9 +119,9 @@ namespace Xamarin.Forms.Platform.WinForms
 			{
 				_pen?.Dispose();
 				_pen = null;
-				if (element.OutlineColor != Color.Default)
+				if (element.BorderColor != Color.Default)
 				{
-					_pen = new Pen(element.OutlineColor.ToWindowsColor());
+					_pen = new Pen(element.BorderColor.ToWindowsColor());
 				}
 
 				control.Invalidate();
