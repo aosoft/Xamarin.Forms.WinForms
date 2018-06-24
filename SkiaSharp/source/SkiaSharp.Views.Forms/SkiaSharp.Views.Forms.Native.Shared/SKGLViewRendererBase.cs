@@ -188,9 +188,7 @@ namespace SkiaSharp.Views.Forms
 			x = x * Control.ContentsScale;
 			y = y * Control.ContentsScale;
 #elif __WINDOWS_DESKTOP__
-			//	#7 temporary
-			//x = x * Control.Dpi;
-			//y = y * Control.Dpi;
+			// SKGLControl is not support scaling
 #else
 #error Missing platform logic
 #endif

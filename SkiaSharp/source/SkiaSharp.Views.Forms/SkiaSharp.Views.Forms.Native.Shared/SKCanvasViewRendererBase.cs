@@ -95,9 +95,9 @@ namespace SkiaSharp.Views.Forms
 
 				// set the initial values
 				touchHandler.SetEnabled(Control, e.NewElement.EnableTouchEvents);
-				//	#7 temporary
-				//Control.IgnorePixelScaling = e.NewElement.IgnorePixelScaling;
-
+#if !__WINDOWS_DESKTOP__
+				Control.IgnorePixelScaling = e.NewElement.IgnorePixelScaling;
+#endif
 				// subscribe to events from the user
 				newController.SurfaceInvalidated += OnSurfaceInvalidated;
 				newController.GetCanvasSize += OnGetCanvasSize;
@@ -131,12 +131,13 @@ namespace SkiaSharp.Views.Forms
 		{
 			base.OnElementPropertyChanged(sender, e);
 
-			//	#7 temporary
-			/*if (e.PropertyName == SKFormsView.IgnorePixelScalingProperty.PropertyName)
+#if !__WINDOWS_DESKTOP__
+			if (e.PropertyName == SKFormsView.IgnorePixelScalingProperty.PropertyName)
 			{
 				Control.IgnorePixelScaling = Element.IgnorePixelScaling;
 			}
-			else*/
+			else
+#endif
 			if (e.PropertyName == SKFormsView.EnableTouchEventsProperty.PropertyName)
 			{
 				touchHandler.SetEnabled(Control, Element.EnableTouchEvents);
@@ -195,9 +196,7 @@ namespace SkiaSharp.Views.Forms
 				x = x * Control.Dpi;
 				y = y * Control.Dpi;
 #elif __WINDOWS_DESKTOP__
-				//	#7 temporary
-				//x = x * Control.Dpi;
-				//y = y * Control.Dpi;
+				// SKGLControl is not support scaling
 #else
 #error Missing platform logic
 #endif
