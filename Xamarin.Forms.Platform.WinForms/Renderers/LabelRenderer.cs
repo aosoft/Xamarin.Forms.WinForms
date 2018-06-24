@@ -42,7 +42,8 @@ namespace Xamarin.Forms.Platform.WinForms
 			{
 				UpdateAlign();
 			}
-			else if (e.PropertyName == Label.FontSizeProperty.PropertyName ||
+			else if (e.PropertyName == Label.FontFamilyProperty.PropertyName ||
+				e.PropertyName == Label.FontSizeProperty.PropertyName ||
 				e.PropertyName == Label.FontAttributesProperty.PropertyName)
 			{
 				UpdateFont();

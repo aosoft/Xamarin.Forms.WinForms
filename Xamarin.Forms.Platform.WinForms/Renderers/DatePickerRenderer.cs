@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using WForms = System.Windows.Forms;
 
 namespace Xamarin.Forms.Platform.WinForms
@@ -19,6 +20,7 @@ namespace Xamarin.Forms.Platform.WinForms
 				UpdateMinimumDate();
 				UpdateMaximumDate();
 				UpdateTextColor();
+				UpdateFont();
 			}
 
 			base.OnElementChanged(e);
@@ -35,6 +37,38 @@ namespace Xamarin.Forms.Platform.WinForms
 			if (e.NewControl != null)
 			{
 				e.NewControl.ValueChanged += DateTimePicker_OnValueChanged;
+			}
+		}
+
+		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+		{
+			base.OnElementPropertyChanged(sender, e);
+
+			if (e.PropertyName == DatePicker.DateProperty.PropertyName)
+			{
+				UpdateDate();
+			}
+			else if (e.PropertyName == DatePicker.FormatProperty.PropertyName)
+			{
+				UpdateFormat();
+			}
+			else if (e.PropertyName == DatePicker.MinimumDateProperty.PropertyName)
+			{
+				UpdateMinimumDate();
+			}
+			else if (e.PropertyName == DatePicker.MaximumDateProperty.PropertyName)
+			{
+				UpdateMaximumDate();
+			}
+			else if (e.PropertyName == DatePicker.TextColorProperty.PropertyName)
+			{
+				UpdateTextColor();
+			}
+			else if (e.PropertyName == Button.FontFamilyProperty.PropertyName ||
+				e.PropertyName == Button.FontSizeProperty.PropertyName ||
+				e.PropertyName == Button.FontAttributesProperty.PropertyName)
+			{
+				UpdateFont();
 			}
 		}
 
@@ -61,6 +95,17 @@ namespace Xamarin.Forms.Platform.WinForms
 		void UpdateTextColor()
 		{
 			UpdatePropertyHelper((element, control) => control.ForeColor = element.TextColor.ToWindowsColor());
+		}
+
+		void UpdateFont()
+		{
+			UpdatePropertyHelper((element, control) =>
+			{
+				control.Font = new System.Drawing.Font(
+					element.FontFamily,
+					(float)element.FontSize,
+					element.FontAttributes.ToWindowsFontStyle());
+			});
 		}
 
 		void DateTimePicker_OnValueChanged(object sender, EventArgs e)

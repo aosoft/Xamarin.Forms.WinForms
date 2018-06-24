@@ -56,7 +56,8 @@ namespace Xamarin.Forms.Platform.WinForms
 			{
 				UpdateTextColor();
 			}
-			else if (e.PropertyName == Entry.FontSizeProperty.PropertyName ||
+			else if (e.PropertyName == Entry.FontFamilyProperty.PropertyName ||
+				e.PropertyName == Entry.FontSizeProperty.PropertyName ||
 				e.PropertyName == Entry.FontAttributesProperty.PropertyName)
 			{
 				UpdateFont();

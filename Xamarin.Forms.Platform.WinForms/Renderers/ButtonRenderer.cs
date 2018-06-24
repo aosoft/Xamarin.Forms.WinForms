@@ -50,7 +50,8 @@ namespace Xamarin.Forms.Platform.WinForms
 			{
 				UpdateTextColor();
 			}
-			else if (e.PropertyName == Button.FontSizeProperty.PropertyName ||
+			else if (e.PropertyName == Button.FontFamilyProperty.PropertyName ||
+				e.PropertyName == Button.FontSizeProperty.PropertyName ||
 				e.PropertyName == Button.FontAttributesProperty.PropertyName)
 			{
 				UpdateFont();
