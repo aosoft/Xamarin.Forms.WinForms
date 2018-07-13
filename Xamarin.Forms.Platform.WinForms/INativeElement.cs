@@ -9,8 +9,6 @@ namespace Xamarin.Forms.Platform.WinForms
 {
 	public interface INativeElement
 	{
-		WForms.Control ParentForChildren { get; }
-
-		WForms.Control.ControlCollection Children { get; }
+		IList<WForms.Control> Children { get; }
 	}
 }

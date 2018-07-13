@@ -101,7 +101,15 @@ namespace Xamarin.Forms.Platform.WinForms
 			var nativeElement = renderer?.NativeElement;
 			if (nativeElement != null)
 			{
-				nativeElement.Parent = (parent as INativeElement)?.ParentForChildren ?? parent;
+				var parent2 = parent as INativeElement;
+				if (parent2 != null)
+				{
+					parent2.Children.Add(nativeElement);
+				}
+				else
+				{
+					nativeElement.Parent = parent;
+				}
 			}
 		}
 
