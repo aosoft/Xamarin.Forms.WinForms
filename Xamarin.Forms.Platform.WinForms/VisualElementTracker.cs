@@ -152,7 +152,6 @@ namespace Xamarin.Forms.Platform.WinForms
 
 			UpdateVisibility(element, control);
 			UpdateOpacity(element, control);
-			UpdatePositionSizeAnchor(element, control);
 			UpdateScaleAndRotation(element, control);
 			UpdateInputTransparent(element, control);
 

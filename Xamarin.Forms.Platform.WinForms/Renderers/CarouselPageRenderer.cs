@@ -9,6 +9,15 @@ namespace Xamarin.Forms.Platform.WinForms
 {
 	public class CarouselPageRenderer : MultiPageRenderer<CarouselPage, ContentPage, WFormsCarouselPage>
 	{
+		public override IVisualElementRenderer CreateChildRenderer(VisualElement element)
+		{
+			if (element is ContentPage)
+			{
+				return new CarouselInternalPageRenderer();
+			}
+			return base.CreateChildRenderer(element);
+		}
+
 		protected override void OnElementChanged(ElementChangedEventArgs<CarouselPage> e)
 		{
 			if (e.NewElement != null)
@@ -21,18 +30,6 @@ namespace Xamarin.Forms.Platform.WinForms
 			}
 
 			base.OnElementChanged(e);
-		}
-
-		protected override void OnNativeElementChanged(NativeElementChangedEventArgs<WFormsCarouselPage> e)
-		{
-			base.OnNativeElementChanged(e);
-			if (e.OldControl != null)
-			{
-			}
-
-			if (e.NewControl != null)
-			{
-			}
 		}
 	}
 }

@@ -200,6 +200,11 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		protected virtual Size Measure(TNativeElement control, Size constraint)
 		{
+			return MeasureInternal(control, constraint);
+		}
+
+		protected static Size MeasureInternal(Control control, Size constraint)
+		{
 			var size = control.GetPreferredSize(new System.Drawing.Size(
 				double.IsInfinity(constraint.Width) ? (int)constraint.Width : int.MaxValue,
 				double.IsInfinity(constraint.Height) ? (int)constraint.Height : int.MaxValue));

@@ -7,10 +7,8 @@ using WForms = System.Windows.Forms;
 
 namespace Xamarin.Forms.Platform.WinForms
 {
-	public interface INativeElement
+	public interface ILogicalChildrenContainer
 	{
-		WForms.Control ParentForChildren { get; }
-
-		WForms.Control.ControlCollection Children { get; }
+		IList<WForms.Control> LogicalChildren { get; }
 	}
 }
