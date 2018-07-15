@@ -101,10 +101,10 @@ namespace Xamarin.Forms.Platform.WinForms
 			var nativeElement = renderer?.NativeElement;
 			if (nativeElement != null)
 			{
-				var parent2 = parent as INativeElement;
+				var parent2 = parent as ILogicalChildrenContainer;
 				if (parent2 != null)
 				{
-					parent2.Children.Add(nativeElement);
+					parent2.LogicalChildren.Add(nativeElement);
 				}
 				else
 				{

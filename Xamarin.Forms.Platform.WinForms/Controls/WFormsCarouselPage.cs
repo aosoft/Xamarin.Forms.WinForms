@@ -8,7 +8,7 @@ using WForms = System.Windows.Forms;
 
 namespace Xamarin.Forms.Platform.WinForms
 {
-	public class WFormsCarouselPage : WForms.UserControl, INativeElement
+	public class WFormsCarouselPage : WForms.UserControl, ILogicalChildrenContainer
 	{
 		WForms.Button _btnBack;
 		WForms.Button _btnForward;
@@ -85,7 +85,7 @@ namespace Xamarin.Forms.Platform.WinForms
 		}
 
 
-		public IList<WForms.Control> Children => _children;
+		public IList<WForms.Control> LogicalChildren => _children;
 
 		public WForms.Panel Content => _content;
 
