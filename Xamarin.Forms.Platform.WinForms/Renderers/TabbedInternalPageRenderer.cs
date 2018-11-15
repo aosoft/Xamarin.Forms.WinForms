@@ -27,11 +27,47 @@ namespace Xamarin.Forms.Platform.WinForms
 				UpdateTitle();
 		}
 
+		protected override void OnNativeElementChanged(NativeElementChangedEventArgs<WForms.TabPage> e)
+		{
+			base.OnNativeElementChanged(e);
+			if (e.OldControl != null)
+			{
+				e.OldControl.SizeChanged -= OnSizeChanged;
+				e.OldControl.VisibleChanged -= OnVisibleChanged;
+			}
+
+			if (e.NewControl != null)
+			{
+				e.NewControl.SizeChanged += OnSizeChanged;
+				e.NewControl.VisibleChanged += OnVisibleChanged;
+			}
+		}
+
 		void UpdateTitle()
 		{
 			UpdatePropertyHelper((element, Control) =>
 			{
 				Control.Text = element.Title;
+			});
+		}
+
+		void OnSizeChanged(object sender, System.EventArgs e)
+		{
+			UpdatePropertyHelper((element, control) =>
+			{
+				element.Layout(new Rectangle(0, 0, control.Width, control.Height));
+			});
+		}
+
+		void OnVisibleChanged(object sender, System.EventArgs e)
+		{
+			UpdatePropertyHelper((element, control) =>
+			{
+				if (control.Visible)
+				{
+					//	The layout might be invalidated while Visible is false.
+					element.Layout(new Rectangle(0, 0, control.Width, control.Height));
+				}
 			});
 		}
 	}
