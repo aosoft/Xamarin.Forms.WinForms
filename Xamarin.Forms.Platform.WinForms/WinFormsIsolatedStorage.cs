@@ -31,67 +31,20 @@ namespace Xamarin.Forms.Platform.WinForms
 			return Task.Run<DateTimeOffset>(() => new DateTimeOffset(File.GetLastWriteTime(path)));
 		}
 
-		public Task<Stream> OpenFileAsync(string path, Internals.FileMode mode, Internals.FileAccess access)
+		public Task<Stream> OpenFileAsync(string path, FileMode mode, FileAccess access)
 		{
 			return Task.Run<Stream>(() =>
 			{
-				System.IO.FileMode mode2;
-				System.IO.FileAccess access2;
-
-				switch (mode)
-				{
-					case Internals.FileMode.CreateNew:
-						mode2 = System.IO.FileMode.CreateNew;
-						break;
-
-					case Internals.FileMode.Create:
-						mode2 = System.IO.FileMode.Create;
-						break;
-
-					case Internals.FileMode.Truncate:
-						mode2 = System.IO.FileMode.Truncate;
-						break;
-
-					case Internals.FileMode.OpenOrCreate:
-						mode2 = System.IO.FileMode.OpenOrCreate;
-						break;
-
-					case Internals.FileMode.Append:
-						mode2 = System.IO.FileMode.Append;
-						break;
-
-					case Internals.FileMode.Open:
-						mode2 = System.IO.FileMode.Open;
-						break;
-
-					default:
-						throw new ArgumentException("mode was an invalid FileMode", "mode");
-				}
-
-				switch (access)
-				{
-					case Internals.FileAccess.Read:
-						access2 = System.IO.FileAccess.Read;
-						break;
-					case Internals.FileAccess.Write:
-						access2 = System.IO.FileAccess.Write;
-						break;
-
-					case Internals.FileAccess.ReadWrite:
-						access2 = System.IO.FileAccess.ReadWrite;
-						break;
-
-					default:
-						throw new ArgumentException("access was an invalid FileAccess", "access");
-				}
-
-				return new FileStream(path, mode2, access2);
+				return new FileStream(path, mode, access);
 			});
 		}
 
-		public Task<Stream> OpenFileAsync(string path, Internals.FileMode mode, Internals.FileAccess access, Internals.FileShare share)
+		public Task<Stream> OpenFileAsync(string path, FileMode mode, FileAccess access, FileShare share)
 		{
-			return OpenFileAsync(path, mode, access);
+			return Task.Run<Stream>(() =>
+			{
+				return new FileStream(path, mode, access, share);
+			});
 		}
 	}
 }
