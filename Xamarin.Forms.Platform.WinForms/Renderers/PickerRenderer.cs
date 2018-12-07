@@ -2,6 +2,7 @@
 using System.Collections.Specialized;
 using System.ComponentModel;
 using WForms = System.Windows.Forms;
+using WDrawing = System.Drawing;
 
 namespace Xamarin.Forms.Platform.WinForms
 {
@@ -84,7 +85,7 @@ namespace Xamarin.Forms.Platform.WinForms
 		{
 			if (Control != null && Element != null)
 			{
-				Control.ForeColor = Element.TextColor.ToWindowsColor();
+				Control.ForeColor = Element.TextColor.ToWindowsColor(WDrawing.SystemColors.ControlText);
 			}
 		}
 
