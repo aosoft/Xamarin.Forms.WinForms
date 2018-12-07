@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using WForms = System.Windows.Forms;
+using WDrawing = System.Drawing;
 
 namespace Xamarin.Forms.Platform.WinForms
 {
@@ -65,7 +66,7 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		void UpdateTextColor()
 		{
-			UpdatePropertyHelper((element, control) => control.ForeColor = element.TextColor.ToWindowsColor());
+			UpdatePropertyHelper((element, control) => control.ForeColor = element.TextColor.ToWindowsColor(WDrawing.SystemColors.ControlText));
 		}
 
 		void UpdateAlign()
