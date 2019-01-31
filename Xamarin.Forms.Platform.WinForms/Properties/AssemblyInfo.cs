@@ -54,6 +54,7 @@ using Xamarin.Forms.Platform.WinForms;
 [assembly: ExportRenderer(typeof(DatePicker), typeof(DatePickerRenderer))]
 [assembly: ExportRenderer(typeof(Frame), typeof(FrameRenderer))]
 [assembly: ExportRenderer(typeof(Image), typeof(ImageRenderer))]
+[assembly: ExportRenderer(typeof(ImageButton), typeof(ImageButtonRenderer))]
 [assembly: ExportRenderer(typeof(ProgressBar), typeof(ProgressBarRenderer))]
 [assembly: ExportRenderer(typeof(SearchBar), typeof(SearchBarRenderer))]
 [assembly: ExportRenderer(typeof(ScrollView), typeof(ScrollViewRenderer))]
