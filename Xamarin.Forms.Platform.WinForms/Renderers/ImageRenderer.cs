@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Windows.Forms;
 using System.Threading.Tasks;
 using Xamarin.Forms.Internals;
 using System.Threading;
@@ -41,7 +40,7 @@ namespace Xamarin.Forms.Platform.WinForms
 				UpdateAspect();
 		}
 
-		protected override void OnPaint(object sender, PaintEventArgs e)
+		protected override void OnPaint(object sender, WForms.PaintEventArgs e)
 		{
 			base.OnPaint(sender, e);
 			if (_source == null)
