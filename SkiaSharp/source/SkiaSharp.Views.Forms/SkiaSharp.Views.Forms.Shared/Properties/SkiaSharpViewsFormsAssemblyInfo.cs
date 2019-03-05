@@ -2,6 +2,8 @@
 using System.Reflection;
 using System.Resources;
 
+#if false
+
 [assembly: AssemblyTitle("SkiaSharp.Views.Forms")]
 [assembly: AssemblyDescription("SkiaSharp for Xamarin.Forms is a set of views that can be used to draw on the screen.")]
 [assembly: AssemblyCompany("Xamarin Inc.")]
@@ -13,4 +15,6 @@ using System.Resources;
 [assembly: AssemblyConfiguration("Debug")]
 #else
 [assembly: AssemblyConfiguration("Release")]
+#endif
+
 #endif

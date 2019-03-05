@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Xamarin.Forms.Platform.WinForms</id>
+    <version>3.4.0.0-alpha</version>
+    <authors>Yasuhiro Taniuchi</authors>
+    <owners>Yasuhiro Taniuchi</owners>
+    <licenseUrl>https://github.com/aosoft/Xamarin.Forms.WinForms/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/aosoft/Xamarin.Forms.WinForms</projectUrl>
+    <!--<iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>-->
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Xamarin Forms Renderer to build native UIs for Windows Forms</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright (c) Yasuhiro Taniuchi / 
+Copyright (c) .NET Foundation Contributors</copyright>
+    <tags>xamarin forms xamarinforms xamarin.forms</tags>
+    <dependencies>
+      <group targetFramework="net461">
+        <dependency id="Xamarin.Forms" version="3.4.0.1008975" />
+        <dependency id="OpenTK" version="3.0.1" />
+        <dependency id="OpenTK.GLControl" version="3.0.1" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\Xamarin.Forms.Platform.WinForms\bin\Release\Xamarin.Forms.Platform.WinForms.dll" target="lib\net461" />
+  </files>
+</package>
