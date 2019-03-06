@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>SkiaSharp.Views.Forms.WinForms</id>
+    <version>1.60.1.0-alpha2</version>
+    <authors>Yasuhiro Taniuchi</authors>
+    <owners>Yasuhiro Taniuchi</owners>
+    <licenseUrl>https://github.com/aosoft/Xamarin.Forms.WinForms/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/aosoft/Xamarin.Forms.WinForms</projectUrl>
+    <!--<iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>-->
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>SkiaSharp for Xamarin.Forms is a set of views that can be used to draw on the screen.</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright (c) Yasuhiro Taniuchi / Copyright (c) 2015-2016 Xamarin, Inc.</copyright>
+    <tags>xamarin forms xamarinforms xamarin.forms skiasharp</tags>
+    <dependencies>
+      <group targetFramework="net461">
+        <dependency id="Xamarin.Forms" version="3.4.0.1008975" />
+        <dependency id="Xamarin.Forms.Platform.WinForms" version="3.4.0.0-alpha" />
+        <dependency id="OpenTK" version="3.0.1" />
+        <dependency id="OpenTK.GLControl" version="3.0.1" />
+        <dependency id="SkiaSharp" version="1.60.1" />
+        <dependency id="SkiaSharp.Views" version="1.60.1" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\SkiaSharp.Views.Forms.WinForms\bin\Release\SkiaSharp.Views.Forms.dll" target="lib\net461" />
+  </files>
+</package>
