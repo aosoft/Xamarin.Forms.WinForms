@@ -85,6 +85,11 @@ namespace Xamarin.Forms.Platform.WinForms
 			throw new ArgumentException(nameof(size));
 		}
 
+		public SizeRequest GetNativeSize(VisualElement view, double widthConstraint, double heightConstraint)
+		{
+			return Platform.GetNativeSizeInternal(view, widthConstraint, heightConstraint);
+		}
+
 		public async Task<Stream> GetStreamAsync(Uri uri, CancellationToken cancellationToken)
 		{
 			using (var client = new HttpClient())

@@ -8,7 +8,10 @@ using Xamarin.Forms.Internals;
 
 namespace Xamarin.Forms.Platform.WinForms
 {
-	public class Platform : IPlatform, INavigation, IDisposable
+	public class Platform : INavigation, IDisposable
+#pragma warning disable CS0618
+		, IPlatform
+#pragma warning restore
 	{
 		Rectangle _bounds = new Rectangle();
 		readonly Form _form;
@@ -217,6 +220,11 @@ namespace Xamarin.Forms.Platform.WinForms
 		#region IPlatform
 
 		public SizeRequest GetNativeSize(VisualElement view, double widthConstraint, double heightConstraint)
+		{
+			return GetNativeSizeInternal(view, widthConstraint, heightConstraint);
+		}
+
+		internal static SizeRequest GetNativeSizeInternal(VisualElement view, double widthConstraint, double heightConstraint)
 		{
 			//	暫定
 			var viewRenderer = GetRenderer(view);
