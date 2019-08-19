@@ -82,6 +82,7 @@
     <Compile Include="Renderers\FrameRenderer.cs" />
     <Compile Include="Renderers\ImageButtonRenderer.cs" />
     <Compile Include="Renderers\ImageRenderer.cs" />
+    <Compile Include="Renderers\IShellContext.cs" />
     <Compile Include="Renderers\LabelRenderer.cs" />
     <Compile Include="Renderers\LayoutRenderer.cs" />
     <Compile Include="Renderers\MultiPageRenderer.cs" />
@@ -95,6 +96,7 @@
     </Compile>
     <Compile Include="Renderers\ScrollViewRenderer.cs" />
     <Compile Include="Renderers\SearchBarRenderer.cs" />
+    <Compile Include="Renderers\ShellRenderer.cs" />
     <Compile Include="Renderers\SliderRenderer.cs" />
     <Compile Include="Renderers\StepperRenderer.cs" />
     <Compile Include="Renderers\SwitchRenderer.cs" />
