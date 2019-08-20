@@ -64,6 +64,9 @@
     <Compile Include="Controls\WFormsCarouselPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Controls\WFormsShell.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ConvertExtensions.cs" />
     <Compile Include="DrawingViewRenderer.cs" />
     <Compile Include="Extensions.cs" />
@@ -96,6 +99,7 @@
     </Compile>
     <Compile Include="Renderers\ScrollViewRenderer.cs" />
     <Compile Include="Renderers\SearchBarRenderer.cs" />
+    <Compile Include="Renderers\ShellInternalPageRenderer.cs" />
     <Compile Include="Renderers\ShellRenderer.cs" />
     <Compile Include="Renderers\SliderRenderer.cs" />
     <Compile Include="Renderers\StepperRenderer.cs" />

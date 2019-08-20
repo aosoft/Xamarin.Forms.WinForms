@@ -10,7 +10,7 @@ namespace WinFormsTestApp
 	{
 		public App()
 		{
-			MainPage = new TabbedPage1();
+			MainPage = new AppShell();
 		}
 
 		protected override void OnStart()

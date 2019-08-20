@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,47 +8,42 @@ using System.Windows.Forms;
 
 namespace Xamarin.Forms.Platform.WinForms
 {
-	public class ShellRenderer : IVisualElementRenderer, IShellContext
+	public class ShellRenderer : PageRenderer<Shell, WFormsShell>
 	{
-		VisualElementRendererCollection IVisualElementRenderer.Children => throw new NotImplementedException();
-
-		VisualElement IVisualElementRenderer.Element => throw new NotImplementedException();
-
-		Control IVisualElementRenderer.NativeElement => throw new NotImplementedException();
-
-		Shell IShellContext.Shell => throw new NotImplementedException();
-
-		event EventHandler<VisualElementChangedEventArgs> IVisualElementRenderer.ElementChanged
+		public override IVisualElementRenderer CreateChildRenderer(VisualElement element)
 		{
-			add
+			if (element is Page)
 			{
-				throw new NotImplementedException();
+				return new ShellInternalPageRenderer();
+			}
+			return base.CreateChildRenderer(element);
+		}
+
+		protected override void OnElementChanged(ElementChangedEventArgs<Shell> e)
+		{
+			if (e.NewElement != null)
+			{
+				if (Control == null)
+				{
+					SetNativeControl(new WFormsShell());
+				}
 			}
 
-			remove
+			base.OnElementChanged(e);
+		}
+
+		protected override void OnNativeElementChanged(NativeElementChangedEventArgs<WFormsShell> e)
+		{
+			base.OnNativeElementChanged(e);
+		}
+
+		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+		{
+			if (e.PropertyName == Shell.CurrentItemProperty.PropertyName)
 			{
-				throw new NotImplementedException();
 			}
-		}
 
-		IVisualElementRenderer IVisualElementRenderer.CreateChildRenderer(VisualElement element)
-		{
-			throw new NotImplementedException();
-		}
-
-		void IDisposable.Dispose()
-		{
-			throw new NotImplementedException();
-		}
-
-		SizeRequest IVisualElementRenderer.GetDesiredSize(double widthConstraint, double heightConstraint)
-		{
-			throw new NotImplementedException();
-		}
-
-		void IVisualElementRenderer.SetElement(VisualElement element)
-		{
-			throw new NotImplementedException();
+			base.OnElementPropertyChanged(sender, e);
 		}
 	}
 }
