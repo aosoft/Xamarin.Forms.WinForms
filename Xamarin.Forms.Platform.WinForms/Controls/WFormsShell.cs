@@ -39,6 +39,12 @@ namespace Xamarin.Forms.Platform.WinForms
 					WForms.AnchorStyles.Left |
 					WForms.AnchorStyles.Top
 			};
+
+			MenuButton.Click += MenuButton_OnClick;
+
+			FlyoutMenu = new WForms.ContextMenuStrip();
+			FlyoutMenu.Items.Add("1111");
+			FlyoutMenu.Items.Add("2222");
 		}
 
 		protected override void Dispose(bool disposing)
@@ -54,5 +60,14 @@ namespace Xamarin.Forms.Platform.WinForms
 		public WForms.Panel Content { get; }
 
 		public WForms.Button MenuButton { get; }
+
+		public WForms.ContextMenuStrip FlyoutMenu { get; }
+
+		private void MenuButton_OnClick(object sender, EventArgs e)
+		{
+			var pt = MenuButton.Location;
+			var sz = MenuButton.Size;
+			FlyoutMenu.Show(PointToScreen(new WDrawing.Point(pt.X, pt.Y + sz.Height)));
+		}
 	}
 }

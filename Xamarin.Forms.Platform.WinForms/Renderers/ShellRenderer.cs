@@ -27,6 +27,8 @@ namespace Xamarin.Forms.Platform.WinForms
 				{
 					SetNativeControl(new WFormsShell());
 				}
+
+				InitializeFlyout();
 			}
 
 			base.OnElementChanged(e);
@@ -45,5 +47,65 @@ namespace Xamarin.Forms.Platform.WinForms
 
 			base.OnElementPropertyChanged(sender, e);
 		}
+
+		void InitializeFlyout()
+		{
+			((IShellController)Element).StructureChanged += Shell_OnShellStructureChanged;
+
+			//	Initialize Flyout Header
+
+			BuildMenu();
+		}
+
+		void BuildMenu()
+		{
+			//var groups = new List<Group>();
+			var flyoutGroups = ((IShellController)Element).GenerateFlyoutGrouping();
+
+			Control.FlyoutMenu.Items.Clear();
+
+			int index = 0;
+			for (int i = 0; i < flyoutGroups.Count; i++)
+			{
+				var flyoutGroup = flyoutGroups[i];
+				//var items = new List<Item>();
+				for (int j = 0; j < flyoutGroup.Count; j++)
+				{
+					string title = null;
+					string icon = null;
+					if (flyoutGroup[j] is BaseShellItem shellItem)
+					{
+						title = shellItem.Title;
+
+						if (shellItem.FlyoutIcon is FileImageSource flyoutIcon)
+						{
+							icon = flyoutIcon.File;
+						}
+					}
+					else if (flyoutGroup[j] is MenuItem menuItem)
+					{
+						title = menuItem.Text;
+						if (menuItem.IconImageSource is FileImageSource source)
+						{
+							icon = source.File;
+						}
+					}
+
+					items.Add(new Item(title, icon));
+
+					_flyoutMenu.Add(index, flyoutGroup[j]);
+					index++;
+				}
+
+				var group = new Group(items);
+				groups.Add(group);
+			}
+		}
+
+		void Shell_OnShellStructureChanged(object sender, EventArgs e)
+		{
+			BuildMenu();
+		}
+
 	}
 }

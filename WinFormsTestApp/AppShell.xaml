@@ -6,4 +6,27 @@
   xmlns:d="http://xamarin.com/schemas/2014/forms/design"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   mc:Ignorable="d">
+
+  <FlyoutItem Title="メニュー 1">
+    <ShellSection>
+      <ShellContent>
+        <ContentPage>
+          <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+            <Label TextColor="Blue" Text="Shell Page 1" FontSize="24" />
+          </StackLayout>
+        </ContentPage>
+      </ShellContent>
+    </ShellSection>
+  </FlyoutItem>
+  <FlyoutItem Title="メニュー 2">
+    <ShellSection>
+      <ShellContent>
+        <ContentPage>
+          <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+            <Label TextColor="Red" Text="Shell Page 2" FontSize="24" />
+          </StackLayout>
+        </ContentPage>
+      </ShellContent>
+    </ShellSection>
+  </FlyoutItem>
 </Shell>
