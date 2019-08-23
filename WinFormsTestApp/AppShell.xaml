@@ -8,22 +8,38 @@
   mc:Ignorable="d">
 
   <FlyoutItem Title="メニュー 1">
-    <ShellSection>
+    <Tab Title="Tab1">
       <ShellContent>
-        <ContentPage>
+        <ContentPage Title="1 1">
           <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-            <Label TextColor="Blue" Text="Shell Page 1" FontSize="24" />
+            <Label TextColor="Blue" Text="Shell Page 1 1" FontSize="24" />
           </StackLayout>
         </ContentPage>
       </ShellContent>
-    </ShellSection>
+    </Tab>
+    <Tab Title="Tab2">
+      <ShellContent>
+        <ContentPage Title="1 2">
+          <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+            <Label TextColor="Green" Text="Shell Page 1 2" FontSize="24" />
+          </StackLayout>
+        </ContentPage>
+      </ShellContent>
+    </Tab>
   </FlyoutItem>
   <FlyoutItem Title="メニュー 2">
     <ShellSection>
-      <ShellContent>
-        <ContentPage>
+      <ShellContent Title="Tab1">
+        <ContentPage Title="2 1">
           <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-            <Label TextColor="Red" Text="Shell Page 2" FontSize="24" />
+            <Label TextColor="Red" Text="Shell Page 2 1" FontSize="24" />
+          </StackLayout>
+        </ContentPage>
+      </ShellContent>
+      <ShellContent Title="Tab2">
+        <ContentPage Title="2 2">
+          <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+            <Label TextColor="Purple" Text="Shell Page 2 2" FontSize="24" />
           </StackLayout>
         </ContentPage>
       </ShellContent>
