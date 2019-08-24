@@ -64,6 +64,12 @@
     <Compile Include="Controls\WFormsCarouselPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Controls\WFormsShellContentCollection.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\WFormsShellItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controls\WFormsShell.cs">
       <SubType>UserControl</SubType>
     </Compile>

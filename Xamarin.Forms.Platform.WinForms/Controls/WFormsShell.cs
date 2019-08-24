@@ -40,11 +40,24 @@ namespace Xamarin.Forms.Platform.WinForms
 					WForms.AnchorStyles.Top
 			};
 
+			Title = new WForms.Label()
+			{
+				Parent = this,
+				Left = 100,
+				Top = 0,
+				Width = size.Width - 100,
+				Height = 48,
+				TextAlign = WDrawing.ContentAlignment.MiddleLeft,
+				Font = new WDrawing.Font("", 16),
+				Anchor =
+					WForms.AnchorStyles.Left |
+					WForms.AnchorStyles.Right |
+					WForms.AnchorStyles.Top
+			};
+
 			MenuButton.Click += MenuButton_OnClick;
 
 			FlyoutMenu = new WForms.ContextMenuStrip();
-			FlyoutMenu.Items.Add("1111");
-			FlyoutMenu.Items.Add("2222");
 		}
 
 		protected override void Dispose(bool disposing)
@@ -60,6 +73,8 @@ namespace Xamarin.Forms.Platform.WinForms
 		public WForms.Panel Content { get; }
 
 		public WForms.Button MenuButton { get; }
+
+		public WForms.Label Title { get; }
 
 		public WForms.ContextMenuStrip FlyoutMenu { get; }
 

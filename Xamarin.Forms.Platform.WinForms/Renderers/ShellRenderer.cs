@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
+using WForms = System.Windows.Forms;
 
 namespace Xamarin.Forms.Platform.WinForms
 {
@@ -48,16 +48,17 @@ namespace Xamarin.Forms.Platform.WinForms
 			base.OnElementPropertyChanged(sender, e);
 		}
 
-		void InitializeFlyout()
+		private void InitializeFlyout()
 		{
 			((IShellController)Element).StructureChanged += Shell_OnShellStructureChanged;
 
 			//	Initialize Flyout Header
 
 			BuildMenu();
+			SwitchPage(Element.CurrentItem);
 		}
 
-		void BuildMenu()
+		private void BuildMenu()
 		{
 			//var groups = new List<Group>();
 			var flyoutGroups = ((IShellController)Element).GenerateFlyoutGrouping();
@@ -81,6 +82,10 @@ namespace Xamarin.Forms.Platform.WinForms
 						{
 							icon = flyoutIcon.File;
 						}
+
+						//	暫定
+						var item = Control.FlyoutMenu.Items.Add(title);
+						item.Font = new System.Drawing.Font("", 16);
 					}
 					else if (flyoutGroup[j] is MenuItem menuItem)
 					{
@@ -91,21 +96,29 @@ namespace Xamarin.Forms.Platform.WinForms
 						}
 					}
 
-					items.Add(new Item(title, icon));
+					//items.Add(new Item(title, icon));
 
-					_flyoutMenu.Add(index, flyoutGroup[j]);
+					//_flyoutMenu.Add(index, flyoutGroup[j]);
 					index++;
 				}
 
-				var group = new Group(items);
-				groups.Add(group);
+				//var group = new Group(items);
+				//groups.Add(group);
+
 			}
 		}
 
-		void Shell_OnShellStructureChanged(object sender, EventArgs e)
+		private void SwitchPage(ShellItem newItem)
+		{
+		}
+
+		private void Shell_OnShellStructureChanged(object sender, EventArgs e)
 		{
 			BuildMenu();
 		}
 
+		private void ShellItem_OnClick(object sender, EventArgs e)
+		{
+		}
 	}
 }
