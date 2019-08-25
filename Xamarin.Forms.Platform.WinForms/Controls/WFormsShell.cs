@@ -16,6 +16,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			Content = new WForms.Panel()
 			{
 				Parent = this,
+				BackColor = WDrawing.Color.AliceBlue,
 				Left = 0,
 				Top = 48,
 				Width = size.Width,
@@ -83,6 +84,17 @@ namespace Xamarin.Forms.Platform.WinForms
 			var pt = MenuButton.Location;
 			var sz = MenuButton.Size;
 			FlyoutMenu.Show(PointToScreen(new WDrawing.Point(pt.X, pt.Y + sz.Height)));
+		}
+
+		internal static void SetStretchAnchor(WForms.Control target, WForms.Control parent)
+		{
+			target.Location = new WDrawing.Point();
+			target.Size = parent.ClientSize;
+			target.Anchor =
+				WForms.AnchorStyles.Left |
+				WForms.AnchorStyles.Top |
+				WForms.AnchorStyles.Right |
+				WForms.AnchorStyles.Bottom;
 		}
 	}
 }

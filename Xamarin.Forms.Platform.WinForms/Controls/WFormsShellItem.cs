@@ -13,6 +13,7 @@ namespace Xamarin.Forms.Platform.WinForms
 		public WFormsShellItem(ShellItem shellItem)
 		{
 			ShellSections.Alignment = WForms.TabAlignment.Bottom;
+			WFormsShell.SetStretchAnchor(ShellSections, this);
 			foreach (var item in shellItem.Items)
 			{
 				var child = new WFormsShellContentCollection(item.Items);
@@ -21,14 +22,7 @@ namespace Xamarin.Forms.Platform.WinForms
 				{
 					tabPage.Text = tab.Title;
 				}
-
-				child.Location = new WDrawing.Point();
-				child.Size = tabPage.ClientSize;
-				child.Anchor =
-					WForms.AnchorStyles.Left |
-					WForms.AnchorStyles.Top |
-					WForms.AnchorStyles.Right |
-					WForms.AnchorStyles.Bottom;
+				WFormsShell.SetStretchAnchor(child, tabPage);
 				tabPage.Controls.Add(child);
 
 				ShellSections.TabPages.Add(tabPage);

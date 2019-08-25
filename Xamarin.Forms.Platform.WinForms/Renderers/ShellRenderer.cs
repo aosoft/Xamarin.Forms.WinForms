@@ -4,12 +4,15 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WDrawing = System.Drawing;
 using WForms = System.Windows.Forms;
 
 namespace Xamarin.Forms.Platform.WinForms
 {
 	public class ShellRenderer : PageRenderer<Shell, WFormsShell>
 	{
+		private Dictionary<ShellItem, WFormsShellItem> _nativeShellItems = new Dictionary<ShellItem, WFormsShellItem>();
+
 		public override IVisualElementRenderer CreateChildRenderer(VisualElement element)
 		{
 			if (element is Page)
@@ -60,56 +63,67 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		private void BuildMenu()
 		{
-			//var groups = new List<Group>();
+			_nativeShellItems.Clear();
 			var flyoutGroups = ((IShellController)Element).GenerateFlyoutGrouping();
 
 			Control.FlyoutMenu.Items.Clear();
 
-			int index = 0;
 			for (int i = 0; i < flyoutGroups.Count; i++)
 			{
 				var flyoutGroup = flyoutGroups[i];
-				//var items = new List<Item>();
 				for (int j = 0; j < flyoutGroup.Count; j++)
 				{
-					string title = null;
-					string icon = null;
-					if (flyoutGroup[j] is BaseShellItem shellItem)
+					WForms.ToolStripItem wformsMenuItem = null;
+					if (flyoutGroup[j] is ShellItem shellItem)
 					{
-						title = shellItem.Title;
+						var title = shellItem.Title;
 
 						if (shellItem.FlyoutIcon is FileImageSource flyoutIcon)
 						{
-							icon = flyoutIcon.File;
+							var icon = flyoutIcon.File;
 						}
 
-						//	暫定
-						var item = Control.FlyoutMenu.Items.Add(title);
-						item.Font = new System.Drawing.Font("", 16);
+						wformsMenuItem = Control.FlyoutMenu.Items.Add(title);
+						wformsMenuItem.Click += (s, e) =>
+						{
+							SwitchPage(shellItem);
+						};
 					}
 					else if (flyoutGroup[j] is MenuItem menuItem)
 					{
-						title = menuItem.Text;
+						var title = menuItem.Text;
 						if (menuItem.IconImageSource is FileImageSource source)
 						{
-							icon = source.File;
+							var icon = source.File;
 						}
+
+						wformsMenuItem = Control.FlyoutMenu.Items.Add(title);
+						wformsMenuItem.Click += (s, e) =>
+						{
+						};
 					}
 
-					//items.Add(new Item(title, icon));
-
-					//_flyoutMenu.Add(index, flyoutGroup[j]);
-					index++;
+					if (wformsMenuItem != null)
+					{
+						wformsMenuItem.Font = new System.Drawing.Font("", 16);
+					}
 				}
-
-				//var group = new Group(items);
-				//groups.Add(group);
-
 			}
 		}
 
 		private void SwitchPage(ShellItem newItem)
 		{
+			WFormsShellItem control = null;
+
+			if (!_nativeShellItems.TryGetValue(newItem, out control))
+			{
+				control = new WFormsShellItem(newItem);
+				_nativeShellItems.Add(newItem, control);
+			}
+
+			Control.Content.Controls.Clear();
+			WFormsShell.SetStretchAnchor(control, Control.Content);
+			Control.Content.Controls.Add(control);
 		}
 
 		private void Shell_OnShellStructureChanged(object sender, EventArgs e)

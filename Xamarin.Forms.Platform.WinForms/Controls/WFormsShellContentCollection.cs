@@ -21,15 +21,14 @@ namespace Xamarin.Forms.Platform.WinForms
 					var child = Platform.CreateRenderer(visualElement, null);
 					var tabPage = new WForms.TabPage();
 					tabPage.Text = item.Title;
-
-					child.NativeElement.Location = new WDrawing.Point();
-					child.NativeElement.Size = tabPage.ClientSize;
-					child.NativeElement.Anchor =
-						WForms.AnchorStyles.Left |
-						WForms.AnchorStyles.Top |
-						WForms.AnchorStyles.Right |
-						WForms.AnchorStyles.Bottom;
+					WFormsShell.SetStretchAnchor(child.NativeElement, tabPage);
 					tabPage.Controls.Add(child.NativeElement);
+
+					child.Element.Layout(new Rectangle(0, 0, tabPage.Width, tabPage.Height));
+					tabPage.SizeChanged += (s, e) =>
+					{
+						child.Element.Layout(new Rectangle(0, 0, tabPage.Width, tabPage.Height));
+					};
 
 					this.TabPages.Add(tabPage);
 				}
