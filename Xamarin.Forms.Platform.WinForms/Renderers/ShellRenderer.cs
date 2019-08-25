@@ -117,22 +117,20 @@ namespace Xamarin.Forms.Platform.WinForms
 
 			if (!_nativeShellItems.TryGetValue(newItem, out control))
 			{
-				control = new WFormsShellItem(newItem);
+				control = new WFormsShellItem(Control, newItem);
 				_nativeShellItems.Add(newItem, control);
 			}
 
 			Control.Content.Controls.Clear();
 			WFormsShell.SetStretchAnchor(control, Control.Content);
 			Control.Content.Controls.Add(control);
+
+			control.OnSelected();
 		}
 
 		private void Shell_OnShellStructureChanged(object sender, EventArgs e)
 		{
 			BuildMenu();
-		}
-
-		private void ShellItem_OnClick(object sender, EventArgs e)
-		{
 		}
 	}
 }

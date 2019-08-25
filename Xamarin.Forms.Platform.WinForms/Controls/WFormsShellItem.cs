@@ -10,13 +10,15 @@ namespace Xamarin.Forms.Platform.WinForms
 {
 	public class WFormsShellItem : WForms.UserControl
 	{
-		public WFormsShellItem(ShellItem shellItem)
+		public WFormsShellItem(WFormsShell owner, ShellItem shellItem)
 		{
 			ShellSections.Alignment = WForms.TabAlignment.Bottom;
 			WFormsShell.SetStretchAnchor(ShellSections, this);
+			ShellSections.Selected += TabControl_OnSelected;
+
 			foreach (var item in shellItem.Items)
 			{
-				var child = new WFormsShellContentCollection(item.Items);
+				var child = new WFormsShellContentCollection(owner, item.Items);
 				var tabPage = new WForms.TabPage();
 				if (item is Tab tab)
 				{
@@ -29,9 +31,23 @@ namespace Xamarin.Forms.Platform.WinForms
 			}
 
 			Controls.Add(ShellSections);
+
+			OnSelected();
 		}
 
 
 		public WForms.TabControl ShellSections { get; } = new WForms.TabControl();
+
+		internal void OnSelected()
+		{
+			var tab = ShellSections.SelectedTab ?? (ShellSections.TabPages.Count > 0 ? ShellSections.TabPages[0] : null);
+
+			(tab?.Controls?[0] as WFormsShellContentCollection)?.OnSelected();
+		}
+
+		private void TabControl_OnSelected(object sender, WForms.TabControlEventArgs e)
+		{
+			OnSelected();
+		}
 	}
 }

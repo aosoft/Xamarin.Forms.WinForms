@@ -10,29 +10,32 @@ namespace Xamarin.Forms.Platform.WinForms
 {
 	public class WFormsShellContentCollection : WForms.TabControl
 	{
-		public WFormsShellContentCollection(IEnumerable<ShellContent> list)
+		public WFormsShellContentCollection(WFormsShell owner, IEnumerable<ShellContent> list)
 		{
 			this.Alignment = WForms.TabAlignment.Top;
+			Selected += TabControl_OnSelected;
 			foreach (var item in list)
 			{
 				var visualElement = item.Content as VisualElement;
 				if (visualElement != null)
 				{
-					var child = Platform.CreateRenderer(visualElement, null);
-					var tabPage = new WForms.TabPage();
-					tabPage.Text = item.Title;
-					WFormsShell.SetStretchAnchor(child.NativeElement, tabPage);
-					tabPage.Controls.Add(child.NativeElement);
-
-					child.Element.Layout(new Rectangle(0, 0, tabPage.Width, tabPage.Height));
-					tabPage.SizeChanged += (s, e) =>
-					{
-						child.Element.Layout(new Rectangle(0, 0, tabPage.Width, tabPage.Height));
-					};
-
+					var tabPage = new WFormsShellContent(owner, item);
 					this.TabPages.Add(tabPage);
 				}
 			}
+			OnSelected();
+		}
+
+		internal void OnSelected()
+		{
+			var tab = SelectedTab ?? (TabPages.Count > 0 ? TabPages[0] : null);
+
+			(tab as WFormsShellContent)?.OnSelected();
+		}
+
+		private void TabControl_OnSelected(object sender, WForms.TabControlEventArgs e)
+		{
+			OnSelected();
 		}
 	}
 }
